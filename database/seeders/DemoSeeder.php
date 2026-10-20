@@ -5,7 +5,9 @@ namespace Database\Seeders;
 use App\Enums\ProductStatus;
 use App\Enums\VoucherType;
 use App\Models\Address;
+use App\Models\Banner;
 use App\Models\Category;
+use App\Models\Page;
 use App\Models\Product;
 use App\Models\ProductVariant;
 use App\Models\StockMovement;
@@ -254,6 +256,82 @@ class DemoSeeder extends Seeder
                 'per_user_limit' => 1,
                 'starts_at' => now(),
                 'ends_at' => now()->addMonths(2),
+                'is_active' => true,
+            ]
+        );
+
+        // 5. Halaman Statis
+        $staticPages = [
+            [
+                'title' => 'Tentang Kami',
+                'slug' => 'tentang-kami',
+                'seo_title' => 'Tentang BloomingKembang — Kisah & Filosofi Brand',
+                'seo_description' => 'Mengenal BloomingKembang: brand hijab kurasi premium yang berdedikasi menghadirkan kain lembut, bersahaja, dan berkarakter.',
+                'body' => '<p><strong>BloomingKembang</strong> lahir dari sebuah kecintaan mendalam terhadap keanggunan wanita muslimah yang bersahaja. Kami percaya bahwa hijab bukan sekadar penutup, melainkan cerminan kelembutan hati, kesopanan budi, dan kenyamanan dalam melangkah.</p><p>Setiap helai kain di BloomingKembang dipilih melalui proses kurasi yang ketat. Mulai dari serat voal ultrafine yang ringan dan tegak di dahi, hingga ceruty babydoll yang jatuh anggun tanpa terasa panas.</p><p>Diproduksi oleh tangan-tangan penjahit lokal berpengalaman di Bandung, Jawa Barat, dengan jahitan tepi rapi khas butik.</p>',
+            ],
+            [
+                'title' => 'Pertanyaan Umum (FAQ)',
+                'slug' => 'faq',
+                'seo_title' => 'FAQ — Pertanyaan Umum Seputar Pemesanan & Pengiriman',
+                'seo_description' => 'Jawaban atas pertanyaan seputar pemesanan, metode pembayaran Midtrans, estimasi pengiriman kurir, dan garansi produk.',
+                'body' => '<h3>Bagaimana cara berbelanja di BloomingKembang?</h3><p>Pilih produk dan warna yang Anda sukai, tambahkan ke keranjang belanja, lalu klik checkout. Anda dapat memilih alamat tersimpan atau mengisi alamat baru, serta memilih kurir pengiriman yang diinginkan.</p><h3>Metode pembayaran apa saja yang didukung?</h3><p>Kami menerima pembayaran instan melalui QRIS, Transfer Virtual Account (BCA, BNI, BRI, Mandiri, Permata), serta e-Wallet (GoPay, ShopeePay) yang terhubung aman via Midtrans.</p><h3>Berapa lama estimasi pengiriman?</h3><p>Pesanan yang diverifikasi sebelum pukul 15.00 WIB akan dikirim pada hari yang sama. Estimasi pengiriman reguler adalah 1–3 hari kerja untuk Pulau Jawa dan 2–5 hari kerja untuk luar Pulau Jawa.</p>',
+            ],
+            [
+                'title' => 'Kebijakan Retur & Penukaran',
+                'slug' => 'kebijakan-retur',
+                'seo_title' => 'Kebijakan Retur — Garansi 7 Hari Pengembalian Barang',
+                'seo_description' => 'Informasi syarat dan ketentuan pengembalian barang atau penukaran warna apabila terjadi cacat produksi atau ketidaksesuaian.',
+                'body' => '<p>Kepuasan Anda adalah prioritas utama kami. Kami menyediakan garansi penukaran produk hingga <strong>7 hari kalender</strong> sejak pesanan diterima oleh pelanggan.</p><h3>Syarat Pengembalian:</h3><ul><li>Produk dalam kondisi baru, belum dicuci, dan belum dipakai beraktivitas.</li><li>Tag label dan kemasan asli masih utuh.</li><li>Menyertakan video unboxing saat paket pertama kali dibuka.</li></ul><p>Biaya kirim penukaran karena cacat produksi atau kesalahan kirim ditanggung 100% oleh BloomingKembang.</p>',
+            ],
+            [
+                'title' => 'Syarat & Ketentuan',
+                'slug' => 'syarat-dan-ketentuan',
+                'seo_title' => 'Syarat & Ketentuan Layanan — BloomingKembang',
+                'seo_description' => 'Syarat dan ketentuan hukum penggunaan situs, transaksi e-commerce, hak kekayaan intelektual, dan batasan tanggung jawab.',
+                'body' => '<p>Selamat datang di situs resmi BloomingKembang. Dengan mengakses dan berbelanja di platform ini, Anda menyetujui seluruh ketentuan dan pedoman transaksi yang berlaku di bawah hukum Republik Indonesia.</p><p>Seluruh materi foto, teks, logo, dan identitas visual dilindungi oleh undang-undang hak cipta dan merek dagang.</p>',
+            ],
+            [
+                'title' => 'Kebijakan Privasi',
+                'slug' => 'kebijakan-privasi',
+                'seo_title' => 'Kebijakan Privasi Perlindungan Data Pengguna',
+                'seo_description' => 'Kebijakan perlindungan data pribadi pelanggan, kerahasiaan nomor kontak, dan keamanan transaksi di BloomingKembang.',
+                'body' => '<p>Kami sangat menghargai privasi Anda. Data pribadi seperti nama, email, nomor telepon, dan alamat rumah hanya digunakan untuk memproses pengiriman pesanan dan memberikan informasi pembaruan penting.</p><p>Kami tidak akan pernah membagikan atau menjual data pelanggan kepada pihak ketiga manapun.</p>',
+            ],
+            [
+                'title' => 'Hubungi Kami',
+                'slug' => 'kontak',
+                'seo_title' => 'Kontak Layanan Pelanggan — BloomingKembang',
+                'seo_description' => 'Hubungi tim customer service BloomingKembang via WhatsApp, email resmi, atau kunjungi kantor kami di Bandung.',
+                'body' => '<p>Tim Customer Care kami siap membantu Anda setiap hari Senin – Sabtu, pukul 08.30 – 17.30 WIB.</p><p><strong>WhatsApp:</strong> 0812-3456-7890<br><strong>Email:</strong> cs@bloomingkembang.com<br><strong>Alamat Kantor & Gudang:</strong> Jl. Citarum No. 28, Kota Bandung, Jawa Barat 40115</p>',
+            ],
+        ];
+
+        foreach ($staticPages as $pageData) {
+            Page::firstOrCreate(
+                ['slug' => $pageData['slug']],
+                $pageData
+            );
+        }
+
+        // 6. Banner Promo
+        Banner::firstOrCreate(
+            ['title' => 'Koleksi Syar\'i & Elegan 2026'],
+            [
+                'subtitle' => 'Ditenun dari serat voal ultrafine dan ceruty babydoll pilihan.',
+                'link_url' => '/koleksi',
+                'position' => 'hero',
+                'sort_order' => 1,
+                'is_active' => true,
+            ]
+        );
+
+        Banner::firstOrCreate(
+            ['title' => 'GRATIS ONGKIR SELURUH INDONESIA DENGAN KODE VOUCHER "BLOOMINGFIRST"'],
+            [
+                'subtitle' => 'Potongan ongkir khusus pemesanan hari ini',
+                'link_url' => '/koleksi',
+                'position' => 'top_bar',
+                'sort_order' => 1,
                 'is_active' => true,
             ]
         );

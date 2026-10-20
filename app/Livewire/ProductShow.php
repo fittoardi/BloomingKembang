@@ -81,9 +81,19 @@ class ProductShow extends Component
             return;
         }
 
+        $selectedVariant = $this->getSelectedVariant();
         $cartService->addItem($this->selectedVariantId, $this->quantity);
         $this->dispatch('cart-updated');
         $this->dispatch('open-cart');
+
+        if ($selectedVariant) {
+            $this->dispatch('product-added-to-cart', [
+                'item_id' => $selectedVariant->sku,
+                'item_name' => $this->product->name,
+                'price' => $selectedVariant->price,
+                'quantity' => $this->quantity,
+            ]);
+        }
     }
 
     public function toggleWishlist(): void
@@ -142,6 +152,48 @@ class ProductShow extends Component
             ],
         ];
 
+        // Schema JSON-LD BreadcrumbList
+        $breadcrumbJsonLd = [
+            '@context' => 'https://schema.org',
+            '@type' => 'BreadcrumbList',
+            'itemListElement' => [
+                [
+                    '@type' => 'ListItem',
+                    'position' => 1,
+                    'name' => 'Beranda',
+                    'item' => url('/'),
+                ],
+                [
+                    '@type' => 'ListItem',
+                    'position' => 2,
+                    'name' => 'Koleksi',
+                    'item' => url('/koleksi'),
+                ],
+            ],
+        ];
+
+        if ($this->product->category) {
+            $breadcrumbJsonLd['itemListElement'][] = [
+                '@type' => 'ListItem',
+                'position' => 3,
+                'name' => $this->product->category->name,
+                'item' => url('/koleksi/'.$this->product->category->slug),
+            ];
+            $breadcrumbJsonLd['itemListElement'][] = [
+                '@type' => 'ListItem',
+                'position' => 4,
+                'name' => $this->product->name,
+                'item' => url('/produk/'.$this->product->slug),
+            ];
+        } else {
+            $breadcrumbJsonLd['itemListElement'][] = [
+                '@type' => 'ListItem',
+                'position' => 3,
+                'name' => $this->product->name,
+                'item' => url('/produk/'.$this->product->slug),
+            ];
+        }
+
         // Media images
         $images = $this->product->getMedia('images');
 
@@ -152,6 +204,7 @@ class ProductShow extends Component
             'images' => $images,
             'isInWishlist' => Auth::check() ? Wishlist::where('user_id', Auth::id())->where('product_id', $this->product->id)->exists() : false,
             'jsonLd' => $jsonLd,
+            'breadcrumbJsonLd' => $breadcrumbJsonLd,
         ])->layout('layouts.storefront', [
             'metaTitle' => ($this->product->seo_title ?: $this->product->name).' | BloomingKembang',
             'metaDescription' => $this->product->seo_description ?: $this->product->short_description,

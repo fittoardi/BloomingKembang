@@ -295,4 +295,27 @@
             </div>
         </div>
     </form>
+
+    <!-- Begin Checkout Analytics Event Tracking (GA4 & Meta Pixel) -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            if (typeof window.trackEcommerce === 'function') {
+                window.trackEcommerce('begin_checkout', {
+                    currency: 'IDR',
+                    value: {{ (int) $pricing['grand_total'] }},
+                    coupon: '{{ $appliedVoucherCode ?? "" }}',
+                    items: [
+                        @foreach($items as $it)
+                        {
+                            item_id: '{{ $it->variant?->sku }}',
+                            item_name: '{{ addslashes($it->variant?->product?->name ?? "Produk") }}',
+                            price: {{ (int) ($it->variant?->price ?? 0) }},
+                            quantity: {{ (int) $it->quantity }}
+                        }@if(!$loop->last),@endif
+                        @endforeach
+                    ]
+                });
+            }
+        });
+    </script>
 </div>

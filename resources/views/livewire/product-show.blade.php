@@ -346,4 +346,36 @@
     <script type="application/ld+json">
         {!! json_encode($jsonLd, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT) !!}
     </script>
+    <script type="application/ld+json">
+        {!! json_encode($breadcrumbJsonLd, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT) !!}
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            if (typeof window.trackEcommerce === 'function') {
+                window.trackEcommerce('view_item', {
+                    currency: 'IDR',
+                    value: {{ (int) ($selectedVariant?->price ?? 0) }},
+                    items: [{
+                        item_id: '{{ $selectedVariant?->sku ?? $product->slug }}',
+                        item_name: '{{ addslashes($product->name) }}',
+                        item_category: '{{ addslashes($product->category?->name ?? "Hijab") }}',
+                        price: {{ (int) ($selectedVariant?->price ?? 0) }},
+                        quantity: 1
+                    }]
+                });
+            }
+
+            window.addEventListener('product-added-to-cart', function(event) {
+                if (typeof window.trackEcommerce === 'function') {
+                    const item = event.detail[0] || event.detail;
+                    window.trackEcommerce('add_to_cart', {
+                        currency: 'IDR',
+                        value: item.price * item.quantity,
+                        items: [item]
+                    });
+                }
+            });
+        });
+    </script>
 </div>

@@ -97,4 +97,29 @@
             @endauth
         </div>
     </div>
+
+    <!-- Purchase Analytics Event Tracking (GA4 & Meta Pixel) -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            if (typeof window.trackEcommerce === 'function') {
+                window.trackEcommerce('purchase', {
+                    transaction_id: '{{ $order->number }}',
+                    value: {{ (int) $order->grand_total }},
+                    currency: 'IDR',
+                    shipping: {{ (int) $order->shipping_cost }},
+                    coupon: '{{ $order->voucher_code ?? "" }}',
+                    items: [
+                        @foreach($order->items as $item)
+                        {
+                            item_id: '{{ $item->sku }}',
+                            item_name: '{{ addslashes($item->product_name) }}',
+                            price: {{ (int) $item->price }},
+                            quantity: {{ (int) $item->quantity }}
+                        }@if(!$loop->last),@endif
+                        @endforeach
+                    ]
+                });
+            }
+        });
+    </script>
 </div>
