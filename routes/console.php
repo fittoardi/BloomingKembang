@@ -10,3 +10,9 @@ Artisan::command('inspire', function () {
 })->purpose('Display an inspiring quote');
 
 Schedule::job(new ExpireUnpaidOrders)->everyFifteenMinutes();
+
+// Cadangan database & file harian (aktif otomatis jika spatie/laravel-backup terpasang)
+if (class_exists('Spatie\Backup\Commands\BackupCommand')) {
+    Schedule::command('backup:clean')->daily()->at('01:00');
+    Schedule::command('backup:run')->daily()->at('01:30');
+}

@@ -36,7 +36,7 @@ Route::get('/halaman/{slug}', StaticPage::class)->name('pages.show');
 Route::get('/keranjang', function () {
     return redirect()->route('catalog.index');
 })->name('cart.index');
-Route::get('/checkout', CheckoutPage::class)->name('checkout.index');
+Route::get('/checkout', CheckoutPage::class)->middleware('throttle:checkout')->name('checkout.index');
 Route::get('/checkout/sukses/{orderNumber}', CheckoutSuccess::class)->name('checkout.success');
 
 Route::get('/dashboard', function () {
@@ -47,8 +47,8 @@ Route::get('/akun', function () {
     return view('account.dashboard');
 })->middleware(['auth'])->name('account.dashboard');
 
-Route::get('/lacak-pesanan', TrackOrder::class)->name('orders.track');
-Route::get('/lacak-pesanan/{orderNumber}', TrackOrder::class)->name('orders.track.signed');
+Route::get('/lacak-pesanan', TrackOrder::class)->middleware('throttle:track-order')->name('orders.track');
+Route::get('/lacak-pesanan/{orderNumber}', TrackOrder::class)->middleware('throttle:track-order')->name('orders.track.signed');
 
 Route::middleware('auth')->prefix('akun')->group(function () {
     Route::get('/pesanan', OrderIndex::class)->name('account.orders');

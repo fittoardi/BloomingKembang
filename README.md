@@ -5,7 +5,7 @@
 [![Filament](https://img.shields.io/badge/Filament-v5.10-F59E0B?style=flat)](https://filamentphp.com)
 [![Livewire](https://img.shields.io/badge/Livewire-v4.4-FB70A9?style=flat&logo=livewire)](https://livewire.laravel.com)
 [![Tailwind CSS](https://img.shields.io/badge/TailwindCSS-v4-38B2AC?style=flat&logo=tailwind-css)](https://tailwindcss.com)
-[![Tests](https://img.shields.io/badge/Tests-Pest%204%20(66%20Passed)-10B981?style=flat)](https://pestphp.com)
+[![Tests](https://img.shields.io/badge/Tests-Pest%204%20(79%20Passed)-10B981?style=flat)](https://pestphp.com)
 
 **BloomingKembang** adalah platform e-commerce monolitik berbasis Laravel yang dirancang khusus untuk brand fesyen muslimah/hijab kurasi premium. Mengusung filosofi desain *Paper-White Minimalist* dengan tipografi monokrom obsidian yang anggun, responsif, dan sarat fitur modern.
 
@@ -162,11 +162,11 @@ Buka peramban di:
 Proyek ini menerapkan cakupan pengujian komprehensif menggunakan Pest PHP:
 
 ```bash
-# Menjalankan seluruh test suite (66 tests)
+# Menjalankan seluruh test suite (79 tests, 270 assertions)
 php artisan test --compact
 
-# Menjalankan tes spesifik (misal: webhook & pesanan)
-php artisan test tests/Feature/PaymentWebhookTest.php tests/Feature/CustomerOrderTest.php
+# Menjalankan tes spesifik (keamanan & hardening)
+php artisan test tests/Feature/SecurityHardeningTest.php
 
 # Memformat kode sesuai standar PSR-12 / Laravel
 vendor/bin/pint --format agent
@@ -177,6 +177,13 @@ npm run build
 
 ---
 
+## 📚 Panduan Operasional & Deployment
+
+- 🚀 **[Panduan Deployment & Server (DEPLOYMENT.md)](file:///d:/Laravel/BloomingKembang/DEPLOYMENT.md)**: Panduan konfigurasi Nginx, PHP 8.3 FPM, Supervisor queue worker, crontab scheduler, caching optimasi, dan checklist go-live.
+- 📖 **[Panduan Admin & Owner (PANDUAN_ADMIN.md)](file:///d:/Laravel/BloomingKembang/PANDUAN_ADMIN.md)**: Panduan operasional toko, penambahan produk & foto, pemrosesan order & nomor resi, cetak label/invoice PDF, dan pembuatan voucher diskon.
+
+---
+
 ## 📁 Struktur Direktori Penting
 
 ```
@@ -184,11 +191,13 @@ BloomingKembang/
 ├── app/
 │   ├── Enums/                 # OrderStatus, PaymentStatus, ProductStatus, VoucherType
 │   ├── Events/                # OrderPaid
-│   ├── Filament/Resources/    # Admin Resources (Categories, Products, Vouchers, Orders)
-│   ├── Http/Controllers/      # PaymentWebhookController
+│   ├── Filament/Resources/    # Admin Resources (Categories, Products, Vouchers, Orders, Banners, Pages)
+│   ├── Filament/Widgets/      # StatsOverviewWidget, OrdersByStatusChartWidget, TopSellingProductsWidget, LowStockAlertWidget
+│   ├── Http/Controllers/      # PaymentWebhookController, SitemapController
+│   ├── Http/Middleware/       # SecurityHeaders
 │   ├── Listeners/             # FinalizeStockOnOrderPaid, LinkGuestOrdersToUser, MergeCartOnLogin
-│   ├── Livewire/              # CatalogIndex, ProductShow, CartDrawer, CheckoutPage, TrackOrder, dll
-│   ├── Models/                # Order, Product, ProductVariant, Payment, StockMovement, dll
+│   ├── Livewire/              # CatalogIndex, ProductShow, CartDrawer, CheckoutPage, TrackOrder, StaticPage, dll
+│   ├── Models/                # Order, Product, ProductVariant, Payment, StockMovement, Banner, Page, Setting
 │   ├── Notifications/         # OrderCreatedNotification, OrderPaidNotification, OrderShippedNotification
 │   ├── Policies/              # AddressPolicy, WishlistPolicy, OrderPolicy
 │   └── Services/              # Business Logic (CartService, CheckoutService, PricingService, VoucherService, Payment/)
@@ -197,15 +206,16 @@ BloomingKembang/
 │   └── seeders/               # RolePermissionSeeder, AdminSeeder, DemoSeeder
 ├── resources/
 │   └── views/
+│       ├── errors/            # Custom Friendly Error Pages (404, 403, 429, 500, 503)
 │       ├── layouts/           # Storefront layout (Paper-White)
 │       ├── livewire/          # Komponen Blade Livewire
 │       └── pdf/               # invoice.blade.php & shipping-label.blade.php
 ├── routes/
-│   ├── web.php                # Rute storefront & akun
+│   ├── web.php                # Rute storefront, akun & sitemap/robots
 │   ├── webhooks.php           # Rute webhook Midtrans
-│   └── console.php            # Scheduled job (ExpireUnpaidOrders)
+│   └── console.php            # Scheduled job (ExpireUnpaidOrders, Backup)
 └── tests/
-    └── Feature/               # Pest Feature tests (Auth, Catalog, Cart, Checkout, Voucher, Payment, Order)
+    └── Feature/               # Pest Feature tests (Auth, Catalog, Cart, Checkout, Voucher, Payment, Order, SEO, Security)
 ```
 
 ---

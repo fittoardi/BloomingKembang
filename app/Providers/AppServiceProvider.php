@@ -11,7 +11,10 @@ use App\Services\Shipping\SimulatedShippingProvider;
 use Illuminate\Auth\Events\Login;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Events\Verified;
+use Illuminate\Cache\RateLimiting\Limit;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Event;
+use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -33,5 +36,17 @@ class AppServiceProvider extends ServiceProvider
         Event::listen(Login::class, MergeCartOnLogin::class);
         Event::listen(Registered::class, LinkGuestOrdersToUser::class);
         Event::listen(Verified::class, LinkGuestOrdersToUser::class);
+
+        RateLimiter::for('webhooks', function (Request $request) {
+            return Limit::perMinute(120)->by($request->ip());
+        });
+
+        RateLimiter::for('checkout', function (Request $request) {
+            return Limit::perMinute(20)->by($request->user()?->id ?: $request->ip());
+        });
+
+        RateLimiter::for('track-order', function (Request $request) {
+            return Limit::perMinute(15)->by($request->ip());
+        });
     }
 }
