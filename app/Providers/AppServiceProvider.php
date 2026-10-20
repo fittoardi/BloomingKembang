@@ -4,14 +4,15 @@ namespace App\Providers;
 
 use App\Listeners\LinkGuestOrdersToUser;
 use App\Listeners\MergeCartOnLogin;
+use App\Services\Payment\MidtransPaymentGateway;
+use App\Services\Payment\PaymentGatewayInterface;
+use App\Services\Shipping\ShippingProviderInterface;
+use App\Services\Shipping\SimulatedShippingProvider;
 use Illuminate\Auth\Events\Login;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Events\Verified;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\ServiceProvider;
-
-use App\Services\Shipping\ShippingProviderInterface;
-use App\Services\Shipping\SimulatedShippingProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -21,6 +22,7 @@ class AppServiceProvider extends ServiceProvider
     public function register(): void
     {
         $this->app->bind(ShippingProviderInterface::class, SimulatedShippingProvider::class);
+        $this->app->bind(PaymentGatewayInterface::class, MidtransPaymentGateway::class);
     }
 
     /**

@@ -95,6 +95,7 @@
                 <div class="space-y-3">
                     <h4 class="text-xs tracking-widest uppercase font-medium">Bantuan & Informasi</h4>
                     <ul class="space-y-2 text-neutral-600 text-xs">
+                        <li><a href="{{ url('/lacak-pesanan') }}" class="hover:text-obsidian font-medium text-obsidian">Lacak Pesanan</a></li>
                         <li><a href="{{ url('/faq') }}" class="hover:text-obsidian">FAQ</a></li>
                         <li><a href="{{ url('/kebijakan-retur') }}" class="hover:text-obsidian">Kebijakan Retur</a></li>
                         <li><a href="{{ url('/syarat-dan-ketentuan') }}" class="hover:text-obsidian">Syarat & Ketentuan</a></li>

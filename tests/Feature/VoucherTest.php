@@ -1,6 +1,7 @@
 <?php
 
 use App\Enums\VoucherType;
+use App\Models\Order;
 use App\Models\User;
 use App\Models\Voucher;
 use App\Models\VoucherUsage;
@@ -21,7 +22,7 @@ test('voucher service correctly calculates percentage and fixed discounts', func
     // Persentase dengan max discount
     $voucherPercent = Voucher::create([
         'code' => 'DISKON10',
-        'type' => VoucherType::Percentage,
+        'type' => VoucherType::Percent,
         'value' => 10,
         'max_discount' => 25000,
         'is_active' => true,
@@ -54,7 +55,7 @@ test('voucher validation rejects inactive, expired, and under-minimum vouchers',
     ]);
 
     expect(fn () => $service->validate('INAKTIF', 100000))
-        ->toThrow(\RuntimeException::class, 'Voucher ini sudah tidak aktif.');
+        ->toThrow(RuntimeException::class, 'Voucher ini sudah tidak aktif.');
 
     // Kedaluwarsa
     Voucher::create([
@@ -66,7 +67,7 @@ test('voucher validation rejects inactive, expired, and under-minimum vouchers',
     ]);
 
     expect(fn () => $service->validate('KADALUWARSA', 100000))
-        ->toThrow(\RuntimeException::class, 'Masa berlaku voucher telah berakhir.');
+        ->toThrow(RuntimeException::class, 'Masa berlaku voucher telah berakhir.');
 
     // Min Belanja
     Voucher::create([
@@ -78,7 +79,7 @@ test('voucher validation rejects inactive, expired, and under-minimum vouchers',
     ]);
 
     expect(fn () => $service->validate('MIN150', 100000))
-        ->toThrow(\RuntimeException::class, 'Minimal pembelanjaan');
+        ->toThrow(RuntimeException::class, 'Minimal pembelanjaan');
 });
 
 test('voucher validation rejects when quota or user limit is exhausted', function () {
@@ -96,7 +97,7 @@ test('voucher validation rejects when quota or user limit is exhausted', functio
     ]);
 
     expect(fn () => $service->validate('HABIS', 100000))
-        ->toThrow(\RuntimeException::class, 'Kuota penggunaan voucher telah habis.');
+        ->toThrow(RuntimeException::class, 'Kuota penggunaan voucher telah habis.');
 
     // Limit per user
     $voucherUser = Voucher::create([
@@ -107,14 +108,24 @@ test('voucher validation rejects when quota or user limit is exhausted', functio
         'is_active' => true,
     ]);
 
+    $order = Order::create([
+        'number' => 'ORD-VOUCHER-TEST',
+        'customer_name' => 'Customer',
+        'customer_email' => 'customer@bloomingkembang.com',
+        'customer_phone' => '08123',
+        'shipping_address' => ['detail' => 'Bandung'],
+        'subtotal' => 100000,
+        'grand_total' => 90000,
+    ]);
+
     // Record dummy usage for this user
     VoucherUsage::create([
         'voucher_id' => $voucherUser->id,
-        'order_id' => 1,
+        'order_id' => $order->id,
         'user_id' => $customer->id,
         'discount_amount' => 10000,
     ]);
 
     expect(fn () => $service->validate('SEKALI', 100000, $customer->id))
-        ->toThrow(\RuntimeException::class, 'Anda telah mencapai batas maksimal penggunaan voucher ini.');
+        ->toThrow(RuntimeException::class, 'Anda telah mencapai batas maksimal penggunaan voucher ini.');
 });

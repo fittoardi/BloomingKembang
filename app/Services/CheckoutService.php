@@ -11,8 +11,10 @@ use App\Models\ProductVariant;
 use App\Models\Setting;
 use App\Models\StockMovement;
 use App\Models\VoucherUsage;
+use App\Notifications\OrderCreatedNotification;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Str;
 use RuntimeException;
 
@@ -128,7 +130,8 @@ class CheckoutService
                     'order_id' => $order->id,
                     'product_variant_id' => $variant->id,
                     'product_name' => $product?->name ?? 'Produk',
-                    'variant_name' => trim("{$variant->color} {$variant->size}"),
+                    'variant_label' => trim("{$variant->color} {$variant->size}"),
+                    'sku' => $variant->sku,
                     'price' => $variant->price,
                     'quantity' => $item->quantity,
                     'subtotal' => $variant->price * $item->quantity,
@@ -178,5 +181,15 @@ class CheckoutService
 
             return $order;
         });
+
+        // Kirim notifikasi pesanan dibuat
+        if ($order->user) {
+            $order->user->notify(new OrderCreatedNotification($order));
+        } elseif ($order->customer_email) {
+            Notification::route('mail', $order->customer_email)
+                ->notify(new OrderCreatedNotification($order));
+        }
+
+        return $order;
     }
 }

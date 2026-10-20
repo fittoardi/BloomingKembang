@@ -122,7 +122,7 @@ test('checkout fails when variant stock is insufficient', function () {
             courierService: 'REG',
             shippingCost: 10000
         );
-    })->toThrow(\RuntimeException::class, 'tidak mencukupi');
+    })->toThrow(RuntimeException::class, 'tidak mencukupi');
 });
 
 test('concurrent checkouts on last stock item prevents overselling', function () {
@@ -176,7 +176,7 @@ test('concurrent checkouts on last stock item prevents overselling', function ()
             courierService: 'REG',
             shippingCost: 10000
         );
-    })->toThrow(\RuntimeException::class, 'tidak mencukupi');
+    })->toThrow(RuntimeException::class, 'tidak mencukupi');
 });
 
 test('expire unpaid orders job releases reserved stock and cancels expired orders', function () {
@@ -212,7 +212,8 @@ test('expire unpaid orders job releases reserved stock and cancels expired order
     $order->items()->create([
         'product_variant_id' => $variant->id,
         'product_name' => $product->name,
-        'variant_name' => $variant->color,
+        'variant_label' => $variant->color,
+        'sku' => $variant->sku,
         'price' => 50000,
         'quantity' => 3,
         'subtotal' => 150000,
@@ -259,5 +260,5 @@ test('guest checkout is forbidden when setting disabled', function () {
             courierService: 'REG',
             shippingCost: 10000
         );
-    })->toThrow(\RuntimeException::class, 'Guest checkout sedang dinonaktifkan.');
+    })->toThrow(RuntimeException::class, 'Guest checkout sedang dinonaktifkan.');
 });

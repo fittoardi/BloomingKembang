@@ -14,6 +14,26 @@
             <p class="text-[11px] text-neutral-400 font-mono">
                 Batas waktu penyelesaian pembayaran: {{ $order->expires_at?->translatedFormat('d F Y, H:i') ?? '24 Jam' }} WIB
             </p>
+
+            @if($errorMessage)
+                <div class="mt-4 p-3 border border-rose-300 bg-rose-50 text-xs text-rose-700 max-w-md mx-auto">
+                    {{ $errorMessage }}
+                </div>
+            @endif
+
+            @if($order->status->value === 'pending_payment')
+                <div class="pt-2">
+                    <button
+                        type="button"
+                        wire:click="payNow"
+                        wire:loading.attr="disabled"
+                        class="px-8 py-3 bg-obsidian text-paper text-xs uppercase tracking-widest font-medium hover:bg-neutral-800 transition-colors shadow-md disabled:opacity-50"
+                    >
+                        <span wire:loading.remove wire:target="payNow">Bayar Sekarang Via Midtrans &rarr;</span>
+                        <span wire:loading wire:target="payNow">Menyiapkan Pembayaran...</span>
+                    </button>
+                </div>
+            @endif
         </div>
 
         <!-- Detail Rincian Pesanan -->

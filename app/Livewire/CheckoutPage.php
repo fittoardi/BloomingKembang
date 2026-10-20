@@ -3,7 +3,6 @@
 namespace App\Livewire;
 
 use App\Models\Address;
-use App\Models\Order;
 use App\Models\Setting;
 use App\Models\Voucher;
 use App\Services\CartService;
