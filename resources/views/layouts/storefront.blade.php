@@ -53,10 +53,20 @@
                         <a href="{{ route('login') }}" class="hover:text-neutral-500 transition-colors">Masuk</a>
                         <a href="{{ route('register') }}" class="link-underlined">Daftar</a>
                     @endauth
-                    <a href="{{ url('/keranjang') }}" class="hover:text-neutral-500 transition-colors">Keranjang (0)</a>
+                    <button 
+                        type="button" 
+                        @click="$dispatch('open-cart')" 
+                        class="hover:text-neutral-500 transition-colors uppercase tracking-widest flex items-center space-x-1"
+                    >
+                        <span>Keranjang</span>
+                        <span class="font-mono">({{ app(\App\Services\CartService::class)->getCount() }})</span>
+                    </button>
                 </div>
             </div>
         </header>
+
+        <!-- Cart Drawer Livewire Component -->
+        <livewire:cart-drawer />
 
         <!-- Main Content Area -->
         <main class="flex-grow">

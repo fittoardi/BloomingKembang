@@ -1,0 +1,298 @@
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-16">
+    <!-- Header Checkout -->
+    <div class="border-b border-bone pb-6 mb-10">
+        <nav class="text-[10px] tracking-widest uppercase font-mono text-neutral-400 mb-2 flex items-center space-x-2">
+            <a href="{{ url('/') }}" class="hover:text-obsidian">Beranda</a>
+            <span>/</span>
+            <span class="text-neutral-400">Keranjang</span>
+            <span>/</span>
+            <span class="text-obsidian">Checkout</span>
+        </nav>
+        <h1 class="text-2xl sm:text-3xl font-normal uppercase tracking-wider text-obsidian">
+            Checkout Pesanan
+        </h1>
+    </div>
+
+    @error('checkout_error')
+        <div class="mb-8 p-4 border border-red-300 bg-red-50 text-red-800 text-xs">
+            <strong>Terjadi Kendala:</strong> {{ $message }}
+        </div>
+    @enderror
+
+    <form wire:submit.prevent="placeOrder">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start">
+            <!-- Left Column: Customer, Address & Courier -->
+            <div class="lg:col-span-7 space-y-8">
+                <!-- 1. Data Pemesan -->
+                <div class="border border-bone p-6 sm:p-8 bg-paper space-y-4">
+                    <div class="flex items-center justify-between border-b border-bone pb-3">
+                        <h2 class="text-xs uppercase tracking-[0.2em] font-medium text-obsidian">
+                            1. Data Kontak Pemesan
+                        </h2>
+                        @guest
+                            <a href="{{ route('login') }}" class="link-underlined text-xs">
+                                Masuk ke Akun
+                            </a>
+                        @endguest
+                    </div>
+
+                    <div class="space-y-4 text-xs">
+                        <div class="space-y-1">
+                            <label class="uppercase font-medium text-neutral-500 text-[10px] tracking-wider block">Nama Lengkap</label>
+                            <input type="text" wire:model="name" class="w-full border border-bone p-2.5 bg-white focus:border-obsidian focus:ring-0" />
+                            @error('name') <span class="text-red-600 text-[10px]">{{ $message }}</span> @enderror
+                        </div>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div class="space-y-1">
+                                <label class="uppercase font-medium text-neutral-500 text-[10px] tracking-wider block">Alamat Email (Untuk Bukti & Invoice)</label>
+                                <input type="email" wire:model="email" class="w-full border border-bone p-2.5 bg-white focus:border-obsidian focus:ring-0" />
+                                @error('email') <span class="text-red-600 text-[10px]">{{ $message }}</span> @enderror
+                            </div>
+                            <div class="space-y-1">
+                                <label class="uppercase font-medium text-neutral-500 text-[10px] tracking-wider block">Nomor WhatsApp / HP</label>
+                                <input type="text" wire:model="phone" placeholder="08xxxxxxxxxx" class="w-full border border-bone p-2.5 bg-white focus:border-obsidian focus:ring-0 font-mono" />
+                                @error('phone') <span class="text-red-600 text-[10px]">{{ $message }}</span> @enderror
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2. Alamat Pengiriman -->
+                <div class="border border-bone p-6 sm:p-8 bg-paper space-y-4">
+                    <div class="flex items-center justify-between border-b border-bone pb-3">
+                        <h2 class="text-xs uppercase tracking-[0.2em] font-medium text-obsidian">
+                            2. Alamat Tujuan Pengiriman
+                        </h2>
+                        @auth
+                            @if($savedAddresses->isNotEmpty())
+                                <button type="button" wire:click="toggleNewAddress" class="link-underlined text-xs">
+                                    {{ $isNewAddress ? 'Pilih Alamat Tersimpan' : '+ Gunakan Alamat Lain' }}
+                                </button>
+                            @endif
+                        @endauth
+                    </div>
+
+                    <!-- Pilihan Alamat Tersimpan untuk Auth User -->
+                    @auth
+                        @if($savedAddresses->isNotEmpty() && ! $isNewAddress)
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                @foreach($savedAddresses as $addr)
+                                    <div 
+                                        wire:click="selectAddress({{ $addr->id }})"
+                                        class="cursor-pointer border p-4 transition-all text-xs {{ $selectedAddressId === $addr->id ? 'border-obsidian bg-bone ring-1 ring-obsidian' : 'border-bone hover:border-neutral-400 bg-white' }}"
+                                    >
+                                        <div class="flex items-center justify-between mb-1">
+                                            <span class="font-mono uppercase font-medium text-[11px]">{{ $addr->label }}</span>
+                                            @if($addr->is_default)
+                                                <span class="text-[9px] uppercase font-mono bg-obsidian text-paper px-1.5 py-0.5">Utama</span>
+                                            @endif
+                                        </div>
+                                        <p class="font-medium text-obsidian">{{ $addr->recipient_name }}</p>
+                                        <p class="text-neutral-500 font-mono text-[11px]">{{ $addr->phone }}</p>
+                                        <p class="text-neutral-600 text-[11px] line-clamp-2 mt-1">{{ $addr->detail }}, {{ $addr->city }}</p>
+                                    </div>
+                                @endforeach
+                            </div>
+                        @endif
+                    @endauth
+
+                    <!-- Form Input Alamat Baru / Guest -->
+                    @if($isNewAddress || $savedAddresses->isEmpty())
+                        <div class="space-y-4 text-xs pt-2">
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <div class="space-y-1">
+                                    <label class="uppercase font-medium text-neutral-500 text-[10px] tracking-wider block">Nama Penerima Paket</label>
+                                    <input type="text" wire:model="recipient_name" class="w-full border border-bone p-2.5 bg-white focus:border-obsidian focus:ring-0" />
+                                    @error('recipient_name') <span class="text-red-600 text-[10px]">{{ $message }}</span> @enderror
+                                </div>
+                                <div class="space-y-1">
+                                    <label class="uppercase font-medium text-neutral-500 text-[10px] tracking-wider block">Nomor Telepon Penerima</label>
+                                    <input type="text" wire:model="recipient_phone" placeholder="08xxxxxxxxxx" class="w-full border border-bone p-2.5 bg-white focus:border-obsidian focus:ring-0 font-mono" />
+                                    @error('recipient_phone') <span class="text-red-600 text-[10px]">{{ $message }}</span> @enderror
+                                </div>
+                            </div>
+
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                                <div class="space-y-1">
+                                    <label class="uppercase font-medium text-neutral-500 text-[10px] tracking-wider block">Provinsi</label>
+                                    <input type="text" wire:model.live.debounce.500ms="province" placeholder="Jawa Barat" class="w-full border border-bone p-2.5 bg-white focus:border-obsidian focus:ring-0" />
+                                    @error('province') <span class="text-red-600 text-[10px]">{{ $message }}</span> @enderror
+                                </div>
+                                <div class="space-y-1">
+                                    <label class="uppercase font-medium text-neutral-500 text-[10px] tracking-wider block">Kota / Kabupaten</label>
+                                    <input type="text" wire:model.live.debounce.500ms="city" placeholder="Kota Bandung" class="w-full border border-bone p-2.5 bg-white focus:border-obsidian focus:ring-0" />
+                                    @error('city') <span class="text-red-600 text-[10px]">{{ $message }}</span> @enderror
+                                </div>
+                                <div class="space-y-1">
+                                    <label class="uppercase font-medium text-neutral-500 text-[10px] tracking-wider block">Kecamatan</label>
+                                    <input type="text" wire:model="district" placeholder="Coblong" class="w-full border border-bone p-2.5 bg-white focus:border-obsidian focus:ring-0" />
+                                    @error('district') <span class="text-red-600 text-[10px]">{{ $message }}</span> @enderror
+                                </div>
+                            </div>
+
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                                <div class="space-y-1 sm:col-span-2">
+                                    <label class="uppercase font-medium text-neutral-500 text-[10px] tracking-wider block">Alamat Lengkap (Nama Jalan, No. Rumah, RT/RW)</label>
+                                    <textarea wire:model="detail" rows="2" class="w-full border border-bone p-2.5 bg-white focus:border-obsidian focus:ring-0"></textarea>
+                                    @error('detail') <span class="text-red-600 text-[10px]">{{ $message }}</span> @enderror
+                                </div>
+                                <div class="space-y-1">
+                                    <label class="uppercase font-medium text-neutral-500 text-[10px] tracking-wider block">Kode Pos</label>
+                                    <input type="text" wire:model="postal_code" placeholder="40132" class="w-full border border-bone p-2.5 bg-white focus:border-obsidian focus:ring-0 font-mono" />
+                                    @error('postal_code') <span class="text-red-600 text-[10px]">{{ $message }}</span> @enderror
+                                </div>
+                            </div>
+                        </div>
+                    @endif
+                </div>
+
+                <!-- 3. Pilihan Ekspedisi Pengiriman -->
+                <div class="border border-bone p-6 sm:p-8 bg-paper space-y-4">
+                    <div class="flex items-center justify-between border-b border-bone pb-3">
+                        <h2 class="text-xs uppercase tracking-[0.2em] font-medium text-obsidian">
+                            3. Layanan Kurir Pengiriman
+                        </h2>
+                        <span class="text-[11px] font-mono text-neutral-400">
+                            Berat: {{ number_format($totalWeight, 0, ',', '.') }} gram
+                        </span>
+                    </div>
+
+                    <div class="space-y-3">
+                        @foreach($shippingRates as $rate)
+                            @php
+                                $valKey = "{$rate['courier']}|{$rate['service']}|{$rate['cost']}";
+                            @endphp
+                            <label class="flex items-center justify-between p-4 border cursor-pointer transition-colors text-xs {{ $selectedCourierKey === $valKey ? 'border-obsidian bg-bone ring-1 ring-obsidian' : 'border-bone hover:border-neutral-400 bg-white' }}">
+                                <div class="flex items-center space-x-3">
+                                    <input type="radio" wire:model.live="selectedCourierKey" value="{{ $valKey }}" class="text-obsidian focus:ring-0 border-neutral-300" />
+                                    <div>
+                                        <span class="font-medium text-obsidian">{{ $rate['name'] }}</span>
+                                        <span class="text-[11px] text-neutral-400 block font-mono">Estimasi tiba: {{ $rate['etd'] }}</span>
+                                    </div>
+                                </div>
+                                <span class="font-mono font-medium text-obsidian">
+                                    Rp {{ number_format($rate['cost'], 0, ',', '.') }}
+                                </span>
+                            </label>
+                        @endforeach
+                        @error('selectedCourierKey') <span class="text-red-600 text-[10px]">{{ $message }}</span> @enderror
+                    </div>
+                </div>
+
+                <!-- 4. Catatan Pesanan -->
+                <div class="border border-bone p-6 bg-paper space-y-2">
+                    <label class="uppercase font-medium text-neutral-500 text-[10px] tracking-wider block">Catatan untuk Penjual / Ekspedisi (Opsional)</label>
+                    <input type="text" wire:model="customerNote" placeholder="mis. Titipkan ke satpam jika sedang keluar rumah" class="w-full text-xs border border-bone p-2.5 bg-white focus:border-obsidian focus:ring-0" />
+                </div>
+            </div>
+
+            <!-- Right Column: Ringkasan Order & Checkout CTA -->
+            <div class="lg:col-span-5 space-y-8 sticky top-24">
+                <div class="border border-bone p-6 sm:p-8 bg-paper space-y-6">
+                    <h2 class="text-xs uppercase tracking-[0.2em] font-medium text-obsidian pb-3 border-b border-bone">
+                        Ringkasan Belanja
+                    </h2>
+
+                    <!-- Items in Cart -->
+                    <div class="space-y-4 max-h-72 overflow-y-auto pr-1">
+                        @foreach($items as $item)
+                            @php
+                                $var = $item->variant;
+                                $prod = $var?->product;
+                            @endphp
+                            <div class="flex items-center justify-between text-xs pb-3 border-b border-bone gap-3">
+                                <div class="flex items-center space-x-3 min-w-0">
+                                    <div class="w-10 h-12 bg-bone border border-bone flex-shrink-0 flex items-center justify-center font-mono text-[9px] text-neutral-400">
+                                        {{ $item->quantity }}x
+                                    </div>
+                                    <div class="min-w-0">
+                                        <p class="font-normal text-obsidian truncate">{{ $prod?->name ?? 'Produk' }}</p>
+                                        <p class="text-[10px] text-neutral-500 font-mono">{{ $var?->color }} {{ $var?->size ? '&bull; ' . $var->size : '' }}</p>
+                                    </div>
+                                </div>
+                                <span class="font-mono font-medium text-obsidian flex-shrink-0">
+                                    Rp {{ number_format(($var?->price ?? 0) * $item->quantity, 0, ',', '.') }}
+                                </span>
+                            </div>
+                        @endforeach
+                    </div>
+
+                    <!-- Kode Voucher Promo -->
+                    <div class="space-y-2 pt-2 border-t border-bone">
+                        <label class="uppercase font-medium text-neutral-500 text-[10px] tracking-wider block">Gunakan Kode Voucher</label>
+                        @if($appliedVoucherCode)
+                            <div class="flex items-center justify-between p-2.5 bg-bone border border-bone text-xs">
+                                <div class="flex items-center space-x-2">
+                                    <span class="font-mono uppercase font-semibold text-obsidian">{{ $appliedVoucherCode }}</span>
+                                    <span class="text-[10px] text-emerald-700 bg-emerald-50 px-2 py-0.5 font-medium">Terpasang</span>
+                                </div>
+                                <button type="button" wire:click="removeVoucher" class="text-neutral-400 hover:text-red-600 text-xs">
+                                    Hapus
+                                </button>
+                            </div>
+                        @else
+                            <div class="flex gap-2">
+                                <input 
+                                    type="text" 
+                                    wire:model="voucherCodeInput" 
+                                    placeholder="Masukkan kode promo" 
+                                    class="flex-1 text-xs uppercase border border-bone p-2.5 bg-white focus:border-obsidian focus:ring-0 font-mono"
+                                />
+                                <button 
+                                    type="button" 
+                                    wire:click="applyVoucher" 
+                                    class="px-4 py-2.5 border border-obsidian text-obsidian text-xs uppercase tracking-wider hover:bg-obsidian hover:text-paper transition-colors font-medium"
+                                >
+                                    Terapkan
+                                </button>
+                            </div>
+                        @endif
+
+                        @if($voucherError)
+                            <p class="text-red-600 text-[11px]">{{ $voucherError }}</p>
+                        @endif
+                        @if($voucherSuccess)
+                            <p class="text-emerald-700 text-[11px]">{{ $voucherSuccess }}</p>
+                        @endif
+                    </div>
+
+                    <!-- Rincian Biaya -->
+                    <div class="space-y-2 text-xs pt-4 border-t border-bone">
+                        <div class="flex justify-between text-neutral-600">
+                            <span>Subtotal Belanja:</span>
+                            <span class="font-mono">Rp {{ number_format($pricing['subtotal'], 0, ',', '.') }}</span>
+                        </div>
+                        @if($pricing['discount_total'] > 0)
+                            <div class="flex justify-between text-emerald-700 font-medium">
+                                <span>Diskon Voucher:</span>
+                                <span class="font-mono">- Rp {{ number_format($pricing['discount_total'], 0, ',', '.') }}</span>
+                            </div>
+                        @endif
+                        <div class="flex justify-between text-neutral-600">
+                            <span>Ongkos Kirim:</span>
+                            <span class="font-mono">Rp {{ number_format($pricing['shipping_cost'], 0, ',', '.') }}</span>
+                        </div>
+                        <div class="flex justify-between items-baseline pt-3 border-t border-bone text-obsidian">
+                            <span class="uppercase tracking-widest text-xs font-semibold">Total Pembayaran:</span>
+                            <span class="font-mono text-lg sm:text-xl font-medium">Rp {{ number_format($pricing['grand_total'], 0, ',', '.') }}</span>
+                        </div>
+                    </div>
+
+                    <!-- Tombol Submit Order -->
+                    <div class="pt-4">
+                        <button 
+                            type="submit" 
+                            class="w-full py-4 bg-obsidian text-paper text-xs uppercase tracking-widest font-medium hover:bg-neutral-800 transition-colors shadow-sm text-center"
+                        >
+                            Buat Pesanan & Bayar
+                        </button>
+                        <p class="text-[10px] text-neutral-400 text-center mt-3 leading-relaxed">
+                            Dengan mengklik tombol di atas, Anda menyetujui syarat & ketentuan pemesanan di BloomingKembang.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

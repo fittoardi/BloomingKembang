@@ -4,15 +4,15 @@ namespace App\Enums;
 
 enum ProductStatus: string
 {
-    case Draft    = 'draft';
-    case Active   = 'active';
+    case Draft = 'draft';
+    case Active = 'active';
     case Archived = 'archived';
 
     public function label(): string
     {
         return match ($this) {
-            self::Draft    => 'Draf',
-            self::Active   => 'Aktif',
+            self::Draft => 'Draf',
+            self::Active => 'Aktif',
             self::Archived => 'Diarsipkan',
         };
     }

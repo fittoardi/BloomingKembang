@@ -2,8 +2,6 @@
 
 namespace Database\Seeders;
 
-use App\Enums\OrderStatus;
-use App\Enums\PaymentStatus;
 use App\Enums\ProductStatus;
 use App\Enums\VoucherType;
 use App\Models\Address;
@@ -177,20 +175,20 @@ class DemoSeeder extends Seeder
                     'category_id' => $categories[$p['category_slug']]->id,
                     'name' => $p['name'],
                     'short_description' => $p['short_description'],
-                    'description' => $p['short_description'] . "\n\nKoleksi hijab BloomingKembang dibuat dengan jahitan tepi rapi, tekstur lembut yang adem dipakai seharian di cuaca tropis Indonesia.",
+                    'description' => $p['short_description']."\n\nKoleksi hijab BloomingKembang dibuat dengan jahitan tepi rapi, tekstur lembut yang adem dipakai seharian di cuaca tropis Indonesia.",
                     'material' => $p['material'],
                     'size_guide' => $p['size_guide'],
                     'care_guide' => $p['care_guide'],
                     'status' => ProductStatus::Active,
                     'is_featured' => $p['is_featured'],
                     'sold_count' => rand(10, 150),
-                    'seo_title' => $p['name'] . ' — BloomingKembang Official Store',
+                    'seo_title' => $p['name'].' — BloomingKembang Official Store',
                     'seo_description' => $p['short_description'],
                 ]
             );
 
             foreach ($p['variants'] as $idx => $v) {
-                $sku = strtoupper(Str::slug($product->slug) . '-' . substr($v['color'], 0, 3) . '-' . $idx);
+                $sku = strtoupper(Str::slug($product->slug).'-'.substr($v['color'], 0, 3).'-'.$idx);
                 $variant = ProductVariant::firstOrCreate(
                     [
                         'product_id' => $product->id,

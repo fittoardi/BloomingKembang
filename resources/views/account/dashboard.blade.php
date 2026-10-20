@@ -50,15 +50,15 @@
                 <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs">
                     <div class="border border-bone p-4 space-y-1 bg-paper">
                         <span class="text-[10px] uppercase font-mono text-neutral-400">Total Pesanan</span>
-                        <p class="text-lg font-mono text-obsidian">0</p>
+                        <p class="text-lg font-mono text-obsidian">{{ Auth::user()->orders()->count() }}</p>
                     </div>
                     <div class="border border-bone p-4 space-y-1 bg-paper">
                         <span class="text-[10px] uppercase font-mono text-neutral-400">Pesanan Aktif</span>
-                        <p class="text-lg font-mono text-obsidian">0</p>
+                        <p class="text-lg font-mono text-obsidian">{{ Auth::user()->orders()->whereIn('status', [\App\Enums\OrderStatus::PendingPayment, \App\Enums\OrderStatus::Processing, \App\Enums\OrderStatus::Shipped])->count() }}</p>
                     </div>
                     <div class="border border-bone p-4 space-y-1 bg-paper">
                         <span class="text-[10px] uppercase font-mono text-neutral-400">Wishlist</span>
-                        <p class="text-lg font-mono text-obsidian">0</p>
+                        <p class="text-lg font-mono text-obsidian">{{ Auth::user()->wishlists()->count() }}</p>
                     </div>
                 </div>
 

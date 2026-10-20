@@ -5,13 +5,13 @@ namespace App\Enums;
 enum VoucherType: string
 {
     case Percent = 'percent';
-    case Fixed   = 'fixed';
+    case Fixed = 'fixed';
 
     public function label(): string
     {
         return match ($this) {
             self::Percent => 'Persentase (%)',
-            self::Fixed   => 'Nominal Tetap (Rp)',
+            self::Fixed => 'Nominal Tetap (Rp)',
         };
     }
 }

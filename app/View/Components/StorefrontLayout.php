@@ -7,9 +7,7 @@ use Illuminate\View\View;
 
 class StorefrontLayout extends Component
 {
-    public function __construct(public ?string $title = null)
-    {
-    }
+    public function __construct(public ?string $title = null) {}
 
     public function render(): View
     {
