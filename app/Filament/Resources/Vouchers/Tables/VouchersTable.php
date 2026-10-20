@@ -31,12 +31,12 @@ class VouchersTable
                 TextColumn::make('type')
                     ->label('Tipe')
                     ->badge()
-                    ->formatStateUsing(fn ($state) => $state === VoucherType::Percentage || $state?->value === 'percentage' ? 'Persen' : 'Nominal')
-                    ->color(fn ($state) => $state === VoucherType::Percentage || $state?->value === 'percentage' ? 'info' : 'success'),
+                    ->formatStateUsing(fn ($state) => $state === VoucherType::Percent || $state?->value === 'percent' ? 'Persen' : 'Nominal')
+                    ->color(fn ($state) => $state === VoucherType::Percent || $state?->value === 'percent' ? 'info' : 'success'),
                 TextColumn::make('value')
                     ->label('Nilai')
                     ->formatStateUsing(function ($record) {
-                        return $record->type === VoucherType::Percentage
+                        return $record->type === VoucherType::Percent
                             ? "{$record->value}%"
                             : 'Rp '.number_format($record->value, 0, ',', '.');
                     }),
