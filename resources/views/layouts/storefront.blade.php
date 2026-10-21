@@ -120,24 +120,55 @@
     </head>
     <body class="bg-paper text-obsidian min-h-screen flex flex-col font-sans antialiased selection:bg-bone relative">
         <!-- Top Announcement Banner -->
-        <div class="bg-eucalyptus text-obsidian py-2 px-4 text-center text-xs tracking-wider uppercase font-medium">
-            Gratis Ongkir Seluruh Pulau Jawa untuk Pembelian di Atas Rp 150.000
-        </div>
+        @php
+            $globalTopBanner = \App\Models\Banner::where('is_active', true)
+                ->where('position', 'top_bar')
+                ->where(fn($q) => $q->whereNull('starts_at')->orWhere('starts_at', '<=', now()))
+                ->where(fn($q) => $q->whereNull('ends_at')->orWhere('ends_at', '>=', now()))
+                ->orderBy('sort_order')
+                ->first();
+        @endphp
+        @if($globalTopBanner)
+            <div class="bg-gradient-to-r from-sage-900 via-stone-900 to-blush-900 text-paper py-2 px-4 text-center text-xs tracking-wider uppercase font-medium border-b border-sage-800/40">
+                @if($globalTopBanner->link_url)
+                    <a href="{{ $globalTopBanner->link_url }}" class="hover:underline flex items-center justify-center gap-2">
+                        <span class="inline-block w-1.5 h-1.5 rounded-full bg-sage-300"></span>
+                        <span>{{ $globalTopBanner->title }}</span>
+                        @if($globalTopBanner->subtitle) <span class="opacity-80 hidden sm:inline">&bull; {{ $globalTopBanner->subtitle }}</span> @endif
+                        <span class="text-blush-200">&rarr;</span>
+                    </a>
+                @else
+                    <span class="flex items-center justify-center gap-2">
+                        <span class="inline-block w-1.5 h-1.5 rounded-full bg-sage-300"></span>
+                        <span>{{ $globalTopBanner->title }}</span>
+                        @if($globalTopBanner->subtitle) <span class="opacity-80 hidden sm:inline">&bull; {{ $globalTopBanner->subtitle }}</span> @endif
+                    </span>
+                @endif
+            </div>
+        @else
+            <div class="bg-gradient-to-r from-sage-900 via-stone-900 to-blush-900 text-stone-100 py-2 px-4 text-center text-xs tracking-wider uppercase font-medium border-b border-sage-800/40">
+                <span class="inline-block w-1.5 h-1.5 rounded-full bg-sage-300 mr-2"></span>
+                Gratis Ongkir Seluruh Pulau Jawa untuk Pembelian di Atas Rp 150.000
+                <span class="inline-block w-1.5 h-1.5 rounded-full bg-blush-300 ml-2"></span>
+            </div>
+        @endif
 
         <!-- Minimal Header Navigation -->
-        <header class="border-b border-bone bg-paper sticky top-0 z-40">
+        <header x-data class="border-b border-bone bg-paper/95 backdrop-blur-xs sticky top-0 z-40 transition-colors">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
                 <!-- Left Nav Items -->
                 <nav class="hidden md:flex items-center space-x-8 text-xs uppercase tracking-widest">
-                    <a href="{{ url('/') }}" class="hover:text-neutral-500 transition-colors {{ request()->is('/') ? 'text-obsidian font-semibold' : '' }}">Beranda</a>
-                    <a href="{{ url('/koleksi') }}" class="hover:text-neutral-500 transition-colors {{ request()->is('koleksi*') ? 'text-obsidian font-semibold' : '' }}">Koleksi</a>
-                    <a href="{{ url('/tentang-kami') }}" class="hover:text-neutral-500 transition-colors {{ request()->is('tentang-kami') ? 'text-obsidian font-semibold' : '' }}">Tentang</a>
+                    <a href="{{ url('/') }}" class="hover:text-bloom transition-colors {{ request()->is('/') ? 'text-botanic font-semibold border-b-2 border-botanic pb-1' : 'text-stone-700' }}">Beranda</a>
+                    <a href="{{ url('/koleksi') }}" class="hover:text-bloom transition-colors {{ request()->is('koleksi*') ? 'text-botanic font-semibold border-b-2 border-botanic pb-1' : 'text-stone-700' }}">Koleksi</a>
+                    <a href="{{ url('/tentang-kami') }}" class="hover:text-bloom transition-colors {{ request()->is('tentang-kami') ? 'text-botanic font-semibold border-b-2 border-botanic pb-1' : 'text-stone-700' }}">Tentang</a>
                 </nav>
 
                 <!-- Center Brand Colophon -->
                 <div class="text-center">
-                    <a href="{{ url('/') }}" class="text-base sm:text-lg font-normal tracking-[0.2em] uppercase">
-                        BloomingKembang
+                    <a href="{{ url('/') }}" class="group inline-flex items-center gap-0.5 text-base sm:text-lg uppercase tracking-[0.18em]">
+                        <span class="font-serif tracking-normal text-obsidian font-bold">Blooming</span>
+                        <span class="font-serif italic font-normal text-bloom tracking-normal">Kembang</span>
+                        <span class="w-1.5 h-1.5 rounded-full bg-botanic inline-block ml-1 group-hover:scale-125 transition-transform"></span>
                     </a>
                 </div>
 
@@ -145,24 +176,27 @@
                 <div class="flex items-center space-x-6 text-xs uppercase tracking-widest">
                     @auth
                         @if(auth()->user()->hasAnyRole(['super_admin', 'admin', 'warehouse_staff']))
-                            <a href="{{ url('/admin') }}" class="link-underlined">Panel Admin</a>
+                            <a href="{{ url('/admin') }}" class="link-underlined text-botanic font-medium">Panel Admin</a>
                         @endif
-                        <a href="{{ route('account.dashboard') }}" class="hover:text-neutral-500 transition-colors">Akun Saya</a>
+                        <a href="{{ route('account.dashboard') }}" class="hover:text-bloom transition-colors text-stone-700">Akun Saya</a>
                         <form method="POST" action="{{ route('logout') }}" class="inline">
                             @csrf
-                            <button type="submit" class="hover:text-neutral-500 uppercase tracking-widest transition-colors">Keluar</button>
+                            <button type="submit" class="hover:text-bloom uppercase tracking-widest transition-colors text-stone-500 cursor-pointer">Keluar</button>
                         </form>
                     @else
-                        <a href="{{ route('login') }}" class="hover:text-neutral-500 transition-colors">Masuk</a>
-                        <a href="{{ route('register') }}" class="link-underlined">Daftar</a>
+                        <a href="{{ route('login') }}" class="hover:text-bloom transition-colors text-stone-700">Masuk</a>
+                        <a href="{{ route('register') }}" class="px-3 py-1 rounded-full border border-blush-300 text-bloom hover:bg-blush-50 transition-colors font-medium">Daftar</a>
                     @endauth
                     <button 
                         type="button" 
                         @click="$dispatch('open-cart')" 
-                        class="hover:text-neutral-500 transition-colors uppercase tracking-widest flex items-center space-x-1"
+                        onclick="window.dispatchEvent(new CustomEvent('open-cart'))"
+                        class="hover:text-bloom transition-colors uppercase tracking-widest flex items-center space-x-1.5 cursor-pointer text-stone-800"
                     >
                         <span>Keranjang</span>
-                        <span class="font-mono">({{ app(\App\Services\CartService::class)->getCount() }})</span>
+                        <span class="font-mono text-[10px] font-semibold px-2 py-0.5 rounded-full bg-blush-100 text-blush-800 border border-blush-200">
+                            {{ app(\App\Services\CartService::class)->getCount() }}
+                        </span>
                     </button>
                 </div>
             </div>

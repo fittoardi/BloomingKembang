@@ -1,11 +1,13 @@
 <div>
     <!-- Cart Backdrop & Slide-Over Panel -->
     <div 
-        x-data="{ open: @entangle('isOpen') }" 
+        x-data="{ open: false }" 
         x-show="open" 
         x-cloak 
         class="fixed inset-0 z-50 overflow-hidden"
-        @keydown.escape.window="open = false; $wire.close()"
+        @keydown.escape.window="open = false"
+        @open-cart.window="open = true"
+        @close-cart.window="open = false"
     >
         <!-- Backdrop -->
         <div 
@@ -17,7 +19,7 @@
             x-transition:leave-start="opacity-100"
             x-transition:leave-end="opacity-0"
             class="fixed inset-0 bg-obsidian/40 backdrop-blur-sm transition-opacity"
-            @click="open = false; $wire.close()"
+            @click="open = false"
         ></div>
 
         <!-- Slide-over Container -->
@@ -33,19 +35,20 @@
                 class="w-screen max-w-md bg-paper border-l border-bone flex flex-col justify-between shadow-2xl"
             >
                 <!-- Drawer Header -->
-                <div class="p-6 border-b border-bone flex items-center justify-between">
-                    <div>
-                        <h2 class="text-xs uppercase tracking-[0.2em] font-medium text-obsidian">
+                <div class="p-6 border-b border-bone flex items-center justify-between bg-stone-50/40">
+                    <div class="flex items-center gap-2">
+                        <h2 class="text-xs uppercase tracking-[0.2em] font-serif font-bold text-obsidian flex items-center gap-1.5">
                             Keranjang Belanja
+                            <span class="w-1.5 h-1.5 rounded-full bg-bloom inline-block"></span>
                         </h2>
-                        <span class="text-[11px] font-mono text-neutral-400">
+                        <span class="text-[10px] font-mono px-2 py-0.5 rounded-full bg-sage-100 text-botanic font-semibold border border-sage-200">
                             {{ $count }} {{ $count === 1 ? 'item' : 'items' }}
                         </span>
                     </div>
                     <button 
                         type="button" 
-                        wire:click="close"
-                        class="text-neutral-400 hover:text-obsidian p-1 transition-colors text-xs uppercase tracking-widest font-mono"
+                        @click="open = false"
+                        class="text-stone-400 hover:text-bloom p-1 transition-colors text-xs uppercase tracking-widest font-mono cursor-pointer"
                     >
                         [Tutup]
                     </button>
@@ -164,14 +167,14 @@
                         <div class="space-y-2 pt-2">
                             <a 
                                 href="{{ url('/checkout') }}" 
-                                class="w-full block py-3.5 bg-obsidian text-paper text-center text-xs uppercase tracking-widest font-medium hover:bg-neutral-800 transition-colors"
+                                class="w-full block py-3.5 bg-botanic text-paper text-center text-xs uppercase tracking-widest font-medium hover:bg-sage-700 transition-colors rounded-sm shadow-sm"
                             >
-                                Lanjut ke Pembayaran
+                                Lanjut ke Pembayaran &rarr;
                             </a>
                             <button 
                                 type="button" 
-                                wire:click="close"
-                                class="w-full py-2.5 text-center text-xs uppercase tracking-wider text-neutral-500 hover:text-obsidian transition-colors font-mono"
+                                @click="open = false"
+                                class="w-full py-2.5 text-center text-xs uppercase tracking-wider text-bloom hover:text-blush-800 transition-colors font-mono cursor-pointer"
                             >
                                 Lanjut Belanja
                             </button>

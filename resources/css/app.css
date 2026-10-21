@@ -2,12 +2,23 @@
 @tailwind components;
 @tailwind utilities;
 
+[x-cloak] {
+    display: none !important;
+}
+
 @layer base {
     :root {
         --color-obsidian-ink: #1c1717;
         --color-paper: #ffffff;
         --color-bone: #f0f0f0;
         --color-eucalyptus-mist: #a9aea9;
+        --color-sage: #4e674e;
+        --color-blush: #b8546b;
+    }
+
+    ::selection {
+        background-color: #f4dcde;
+        color: #5c2732;
     }
 
     body {
@@ -43,7 +54,14 @@
     }
 
     .link-underlined:hover {
-        color: #636b63;
+        color: #b8546b;
         text-decoration-thickness: 2px;
+    }
+}
+
+@layer utilities {
+    .bg-bloom-glow {
+        background: radial-gradient(circle at 10% 20%, rgba(244, 220, 222, 0.45) 0%, rgba(255, 255, 255, 0) 50%),
+                    radial-gradient(circle at 90% 80%, rgba(205, 215, 205, 0.4) 0%, rgba(255, 255, 255, 0) 50%);
     }
 }
