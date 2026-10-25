@@ -189,21 +189,21 @@
                             @csrf
                             <button type="submit" class="hover:text-bloom uppercase tracking-widest transition-colors text-stone-500 cursor-pointer">Keluar</button>
                         </form>
+                        <button 
+                            type="button" 
+                            @click="$dispatch('open-cart')" 
+                            onclick="window.dispatchEvent(new CustomEvent('open-cart'))"
+                            class="hover:text-bloom transition-colors uppercase tracking-widest flex items-center space-x-1.5 cursor-pointer text-stone-800"
+                        >
+                            <span>Keranjang</span>
+                            <span class="font-mono text-[10px] font-semibold px-2 py-0.5 rounded-full bg-blush-100 text-blush-800 border border-blush-200">
+                                {{ app(\App\Services\CartService::class)->getCount() }}
+                            </span>
+                        </button>
                     @else
                         <a href="{{ route('login') }}" class="hover:text-bloom transition-colors text-stone-700">Masuk</a>
                         <a href="{{ route('register') }}" class="px-3 py-1 rounded-full border border-blush-300 text-bloom hover:bg-blush-50 transition-colors font-medium">Daftar</a>
                     @endauth
-                    <button 
-                        type="button" 
-                        @click="$dispatch('open-cart')" 
-                        onclick="window.dispatchEvent(new CustomEvent('open-cart'))"
-                        class="hover:text-bloom transition-colors uppercase tracking-widest flex items-center space-x-1.5 cursor-pointer text-stone-800"
-                    >
-                        <span>Keranjang</span>
-                        <span class="font-mono text-[10px] font-semibold px-2 py-0.5 rounded-full bg-blush-100 text-blush-800 border border-blush-200">
-                            {{ app(\App\Services\CartService::class)->getCount() }}
-                        </span>
-                    </button>
                 </div>
             </div>
         </header>
