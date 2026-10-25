@@ -32,10 +32,10 @@
                 x-transition:leave="transform transition ease-in-out duration-300 sm:duration-400"
                 x-transition:leave-start="translate-x-0"
                 x-transition:leave-end="translate-x-full"
-                class="w-screen max-w-md bg-paper border-l border-bone flex flex-col justify-between shadow-2xl"
+                class="w-screen max-w-md bg-white/95 backdrop-blur-md border-l border-blush-200/80 flex flex-col justify-between shadow-2xl"
             >
                 <!-- Drawer Header -->
-                <div class="p-6 border-b border-bone flex items-center justify-between bg-stone-50/40">
+                <div class="p-6 border-b border-sage-100 flex items-center justify-between bg-gradient-to-r from-sage-50/70 via-white/80 to-blush-50/70">
                     <div class="flex items-center gap-2">
                         <h2 class="text-xs uppercase tracking-[0.2em] font-serif font-bold text-obsidian flex items-center gap-1.5">
                             Keranjang Belanja
@@ -151,7 +151,7 @@
 
                 <!-- Drawer Footer (Subtotal & Checkout) -->
                 @if($items->isNotEmpty())
-                    <div class="p-6 border-t border-bone bg-paper space-y-4">
+                    <div class="p-6 border-t border-sage-100 bg-gradient-to-b from-white/90 to-sage-50/40 space-y-4">
                         <div class="space-y-1 text-xs">
                             <div class="flex justify-between items-center text-neutral-500">
                                 <span>Estimasi Total Berat:</span>

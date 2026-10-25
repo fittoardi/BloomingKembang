@@ -24,8 +24,8 @@
             <!-- Left Column: Customer, Address & Courier -->
             <div class="lg:col-span-7 space-y-8">
                 <!-- 1. Data Pemesan -->
-                <div class="border border-bone p-6 sm:p-8 bg-paper space-y-4">
-                    <div class="flex items-center justify-between border-b border-bone pb-3">
+                <div class="border border-sage-200/80 p-6 sm:p-8 bg-white/90 backdrop-blur-xs space-y-4 rounded-sm shadow-2xs">
+                    <div class="flex items-center justify-between border-b border-sage-100 pb-3">
                         <h2 class="text-xs uppercase tracking-[0.2em] font-medium text-obsidian">
                             1. Data Kontak Pemesan
                         </h2>
@@ -59,8 +59,8 @@
                 </div>
 
                 <!-- 2. Alamat Pengiriman -->
-                <div class="border border-bone p-6 sm:p-8 bg-paper space-y-4">
-                    <div class="flex items-center justify-between border-b border-bone pb-3">
+                <div class="border border-sage-200/80 p-6 sm:p-8 bg-white/90 backdrop-blur-xs space-y-4 rounded-sm shadow-2xs">
+                    <div class="flex items-center justify-between border-b border-sage-100 pb-3">
                         <h2 class="text-xs uppercase tracking-[0.2em] font-medium text-obsidian">
                             2. Alamat Tujuan Pengiriman
                         </h2>
@@ -148,8 +148,8 @@
                 </div>
 
                 <!-- 3. Pilihan Ekspedisi Pengiriman -->
-                <div class="border border-bone p-6 sm:p-8 bg-paper space-y-4">
-                    <div class="flex items-center justify-between border-b border-bone pb-3">
+                <div class="border border-sage-200/80 p-6 sm:p-8 bg-white/90 backdrop-blur-xs space-y-4 rounded-sm shadow-2xs">
+                    <div class="flex items-center justify-between border-b border-sage-100 pb-3">
                         <h2 class="text-xs uppercase tracking-[0.2em] font-medium text-obsidian">
                             3. Layanan Kurir Pengiriman
                         </h2>
@@ -181,7 +181,7 @@
                 </div>
 
                 <!-- 4. Catatan Pesanan -->
-                <div class="border border-bone p-6 bg-paper space-y-2">
+                <div class="border border-sage-200/80 p-6 bg-white/90 backdrop-blur-xs space-y-2 rounded-sm shadow-2xs">
                     <label class="uppercase font-medium text-neutral-500 text-[10px] tracking-wider block">Catatan untuk Penjual / Ekspedisi (Opsional)</label>
                     <input type="text" wire:model="customerNote" placeholder="mis. Titipkan ke satpam jika sedang keluar rumah" class="w-full text-xs border border-bone p-2.5 bg-white focus:border-obsidian focus:ring-0" />
                 </div>
@@ -189,8 +189,8 @@
 
             <!-- Right Column: Ringkasan Order & Checkout CTA -->
             <div class="lg:col-span-5 space-y-8 sticky top-24">
-                <div class="border border-bone p-6 sm:p-8 bg-paper space-y-6">
-                    <h2 class="text-xs uppercase tracking-[0.2em] font-medium text-obsidian pb-3 border-b border-bone">
+                <div class="border border-sage-200/80 p-6 sm:p-8 bg-white/95 backdrop-blur-xs space-y-6 rounded-sm shadow-2xs">
+                    <h2 class="text-xs uppercase tracking-[0.2em] font-medium text-obsidian pb-3 border-b border-sage-100">
                         Ringkasan Belanja
                     </h2>
 
@@ -283,9 +283,9 @@
                     <div class="pt-4">
                         <button 
                             type="submit" 
-                            class="w-full py-4 bg-obsidian text-paper text-xs uppercase tracking-widest font-medium hover:bg-neutral-800 transition-colors shadow-sm text-center"
+                            class="w-full py-4 bg-botanic text-paper text-xs uppercase tracking-widest font-medium hover:bg-sage-700 transition-colors shadow-sm text-center rounded-xs"
                         >
-                            Buat Pesanan & Bayar
+                            Buat Pesanan & Bayar &rarr;
                         </button>
                         <p class="text-[10px] text-neutral-400 text-center mt-3 leading-relaxed">
                             Dengan mengklik tombol di atas, Anda menyetujui syarat & ketentuan pemesanan di BloomingKembang.
