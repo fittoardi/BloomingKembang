@@ -15,49 +15,132 @@
     @endphp
 
     <!-- Hero Editorial Section -->
-    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-20 relative">
-        <div class="border border-blush-200/90 p-8 sm:p-16 text-center space-y-6 bg-gradient-to-br from-sage-50/90 via-white/95 to-blush-50/90 relative overflow-hidden rounded-md shadow-xs backdrop-blur-xs">
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-16 relative">
+        <div class="border border-blush-200/90 bg-gradient-to-br from-sage-50/95 via-white/95 to-blush-50/90 relative overflow-hidden rounded-xl shadow-xs backdrop-blur-xs">
             <!-- Atmospheric Ambient Orbs -->
-            <div class="absolute -top-16 -left-16 w-64 h-64 rounded-full bg-sage-200/40 blur-3xl pointer-events-none"></div>
-            <div class="absolute -bottom-16 -right-16 w-64 h-64 rounded-full bg-blush-200/40 blur-3xl pointer-events-none"></div>
+            <div class="absolute -top-24 -left-24 w-80 h-80 rounded-full bg-sage-200/40 blur-3xl pointer-events-none"></div>
+            <div class="absolute -bottom-24 -right-24 w-80 h-80 rounded-full bg-blush-200/40 blur-3xl pointer-events-none"></div>
 
-            <div>
-                <span class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-sage-100/90 text-botanic text-[11px] font-mono tracking-widest uppercase border border-sage-200">
-                    <span class="w-1.5 h-1.5 rounded-full bg-bloom animate-pulse"></span>
-                    Koleksi Hijab Kurasi 2026
-                </span>
-            </div>
-            <h1 class="text-2xl sm:text-4xl lg:text-5xl font-serif font-normal tracking-wide text-obsidian uppercase">
-                {{ $heroBanner?->title ?? 'Sentuhan Lembut & Elegan Hijab Pilihan' }}
-            </h1>
-            <p class="max-w-2xl mx-auto text-xs sm:text-sm text-stone-600 leading-relaxed font-normal">
-                {{ $heroBanner?->subtitle ?? 'Ditenun dari serat voal ultrafine dan ceruty babydoll pilihan. Lembut bersahaja, tegak di dahi, dan anggun dalam setiap momen.' }}
-            </p>
-            <div class="pt-4 flex flex-wrap items-center justify-center gap-4">
-                <a href="{{ url('/koleksi') }}" class="px-8 py-3.5 bg-botanic text-paper text-xs uppercase tracking-widest font-medium hover:bg-sage-700 transition-colors shadow-sm rounded-sm">
-                    Jelajahi Koleksi &rarr;
-                </a>
-                <a href="{{ url('/tentang-kami') }}" class="px-6 py-3.5 border border-blush-300 bg-white/80 text-bloom text-xs uppercase tracking-widest font-medium hover:bg-blush-50 transition-colors rounded-sm">
-                    Filosofi Brand
-                </a>
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center p-6 sm:p-12 lg:p-16 relative z-10">
+                <!-- Text Column (Left) -->
+                <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+                    <div>
+                        <span class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-sage-100/90 text-botanic text-[11px] font-mono tracking-widest uppercase border border-sage-200">
+                            <span class="w-1.5 h-1.5 rounded-full bg-bloom animate-pulse"></span>
+                            Atelier Hijab Kurasi 2026
+                        </span>
+                    </div>
+
+                    <h1 class="text-2xl sm:text-4xl lg:text-5xl font-serif font-normal tracking-wide text-obsidian uppercase leading-tight">
+                        {{ $heroBanner?->title ?? 'Sentuhan Lembut & Elegan Hijab Pilihan' }}
+                    </h1>
+
+                    <p class="max-w-xl mx-auto lg:mx-0 text-xs sm:text-sm text-stone-600 leading-relaxed font-normal">
+                        {{ $heroBanner?->subtitle ?? 'Ditenun dari serat voal ultrafine dan ceruty babydoll pilihan. Lembut bersahaja, tegak di dahi, dan anggun dalam setiap momen.' }}
+                    </p>
+
+                    <!-- CTAs -->
+                    <div class="pt-2 flex flex-wrap items-center justify-center lg:justify-start gap-4">
+                        <a href="{{ url('/koleksi') }}" class="px-8 py-3.5 bg-botanic text-paper text-xs uppercase tracking-widest font-medium hover:bg-sage-700 transition-colors shadow-sm rounded-sm">
+                            Jelajahi Koleksi &rarr;
+                        </a>
+                        <a href="{{ url('/tentang-kami') }}" class="px-6 py-3.5 border border-blush-300 bg-white/80 text-bloom text-xs uppercase tracking-widest font-medium hover:bg-blush-50 transition-colors rounded-sm">
+                            Filosofi Brand
+                        </a>
+                    </div>
+
+                    <!-- Mini Value Badges -->
+                    <div class="pt-6 border-t border-bone/70 grid grid-cols-3 gap-3 text-left">
+                        <div class="space-y-0.5">
+                            <span class="text-[10px] font-mono uppercase tracking-wider text-botanic font-semibold block">100% Alami</span>
+                            <span class="text-[11px] text-stone-600 font-medium block">Voal Ultrafine Turkish</span>
+                        </div>
+                        <div class="space-y-0.5 border-l border-bone/80 pl-3">
+                            <span class="text-[10px] font-mono uppercase tracking-wider text-bloom font-semibold block">Jahit Butik</span>
+                            <span class="text-[11px] text-stone-600 font-medium block">Tepi Rapi & Presisi</span>
+                        </div>
+                        <div class="space-y-0.5 border-l border-bone/80 pl-3">
+                            <span class="text-[10px] font-mono uppercase tracking-wider text-botanic font-semibold block">Garansi 7 Hari</span>
+                            <span class="text-[11px] text-stone-600 font-medium block">Retur Tanpa Repot</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Visual Column (Right) -->
+                <div class="lg:col-span-5 relative flex justify-center">
+                    <div class="relative w-full max-w-sm sm:max-w-md aspect-[3/4] rounded-lg overflow-hidden border border-blush-200/90 shadow-lg group">
+                        <img 
+                            src="{{ asset('images/home/hero-portrait.jpg') }}" 
+                            alt="BloomingKembang Signature Hijab Collection" 
+                            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                        />
+                        <!-- Subtle Gradient Overlay on Portrait -->
+                        <div class="absolute inset-0 bg-gradient-to-t from-obsidian/60 via-transparent to-transparent opacity-80"></div>
+                        
+                        <!-- Floating Glassmorphism Label -->
+                        <div class="absolute bottom-4 left-4 right-4 p-4 rounded-md bg-white/90 backdrop-blur-md border border-white/40 shadow-sm text-left">
+                            <span class="text-[10px] uppercase font-mono tracking-widest text-botanic font-bold block">Signature Edition</span>
+                            <p class="text-xs font-serif font-medium text-obsidian uppercase">Voal & Pashmina Draped in Grace</p>
+                            <span class="text-[10px] text-stone-500 font-mono block mt-0.5">Warna Sage & Dusty Rose Kurasi 2026</span>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- Curated Categories Banner Strip -->
-    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-        <div class="grid grid-cols-1 sm:grid-cols-3 gap-5">
-            <a href="{{ url('/koleksi/hijab-segi-empat') }}" class="border border-sage-200 bg-gradient-to-br from-sage-50/80 to-white/90 p-6 hover:border-botanic hover:shadow-xs transition-all text-center group rounded-sm backdrop-blur-xs">
-                <span class="text-[10px] uppercase font-mono tracking-widest text-botanic font-semibold block mb-1">Signature Voal</span>
-                <h3 class="text-xs uppercase tracking-widest font-medium text-obsidian group-hover:text-botanic transition-colors">Hijab Segi Empat &rarr;</h3>
+    <!-- Curated Categories Banner Strip with Real Images -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+            <!-- Category 1: Segi Empat -->
+            <a href="{{ url('/koleksi/hijab-segi-empat') }}" class="group relative block aspect-[4/3] rounded-lg overflow-hidden border border-sage-200/80 shadow-xs hover:shadow-md transition-all">
+                <img 
+                    src="{{ asset('images/home/cat-segi-empat.jpg') }}" 
+                    alt="Koleksi Hijab Segi Empat" 
+                    class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
+                />
+                <div class="absolute inset-0 bg-gradient-to-t from-obsidian/75 via-obsidian/25 to-transparent"></div>
+                <div class="absolute bottom-5 left-5 right-5 text-left text-paper">
+                    <span class="text-[10px] uppercase font-mono tracking-widest text-blush-200 font-semibold block mb-1">Signature Voal</span>
+                    <h3 class="text-sm uppercase tracking-widest font-medium text-white flex items-center justify-between">
+                        <span>Hijab Segi Empat</span>
+                        <span class="group-hover:translate-x-1 transition-transform">&rarr;</span>
+                    </h3>
+                </div>
             </a>
-            <a href="{{ url('/koleksi/pashmina') }}" class="border border-blush-200 bg-gradient-to-br from-blush-50/80 to-white/90 p-6 hover:border-bloom hover:shadow-xs transition-all text-center group rounded-sm backdrop-blur-xs">
-                <span class="text-[10px] uppercase font-mono tracking-widest text-bloom font-semibold block mb-1">Ceruty Babydoll</span>
-                <h3 class="text-xs uppercase tracking-widest font-medium text-obsidian group-hover:text-bloom transition-colors">Pashmina Flowy &rarr;</h3>
+
+            <!-- Category 2: Pashmina -->
+            <a href="{{ url('/koleksi/pashmina') }}" class="group relative block aspect-[4/3] rounded-lg overflow-hidden border border-blush-200/80 shadow-xs hover:shadow-md transition-all">
+                <img 
+                    src="{{ asset('images/home/cat-pashmina.jpg') }}" 
+                    alt="Koleksi Pashmina Flowy" 
+                    class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
+                />
+                <div class="absolute inset-0 bg-gradient-to-t from-obsidian/75 via-obsidian/25 to-transparent"></div>
+                <div class="absolute bottom-5 left-5 right-5 text-left text-paper">
+                    <span class="text-[10px] uppercase font-mono tracking-widest text-blush-200 font-semibold block mb-1">Ceruty Babydoll</span>
+                    <h3 class="text-sm uppercase tracking-widest font-medium text-white flex items-center justify-between">
+                        <span>Pashmina Flowy</span>
+                        <span class="group-hover:translate-x-1 transition-transform">&rarr;</span>
+                    </h3>
+                </div>
             </a>
-            <a href="{{ url('/koleksi/inner-dan-aksesoris') }}" class="border border-sage-200/90 bg-gradient-to-br from-sage-50/60 via-white/80 to-blush-50/60 p-6 hover:border-botanic hover:shadow-xs transition-all text-center group rounded-sm backdrop-blur-xs">
-                <span class="text-[10px] uppercase font-mono tracking-widest text-botanic font-semibold block mb-1">Premium Knit</span>
-                <h3 class="text-xs uppercase tracking-widest font-medium text-obsidian group-hover:text-botanic transition-colors">Inner & Aksesoris &rarr;</h3>
+
+            <!-- Category 3: Inner & Aksesoris -->
+            <a href="{{ url('/koleksi/inner-dan-aksesoris') }}" class="group relative block aspect-[4/3] rounded-lg overflow-hidden border border-sage-200/80 shadow-xs hover:shadow-md transition-all">
+                <img 
+                    src="{{ asset('images/home/cat-inner-aksesoris.jpg') }}" 
+                    alt="Koleksi Inner dan Aksesoris" 
+                    class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
+                />
+                <div class="absolute inset-0 bg-gradient-to-t from-obsidian/75 via-obsidian/25 to-transparent"></div>
+                <div class="absolute bottom-5 left-5 right-5 text-left text-paper">
+                    <span class="text-[10px] uppercase font-mono tracking-widest text-blush-200 font-semibold block mb-1">Premium Knit & Clips</span>
+                    <h3 class="text-sm uppercase tracking-widest font-medium text-white flex items-center justify-between">
+                        <span>Inner & Aksesoris</span>
+                        <span class="group-hover:translate-x-1 transition-transform">&rarr;</span>
+                    </h3>
+                </div>
             </a>
         </div>
     </section>
@@ -79,21 +162,17 @@
             @forelse($featuredProducts as $product)
                 <div class="group flex flex-col justify-between border border-sage-200/60 bg-white/90 backdrop-blur-xs p-4 hover:border-bloom hover:shadow-md transition-all rounded-sm">
                     <!-- Photo Frame / Visual Preview -->
-                    <div class="aspect-[3/4] bg-stone-50 relative overflow-hidden flex items-center justify-center p-6 text-center border border-bone">
-                        @if($product->hasMedia('images'))
-                            <img 
-                                src="{{ $product->getFirstMediaUrl('images', 'preview') ?: $product->getFirstMediaUrl('images') }}" 
-                                alt="{{ $product->name }}" 
-                                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                                loading="lazy"
-                            />
-                        @else
-                            <div class="space-y-2">
-                                <span class="text-[10px] uppercase tracking-widest text-botanic block font-mono">{{ $product->category->name ?? 'Hijab' }}</span>
-                                <span class="text-xs font-serif font-medium text-obsidian block uppercase">{{ $product->name }}</span>
-                                <span class="text-[11px] text-stone-500 block font-mono">{{ $product->material ?? 'Bahan Pilihan' }}</span>
-                            </div>
-                        @endif
+                    <div class="aspect-[3/4] bg-stone-50 relative overflow-hidden flex items-center justify-center border border-bone rounded-sm">
+                        @php
+                            $imageUrl = $product->getFirstMediaUrl('images', 'preview') 
+                                ?: ($product->getFirstMediaUrl('images') ?: asset('images/product-placeholder.jpg'));
+                        @endphp
+                        <img 
+                            src="{{ $imageUrl }}" 
+                            alt="{{ $product->name }}" 
+                            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                            loading="lazy"
+                        />
 
                         @if($product->sold_count > 0)
                             <span class="absolute top-3 left-3 bg-white/95 backdrop-blur-xs border border-sage-200 text-botanic px-2.5 py-0.5 text-[9px] font-mono uppercase tracking-wider rounded-full shadow-xs">
@@ -174,18 +253,28 @@
         </div>
     </section>
 
-    <!-- Editorial Story Strip -->
-    <section class="border-b border-blush-200/60 bg-gradient-to-r from-sage-50/70 via-white/85 to-blush-50/70 py-20 backdrop-blur-xs">
-        <div class="max-w-4xl mx-auto px-4 text-center space-y-4">
+    <!-- Editorial Story Strip with Wide Boutique Backdrop -->
+    <section class="relative py-24 overflow-hidden border-b border-blush-200/60">
+        <!-- Wide Background Photo with Parallax feeling -->
+        <div class="absolute inset-0 z-0">
+            <img 
+                src="{{ asset('images/home/hero-editorial.jpg') }}" 
+                alt="Filosofi BloomingKembang" 
+                class="w-full h-full object-cover object-center filter blur-xs scale-105 opacity-25" 
+            />
+            <div class="absolute inset-0 bg-gradient-to-r from-sage-50/90 via-white/85 to-blush-50/90 backdrop-blur-2xs"></div>
+        </div>
+
+        <div class="relative z-10 max-w-4xl mx-auto px-4 text-center space-y-4">
             <span class="text-[10px] uppercase font-mono tracking-widest text-botanic font-semibold">Filosofi Keanggunan</span>
-            <h3 class="text-xl sm:text-2xl font-serif font-normal uppercase tracking-wider text-obsidian">
+            <h3 class="text-xl sm:text-3xl font-serif font-normal uppercase tracking-wider text-obsidian">
                 Menemani Setiap Langkah Bersahaja
             </h3>
             <p class="text-xs sm:text-sm text-stone-600 max-w-xl mx-auto leading-relaxed">
                 Karena keindahan sejati tidak perlu bersuara keras. Kami percaya busana santun mampu memancarkan wibawa kelembutan wanita muslimah secara alami.
             </p>
             <div class="pt-4">
-                <a href="{{ url('/tentang-kami') }}" class="inline-flex items-center gap-1.5 text-xs uppercase tracking-widest font-medium text-bloom hover:text-blush-800 transition-colors">
+                <a href="{{ url('/tentang-kami') }}" class="inline-flex items-center gap-1.5 px-6 py-3 border border-blush-300 bg-white/90 text-bloom text-xs uppercase tracking-widest font-medium hover:bg-blush-50 transition-colors rounded-sm shadow-xs">
                     <span>Pelajari Lebih Lanjut</span>
                     <span>&rarr;</span>
                 </a>

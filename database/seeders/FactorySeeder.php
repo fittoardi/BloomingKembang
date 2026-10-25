@@ -97,6 +97,23 @@ class FactorySeeder extends Seeder
                 ]
             );
 
+            if (! $product->hasMedia('images')) {
+                $imageFile = match ($pData['cat']) {
+                    'Bergo Daily' => 'bergo-daily.jpg',
+                    'Khimar Syar\'i' => 'khimar-syari.jpg',
+                    'Pashmina Silk' => 'pashmina-silk.jpg',
+                    'Pashmina Ceruty Babydoll' => 'pashmina-ceruty.jpg',
+                    'Mukena Travel Silk' => 'mukena-silk.jpg',
+                    'Hijab Segi Empat' => str_contains($slug, 'paris') ? 'paris-laser-cut.jpg' : 'voal-signature.jpg',
+                    'Inner & Aksesoris' => str_contains($slug, 'ciput') ? 'ciput-ninja.jpg' : 'klip-turki.jpg',
+                    default => 'voal-signature.jpg',
+                };
+                $imagePath = database_path('seeders/images/'.$imageFile);
+                if (file_exists($imagePath)) {
+                    $product->addMedia($imagePath)->preservingOriginal()->toMediaCollection('images');
+                }
+            }
+
             // Buat 3 Varian Warna untuk Setiap Produk
             $palette = [
                 ['color' => 'Dusty Rose', 'hex' => '#c89d9c'],

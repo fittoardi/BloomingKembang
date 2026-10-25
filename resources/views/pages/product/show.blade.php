@@ -64,24 +64,13 @@
                     </div>
                 @endif
             @else
-                <!-- Main Photo Showcase (Minimalist Editorial Typography Placeholder) -->
-                <div class="aspect-[3/4] bg-bone border border-bone relative overflow-hidden flex flex-col items-center justify-center p-10 text-center">
-                    <div class="space-y-4 max-w-sm">
-                        <span class="text-xs uppercase tracking-[0.2em] text-neutral-400 font-mono block">
-                            {{ $product->category->name ?? 'Hijab' }} &bull; {{ $product->material ?? 'Bahan Pilihan' }}
-                        </span>
-                        <h2 class="text-xl sm:text-2xl font-light text-obsidian tracking-wide">
-                            {{ $product->name }}
-                        </h2>
-                        @if($selectedVariant)
-                            <div class="pt-4 border-t border-neutral-300">
-                                <span class="text-xs uppercase tracking-widest text-neutral-500 font-mono block">Varian Terpilih</span>
-                                <span class="text-sm font-medium text-obsidian block mt-1">
-                                    {{ $selectedVariant->color }}{{ $selectedVariant->size ? ' — ' . $selectedVariant->size : '' }}
-                                </span>
-                            </div>
-                        @endif
-                    </div>
+                <!-- Main Photo Showcase Fallback Image -->
+                <div class="aspect-[3/4] bg-bone border border-bone relative overflow-hidden flex items-center justify-center">
+                    <img 
+                        src="{{ asset('images/product-placeholder.jpg') }}" 
+                        alt="{{ $product->name }}" 
+                        class="w-full h-full object-cover"
+                    />
 
                     @if($availableStock <= 0)
                         <div class="absolute inset-0 bg-paper/85 flex items-center justify-center">

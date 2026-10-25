@@ -49,6 +49,54 @@ class ProductFactory extends Factory
         ];
     }
 
+    public function configure(): static
+    {
+        return $this->afterCreating(function (Product $product): void {
+            if ($product->hasMedia('images')) {
+                return;
+            }
+
+            $imagesDir = database_path('seeders/images');
+            if (! is_dir($imagesDir)) {
+                return;
+            }
+
+            $name = strtolower($product->name);
+            $imageFile = match (true) {
+                str_contains($name, 'pashmina silk') => 'pashmina-silk.jpg',
+                str_contains($name, 'pashmina') => 'pashmina-ceruty.jpg',
+                str_contains($name, 'paris') => 'paris-laser-cut.jpg',
+                str_contains($name, 'voal') => 'voal-signature.jpg',
+                str_contains($name, 'bergo') => 'bergo-daily.jpg',
+                str_contains($name, 'khimar') => 'khimar-syari.jpg',
+                str_contains($name, 'mukena') => 'mukena-silk.jpg',
+                str_contains($name, 'ciput') => 'ciput-ninja.jpg',
+                str_contains($name, 'klip') || str_contains($name, 'bros') || str_contains($name, 'scrunchie') => 'klip-turki.jpg',
+                default => 'voal-signature.jpg',
+            };
+
+            $imagePath = $imagesDir.'/'.$imageFile;
+            if (file_exists($imagePath)) {
+                $product->addMedia($imagePath)
+                    ->preservingOriginal()
+                    ->toMediaCollection('images');
+            }
+        });
+    }
+
+    public function withImage(?string $imageFile = null): static
+    {
+        return $this->afterCreating(function (Product $product) use ($imageFile): void {
+            $imageFile ??= 'voal-signature.jpg';
+            $imagePath = database_path('seeders/images/'.$imageFile);
+            if (file_exists($imagePath)) {
+                $product->addMedia($imagePath)
+                    ->preservingOriginal()
+                    ->toMediaCollection('images');
+            }
+        });
+    }
+
     public function featured(): static
     {
         return $this->state(fn (array $attributes) => [

@@ -148,11 +148,16 @@
                         <article class="group flex flex-col justify-between border border-sage-200/60 hover:border-bloom transition-all p-3.5 bg-white/90 backdrop-blur-xs rounded-sm shadow-2xs hover:shadow-md">
                             <!-- Image Frame -->
                             <a href="{{ url('/produk/' . $product->slug) }}" class="aspect-[3/4] bg-stone-50 border border-stone-100 relative overflow-hidden block rounded-xs">
-                                <div class="w-full h-full flex flex-col items-center justify-center p-6 text-center space-y-2 bg-gradient-to-b from-white to-stone-50">
-                                    <span class="text-[10px] uppercase tracking-widest text-neutral-400 font-mono">{{ $product->category->name ?? 'Hijab' }}</span>
-                                    <h3 class="text-xs font-medium text-obsidian tracking-wide leading-snug">{{ $product->name }}</h3>
-                                    <span class="text-[11px] text-neutral-500 font-mono">{{ $product->material ?? 'Bahan Pilihan' }}</span>
-                                </div>
+                                @php
+                                    $catalogImg = $product->getFirstMediaUrl('images', 'preview') 
+                                        ?: ($product->getFirstMediaUrl('images') ?: asset('images/product-placeholder.jpg'));
+                                @endphp
+                                <img 
+                                    src="{{ $catalogImg }}" 
+                                    alt="{{ $product->name }}" 
+                                    class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
+                                    loading="lazy"
+                                />
 
                                 @if(!$hasStock)
                                     <div class="absolute inset-0 bg-paper/85 flex items-center justify-center">
