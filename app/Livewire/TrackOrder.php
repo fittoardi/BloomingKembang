@@ -100,7 +100,7 @@ class TrackOrder extends Component
 
     public function render(): View
     {
-        return view('livewire.track-order')->layout('layouts.storefront', [
+        return view('pages.orders.track')->layout('layouts.storefront', [
             'title' => 'Lacak Pesanan — BloomingKembang',
         ]);
     }

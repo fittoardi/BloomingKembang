@@ -110,7 +110,7 @@ class OrderDetail extends Component
 
     public function render(): View
     {
-        return view('livewire.account.order-detail')->layout('layouts.storefront', [
+        return view('pages.account.orders.show')->layout('layouts.storefront', [
             'title' => "Pesanan #{$this->order->number} — BloomingKembang",
         ]);
     }

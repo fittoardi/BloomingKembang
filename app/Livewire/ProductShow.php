@@ -197,7 +197,7 @@ class ProductShow extends Component
         // Media images
         $images = $this->product->getMedia('images');
 
-        return view('livewire.product-show', [
+        return view('pages.product.show', [
             'selectedVariant' => $selectedVariant,
             'availableStock' => $availableStock,
             'relatedProducts' => $relatedProducts,

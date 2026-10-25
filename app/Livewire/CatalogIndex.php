@@ -133,7 +133,7 @@ class CatalogIndex extends Component
             $currentCategory = $categories->firstWhere('slug', $this->categorySlug);
         }
 
-        return view('livewire.catalog-index', [
+        return view('pages.catalog.index', [
             'products' => $products,
             'categories' => $categories,
             'availableColors' => $availableColors,

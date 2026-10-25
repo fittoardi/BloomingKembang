@@ -15,7 +15,7 @@ use App\Livewire\TrackOrder;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('pages.home.index');
 });
 
 // Katalog & Produk Storefront
@@ -44,7 +44,7 @@ Route::get('/dashboard', function () {
 })->middleware(['auth'])->name('dashboard');
 
 Route::get('/akun', function () {
-    return view('account.dashboard');
+    return view('pages.account.dashboard');
 })->middleware(['auth'])->name('account.dashboard');
 
 Route::get('/lacak-pesanan', TrackOrder::class)->middleware('throttle:track-order')->name('orders.track');

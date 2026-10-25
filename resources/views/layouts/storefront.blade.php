@@ -7,6 +7,11 @@
 
         <title>{{ $title ?? 'BloomingKembang — Koleksi Hijab Elegan & Bersahaja' }}</title>
 
+        <!-- Favicon -->
+        <link rel="icon" type="image/svg+xml" href="{{ asset('favicon.svg') }}?v=3">
+        <link rel="icon" type="image/png" sizes="64x64" href="{{ asset('favicon.png') }}?v=3">
+        <link rel="shortcut icon" href="{{ asset('favicon.ico') }}?v=3">
+
         <!-- Canonical & SEO Meta Tags -->
         <link rel="canonical" href="{{ url()->current() }}" />
         <meta name="description" content="{{ $metaDescription ?? 'Koleksi hijab bernapas lembut dan berkarakter elegan untuk muslimah bersahaja. Ditenun dari serat voal ultrafine dan ceruty babydoll pilihan.' }}">
@@ -171,10 +176,21 @@
 
                 <!-- Center Brand Colophon -->
                 <div class="text-center">
-                    <a href="{{ url('/') }}" class="group inline-flex items-center gap-0.5 text-base sm:text-lg uppercase tracking-[0.18em]">
-                        <span class="font-serif tracking-normal text-obsidian font-bold">Blooming</span>
-                        <span class="font-serif italic font-normal text-bloom tracking-normal">Kembang</span>
-                        <span class="w-1.5 h-1.5 rounded-full bg-botanic inline-block ml-1 group-hover:scale-125 transition-transform"></span>
+                    <a href="{{ url('/') }}" class="group inline-flex items-center gap-2 text-base sm:text-lg uppercase tracking-[0.18em]">
+                        <svg class="w-6 h-6 sm:w-7 sm:h-7 group-hover:rotate-12 transition-transform duration-300 flex-shrink-0" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="24" cy="24" r="22" fill="#FDF7F8" stroke="#B8546B" stroke-width="1.5"/>
+                            <path d="M24 9 C26.5 15, 31 18, 31 23 C31 27.5, 27.5 31, 24 31 C20.5 31, 17 27.5, 17 23 C17 18, 21.5 15, 24 9 Z" fill="#B8546B"/>
+                            <path d="M13 20 C18 18.5, 22 22, 23 26 C20 29, 16 29, 13.5 26.5 C11.5 24.5, 11.5 21.5, 13 20 Z" fill="#D48B9B"/>
+                            <path d="M35 20 C30 18.5, 26 22, 25 26 C28 29, 32 29, 34.5 26.5 C36.5 24.5, 36.5 21.5, 35 20 Z" fill="#D48B9B"/>
+                            <circle cx="24" cy="23" r="2.8" fill="#FFF8F6" stroke="#4E674E" stroke-width="1.2"/>
+                            <path d="M24 31 C24 36, 21.5 39, 18 40 C20.5 37, 22.5 35, 24 31 Z" fill="#4E674E"/>
+                            <path d="M24 31 C24 36, 26.5 39, 30 40 C27.5 37, 25.5 35, 24 31 Z" fill="#6A856A"/>
+                        </svg>
+                        <span class="inline-flex items-center gap-0.5">
+                            <span class="font-serif tracking-normal text-obsidian font-bold">Blooming</span>
+                            <span class="font-serif italic font-normal text-bloom tracking-normal">Kembang</span>
+                            <span class="w-1.5 h-1.5 rounded-full bg-botanic inline-block ml-1 group-hover:scale-125 transition-transform"></span>
+                        </span>
                     </a>
                 </div>
 

@@ -19,7 +19,7 @@ class StaticPage extends Component
 
     public function render(): View
     {
-        return view('livewire.static-page')->layout('layouts.storefront', [
+        return view('pages.static.show')->layout('layouts.storefront', [
             'title' => ($this->page->seo_title ?: $this->page->title).' — BloomingKembang',
             'metaDescription' => $this->page->seo_description,
         ]);

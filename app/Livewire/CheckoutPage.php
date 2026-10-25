@@ -269,7 +269,7 @@ class CheckoutPage extends Component
 
         $savedAddresses = Auth::check() ? Auth::user()->addresses()->orderByDesc('is_default')->get() : collect();
 
-        return view('livewire.checkout-page', [
+        return view('pages.checkout.index', [
             'items' => $items,
             'subtotal' => $subtotal,
             'totalWeight' => $totalWeight,
