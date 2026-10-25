@@ -22,11 +22,11 @@
             
             <!-- Category Quick Tabs -->
             <div class="flex flex-wrap gap-2 text-xs">
-                <a href="{{ url('/koleksi') }}" class="px-3 py-1.5 border {{ empty($categorySlug) ? 'border-obsidian bg-obsidian text-paper font-medium' : 'border-bone hover:border-obsidian text-neutral-600' }} transition-colors">
+                <a href="{{ url('/koleksi') }}" class="px-3.5 py-1.5 border {{ empty($categorySlug) ? 'border-botanic bg-botanic text-paper font-medium shadow-xs' : 'border-sage-200/80 bg-white/70 hover:border-botanic text-neutral-600' }} transition-colors rounded-xs">
                     Semua
                 </a>
                 @foreach($categories as $cat)
-                    <a href="{{ url('/koleksi/' . $cat->slug) }}" class="px-3 py-1.5 border {{ $categorySlug === $cat->slug ? 'border-obsidian bg-obsidian text-paper font-medium' : 'border-bone hover:border-obsidian text-neutral-600' }} transition-colors">
+                    <a href="{{ url('/koleksi/' . $cat->slug) }}" class="px-3.5 py-1.5 border {{ $categorySlug === $cat->slug ? 'border-botanic bg-botanic text-paper font-medium shadow-xs' : 'border-sage-200/80 bg-white/70 hover:border-botanic text-neutral-600' }} transition-colors rounded-xs">
                         {{ $cat->name }}
                     </a>
                 @endforeach
@@ -36,8 +36,8 @@
 
     <div class="grid grid-cols-1 lg:grid-cols-4 gap-8 sm:gap-12 items-start">
         <!-- Sidebar Filter -->
-        <aside class="lg:col-span-1 space-y-8 bg-paper p-6 border border-bone">
-            <div class="flex items-center justify-between pb-3 border-b border-bone">
+        <aside class="lg:col-span-1 space-y-8 bg-white/85 backdrop-blur-xs p-6 border border-sage-200/80 rounded-sm shadow-2xs">
+            <div class="flex items-center justify-between pb-3 border-b border-sage-100">
                 <h2 class="text-xs uppercase tracking-widest font-semibold text-obsidian">Filter Koleksi</h2>
                 @if($color || $material || $availability || $minPrice || $maxPrice || $sortBy !== 'newest')
                     <button wire:click="resetFilters" class="text-[11px] underline text-neutral-500 hover:text-obsidian">
@@ -145,10 +145,10 @@
                             $maxPrice = $product->variants->max('price');
                             $hasStock = $product->variants->contains(fn($v) => ($v->stock - $v->reserved) > 0);
                         @endphp
-                        <article class="group flex flex-col justify-between border border-transparent hover:border-bone transition-colors p-3 bg-white">
+                        <article class="group flex flex-col justify-between border border-sage-200/60 hover:border-bloom transition-all p-3.5 bg-white/90 backdrop-blur-xs rounded-sm shadow-2xs hover:shadow-md">
                             <!-- Image Frame -->
-                            <a href="{{ url('/produk/' . $product->slug) }}" class="aspect-[3/4] bg-bone border border-bone relative overflow-hidden block">
-                                <div class="w-full h-full flex flex-col items-center justify-center p-6 text-center space-y-2 bg-gradient-to-b from-paper to-bone">
+                            <a href="{{ url('/produk/' . $product->slug) }}" class="aspect-[3/4] bg-stone-50 border border-stone-100 relative overflow-hidden block rounded-xs">
+                                <div class="w-full h-full flex flex-col items-center justify-center p-6 text-center space-y-2 bg-gradient-to-b from-white to-stone-50">
                                     <span class="text-[10px] uppercase tracking-widest text-neutral-400 font-mono">{{ $product->category->name ?? 'Hijab' }}</span>
                                     <h3 class="text-xs font-medium text-obsidian tracking-wide leading-snug">{{ $product->name }}</h3>
                                     <span class="text-[11px] text-neutral-500 font-mono">{{ $product->material ?? 'Bahan Pilihan' }}</span>

@@ -118,7 +118,13 @@
             };
         </script>
     </head>
-    <body class="bg-paper text-obsidian min-h-screen flex flex-col font-sans antialiased selection:bg-bone relative">
+    <body class="bg-storefront-ambient text-obsidian min-h-screen flex flex-col font-sans antialiased selection:bg-blush-200 selection:text-blush-900 relative overflow-x-hidden">
+        <!-- Ambient Decorative Green & Pink Glow Background Orbs -->
+        <div class="fixed top-[-10%] left-[-10%] w-[32rem] sm:w-[42rem] h-[32rem] sm:h-[42rem] bg-blush-200/35 rounded-full blur-[100px] pointer-events-none -z-10 transform-gpu"></div>
+        <div class="fixed top-[5%] right-[-10%] w-[30rem] sm:w-[38rem] h-[30rem] sm:h-[38rem] bg-sage-200/40 rounded-full blur-[100px] pointer-events-none -z-10 transform-gpu"></div>
+        <div class="fixed top-[45%] left-[10%] w-[28rem] sm:w-[36rem] h-[28rem] sm:h-[36rem] bg-sage-100/40 rounded-full blur-[110px] pointer-events-none -z-10 transform-gpu"></div>
+        <div class="fixed bottom-[-10%] right-[-5%] w-[34rem] sm:w-[44rem] h-[34rem] sm:h-[44rem] bg-blush-200/30 rounded-full blur-[120px] pointer-events-none -z-10 transform-gpu"></div>
+
         <!-- Top Announcement Banner -->
         @php
             $globalTopBanner = \App\Models\Banner::where('is_active', true)
@@ -154,7 +160,7 @@
         @endif
 
         <!-- Minimal Header Navigation -->
-        <header x-data class="border-b border-bone bg-paper/95 backdrop-blur-xs sticky top-0 z-40 transition-colors">
+        <header x-data class="border-b border-blush-200/60 bg-white/85 backdrop-blur-md sticky top-0 z-40 transition-colors shadow-[0_2px_12px_rgba(78,103,78,0.03)]">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
                 <!-- Left Nav Items -->
                 <nav class="hidden md:flex items-center space-x-8 text-xs uppercase tracking-widest">
@@ -274,7 +280,7 @@
         </div>
 
         <!-- Museum Minimal Colophon Footer -->
-        <footer class="border-t border-bone bg-paper mt-24 py-16 text-xs text-obsidian">
+        <footer class="border-t border-sage-200/60 bg-gradient-to-b from-white/80 via-sage-50/40 to-blush-50/50 backdrop-blur-xs mt-24 py-16 text-xs text-obsidian">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-4 gap-12">
                 <div class="space-y-3">
                     <h4 class="text-xs tracking-widest uppercase font-medium">BloomingKembang</h4>

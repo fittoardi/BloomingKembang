@@ -15,10 +15,14 @@
     @endphp
 
     <!-- Hero Editorial Section -->
-    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-20">
-        <div class="border border-blush-200/80 p-8 sm:p-16 text-center space-y-6 bg-gradient-to-br from-sage-50/60 via-paper to-blush-50/70 relative overflow-hidden rounded-sm shadow-xs">
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-20 relative">
+        <div class="border border-blush-200/90 p-8 sm:p-16 text-center space-y-6 bg-gradient-to-br from-sage-50/90 via-white/95 to-blush-50/90 relative overflow-hidden rounded-md shadow-xs backdrop-blur-xs">
+            <!-- Atmospheric Ambient Orbs -->
+            <div class="absolute -top-16 -left-16 w-64 h-64 rounded-full bg-sage-200/40 blur-3xl pointer-events-none"></div>
+            <div class="absolute -bottom-16 -right-16 w-64 h-64 rounded-full bg-blush-200/40 blur-3xl pointer-events-none"></div>
+
             <div>
-                <span class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-sage-100 text-botanic text-[11px] font-mono tracking-widest uppercase border border-sage-200/80">
+                <span class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-sage-100/90 text-botanic text-[11px] font-mono tracking-widest uppercase border border-sage-200">
                     <span class="w-1.5 h-1.5 rounded-full bg-bloom animate-pulse"></span>
                     Koleksi Hijab Kurasi 2026
                 </span>
@@ -43,15 +47,15 @@
     <!-- Curated Categories Banner Strip -->
     <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-5">
-            <a href="{{ url('/koleksi/hijab-segi-empat') }}" class="border border-sage-200 bg-sage-50/40 p-6 hover:border-botanic hover:bg-sage-50/80 transition-all text-center group rounded-sm">
+            <a href="{{ url('/koleksi/hijab-segi-empat') }}" class="border border-sage-200 bg-gradient-to-br from-sage-50/80 to-white/90 p-6 hover:border-botanic hover:shadow-xs transition-all text-center group rounded-sm backdrop-blur-xs">
                 <span class="text-[10px] uppercase font-mono tracking-widest text-botanic font-semibold block mb-1">Signature Voal</span>
                 <h3 class="text-xs uppercase tracking-widest font-medium text-obsidian group-hover:text-botanic transition-colors">Hijab Segi Empat &rarr;</h3>
             </a>
-            <a href="{{ url('/koleksi/pashmina') }}" class="border border-blush-200 bg-blush-50/40 p-6 hover:border-bloom hover:bg-blush-50/80 transition-all text-center group rounded-sm">
+            <a href="{{ url('/koleksi/pashmina') }}" class="border border-blush-200 bg-gradient-to-br from-blush-50/80 to-white/90 p-6 hover:border-bloom hover:shadow-xs transition-all text-center group rounded-sm backdrop-blur-xs">
                 <span class="text-[10px] uppercase font-mono tracking-widest text-bloom font-semibold block mb-1">Ceruty Babydoll</span>
                 <h3 class="text-xs uppercase tracking-widest font-medium text-obsidian group-hover:text-bloom transition-colors">Pashmina Flowy &rarr;</h3>
             </a>
-            <a href="{{ url('/koleksi/inner-dan-aksesoris') }}" class="border border-sage-200 bg-sage-50/40 p-6 hover:border-botanic hover:bg-sage-50/80 transition-all text-center group rounded-sm">
+            <a href="{{ url('/koleksi/inner-dan-aksesoris') }}" class="border border-sage-200/90 bg-gradient-to-br from-sage-50/60 via-white/80 to-blush-50/60 p-6 hover:border-botanic hover:shadow-xs transition-all text-center group rounded-sm backdrop-blur-xs">
                 <span class="text-[10px] uppercase font-mono tracking-widest text-botanic font-semibold block mb-1">Premium Knit</span>
                 <h3 class="text-xs uppercase tracking-widest font-medium text-obsidian group-hover:text-botanic transition-colors">Inner & Aksesoris &rarr;</h3>
             </a>
@@ -73,7 +77,7 @@
 
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-12">
             @forelse($featuredProducts as $product)
-                <div class="group flex flex-col justify-between border border-bone/80 bg-paper p-4 hover:border-blush-300 hover:shadow-xs transition-all rounded-sm">
+                <div class="group flex flex-col justify-between border border-sage-200/60 bg-white/90 backdrop-blur-xs p-4 hover:border-bloom hover:shadow-md transition-all rounded-sm">
                     <!-- Photo Frame / Visual Preview -->
                     <div class="aspect-[3/4] bg-stone-50 relative overflow-hidden flex items-center justify-center p-6 text-center border border-bone">
                         @if($product->hasMedia('images'))
@@ -140,10 +144,10 @@
     </section>
 
     <!-- Value Proposition Grid -->
-    <section class="border-y border-bone bg-stone-50/60 py-16">
+    <section class="border-y border-sage-200/60 bg-gradient-to-r from-sage-50/60 via-white/80 to-blush-50/60 py-16 backdrop-blur-xs">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-center sm:text-left">
-                <div class="border border-sage-200/80 p-6 space-y-2 bg-sage-50/50 rounded-sm">
+                <div class="border border-sage-200/90 p-6 space-y-2 bg-sage-50/70 rounded-sm shadow-2xs backdrop-blur-xs">
                     <span class="text-xs uppercase font-mono tracking-widest text-botanic font-bold block">01 / Serat Pilihan</span>
                     <h3 class="text-xs uppercase tracking-wider font-semibold text-obsidian">Kain Ringan & Tegak</h3>
                     <p class="text-xs text-stone-600 leading-relaxed">
@@ -171,7 +175,7 @@
     </section>
 
     <!-- Editorial Story Strip -->
-    <section class="border-b border-bone bg-gradient-to-r from-sage-50/40 via-paper to-blush-50/40 py-20">
+    <section class="border-b border-blush-200/60 bg-gradient-to-r from-sage-50/70 via-white/85 to-blush-50/70 py-20 backdrop-blur-xs">
         <div class="max-w-4xl mx-auto px-4 text-center space-y-4">
             <span class="text-[10px] uppercase font-mono tracking-widest text-botanic font-semibold">Filosofi Keanggunan</span>
             <h3 class="text-xl sm:text-2xl font-serif font-normal uppercase tracking-wider text-obsidian">

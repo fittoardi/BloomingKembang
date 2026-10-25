@@ -119,7 +119,7 @@
         </div>
 
         <!-- Kolom Informasi & Pemilihan Varian -->
-        <div class="lg:col-span-5 space-y-8 bg-paper p-6 sm:p-8 border border-bone">
+        <div class="lg:col-span-5 space-y-8 bg-white/90 backdrop-blur-xs p-6 sm:p-8 border border-sage-200/80 rounded-sm shadow-2xs">
             <div>
                 <span class="text-[10px] uppercase tracking-widest text-neutral-400 font-mono block">
                     {{ $product->category->name ?? 'Koleksi' }}
