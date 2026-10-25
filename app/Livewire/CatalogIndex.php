@@ -7,7 +7,6 @@ use App\Models\Category;
 use App\Models\Product;
 use App\Models\ProductVariant;
 use Illuminate\Contracts\View\View;
-use Illuminate\Support\Facades\Cache;
 use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -59,26 +58,20 @@ class CatalogIndex extends Component
 
     public function render(): View
     {
-        $categories = Cache::remember('catalog_categories_list', 300, function () {
-            return Category::where('is_active', true)->orderBy('position')->get(['id', 'name', 'slug']);
-        });
+        $categories = Category::where('is_active', true)->orderBy('position')->get(['id', 'name', 'slug', 'description']);
 
-        $availableColors = Cache::remember('catalog_colors_list', 300, function () {
-            return ProductVariant::where('is_active', true)
-                ->whereNotNull('color')
-                ->select('color', 'color_hex')
-                ->distinct()
-                ->get();
-        });
+        $availableColors = ProductVariant::where('is_active', true)
+            ->whereNotNull('color')
+            ->select('color', 'color_hex')
+            ->distinct()
+            ->get();
 
-        $availableMaterials = Cache::remember('catalog_materials_list', 300, function () {
-            return Product::where('status', ProductStatus::Active)
-                ->whereNotNull('material')
-                ->pluck('material')
-                ->unique()
-                ->filter()
-                ->values();
-        });
+        $availableMaterials = Product::where('status', ProductStatus::Active)
+            ->whereNotNull('material')
+            ->pluck('material')
+            ->unique()
+            ->filter()
+            ->values();
 
         $query = Product::query()
             ->with(['category', 'variants' => function ($q) {
@@ -140,7 +133,7 @@ class CatalogIndex extends Component
             $currentCategory = $categories->firstWhere('slug', $this->categorySlug);
         }
 
-        return view('livewire.catalog-index', [
+        return view('pages.catalog.index', [
             'products' => $products,
             'categories' => $categories,
             'availableColors' => $availableColors,

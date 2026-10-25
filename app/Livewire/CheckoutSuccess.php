@@ -38,7 +38,7 @@ class CheckoutSuccess extends Component
 
     public function render(): View
     {
-        return view('livewire.checkout-success')->layout('layouts.storefront', [
+        return view('pages.checkout.success')->layout('layouts.storefront', [
             'title' => "Pesanan #{$this->order->number} — BloomingKembang",
         ]);
     }

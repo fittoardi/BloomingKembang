@@ -128,7 +128,7 @@ class AddressBook extends Component
     {
         $addresses = Auth::user()->addresses()->orderByDesc('is_default')->latest()->get();
 
-        return view('livewire.account.address-book', [
+        return view('pages.account.address.index', [
             'addresses' => $addresses,
         ])->layout('layouts.storefront', [
             'title' => 'Buku Alamat — BloomingKembang',

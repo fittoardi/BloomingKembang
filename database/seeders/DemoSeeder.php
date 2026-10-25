@@ -189,6 +189,19 @@ class DemoSeeder extends Seeder
                 ]
             );
 
+            if (! $product->hasMedia('images')) {
+                $imageFile = match ($p['category_slug']) {
+                    'hijab-segi-empat' => str_contains($p['slug'], 'paris') ? 'paris-laser-cut.jpg' : 'voal-signature.jpg',
+                    'pashmina' => str_contains($p['slug'], 'silk') ? 'pashmina-silk.jpg' : 'pashmina-ceruty.jpg',
+                    'inner-dan-aksesoris' => str_contains($p['slug'], 'ciput') ? 'ciput-ninja.jpg' : 'klip-turki.jpg',
+                    default => 'voal-signature.jpg',
+                };
+                $imagePath = database_path('seeders/images/'.$imageFile);
+                if (file_exists($imagePath)) {
+                    $product->addMedia($imagePath)->preservingOriginal()->toMediaCollection('images');
+                }
+            }
+
             foreach ($p['variants'] as $idx => $v) {
                 $sku = strtoupper(Str::slug($product->slug).'-'.substr($v['color'], 0, 3).'-'.$idx);
                 $variant = ProductVariant::firstOrCreate(
@@ -314,10 +327,11 @@ class DemoSeeder extends Seeder
         }
 
         // 6. Banner Promo
-        Banner::firstOrCreate(
+        Banner::updateOrCreate(
             ['title' => 'Koleksi Syar\'i & Elegan 2026'],
             [
                 'subtitle' => 'Ditenun dari serat voal ultrafine dan ceruty babydoll pilihan.',
+                'image' => 'images/home/hero-editorial.jpg',
                 'link_url' => '/koleksi',
                 'position' => 'hero',
                 'sort_order' => 1,

@@ -7,6 +7,11 @@
 
         <title>{{ $title ?? 'BloomingKembang — Koleksi Hijab Elegan & Bersahaja' }}</title>
 
+        <!-- Favicon -->
+        <link rel="icon" type="image/svg+xml" href="{{ asset('favicon.svg') }}?v=3">
+        <link rel="icon" type="image/png" sizes="64x64" href="{{ asset('favicon.png') }}?v=3">
+        <link rel="shortcut icon" href="{{ asset('favicon.ico') }}?v=3">
+
         <!-- Canonical & SEO Meta Tags -->
         <link rel="canonical" href="{{ url()->current() }}" />
         <meta name="description" content="{{ $metaDescription ?? 'Koleksi hijab bernapas lembut dan berkarakter elegan untuk muslimah bersahaja. Ditenun dari serat voal ultrafine dan ceruty babydoll pilihan.' }}">
@@ -118,7 +123,13 @@
             };
         </script>
     </head>
-    <body class="bg-paper text-obsidian min-h-screen flex flex-col font-sans antialiased selection:bg-bone relative">
+    <body class="bg-storefront-ambient text-obsidian min-h-screen flex flex-col font-sans antialiased selection:bg-blush-200 selection:text-blush-900 relative overflow-x-hidden">
+        <!-- Ambient Decorative Green & Pink Glow Background Orbs -->
+        <div class="fixed top-[-10%] left-[-10%] w-[32rem] sm:w-[42rem] h-[32rem] sm:h-[42rem] bg-blush-200/35 rounded-full blur-[100px] pointer-events-none -z-10 transform-gpu"></div>
+        <div class="fixed top-[5%] right-[-10%] w-[30rem] sm:w-[38rem] h-[30rem] sm:h-[38rem] bg-sage-200/40 rounded-full blur-[100px] pointer-events-none -z-10 transform-gpu"></div>
+        <div class="fixed top-[45%] left-[10%] w-[28rem] sm:w-[36rem] h-[28rem] sm:h-[36rem] bg-sage-100/40 rounded-full blur-[110px] pointer-events-none -z-10 transform-gpu"></div>
+        <div class="fixed bottom-[-10%] right-[-5%] w-[34rem] sm:w-[44rem] h-[34rem] sm:h-[44rem] bg-blush-200/30 rounded-full blur-[120px] pointer-events-none -z-10 transform-gpu"></div>
+
         <!-- Top Announcement Banner -->
         @php
             $globalTopBanner = \App\Models\Banner::where('is_active', true)
@@ -154,7 +165,7 @@
         @endif
 
         <!-- Minimal Header Navigation -->
-        <header x-data class="border-b border-bone bg-paper/95 backdrop-blur-xs sticky top-0 z-40 transition-colors">
+        <header x-data class="border-b border-blush-200/60 bg-white/85 backdrop-blur-md sticky top-0 z-40 transition-colors shadow-[0_2px_12px_rgba(78,103,78,0.03)]">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
                 <!-- Left Nav Items -->
                 <nav class="hidden md:flex items-center space-x-8 text-xs uppercase tracking-widest">
@@ -165,10 +176,21 @@
 
                 <!-- Center Brand Colophon -->
                 <div class="text-center">
-                    <a href="{{ url('/') }}" class="group inline-flex items-center gap-0.5 text-base sm:text-lg uppercase tracking-[0.18em]">
-                        <span class="font-serif tracking-normal text-obsidian font-bold">Blooming</span>
-                        <span class="font-serif italic font-normal text-bloom tracking-normal">Kembang</span>
-                        <span class="w-1.5 h-1.5 rounded-full bg-botanic inline-block ml-1 group-hover:scale-125 transition-transform"></span>
+                    <a href="{{ url('/') }}" class="group inline-flex items-center gap-2 text-base sm:text-lg uppercase tracking-[0.18em]">
+                        <svg class="w-6 h-6 sm:w-7 sm:h-7 group-hover:rotate-12 transition-transform duration-300 flex-shrink-0" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="24" cy="24" r="22" fill="#FDF7F8" stroke="#B8546B" stroke-width="1.5"/>
+                            <path d="M24 9 C26.5 15, 31 18, 31 23 C31 27.5, 27.5 31, 24 31 C20.5 31, 17 27.5, 17 23 C17 18, 21.5 15, 24 9 Z" fill="#B8546B"/>
+                            <path d="M13 20 C18 18.5, 22 22, 23 26 C20 29, 16 29, 13.5 26.5 C11.5 24.5, 11.5 21.5, 13 20 Z" fill="#D48B9B"/>
+                            <path d="M35 20 C30 18.5, 26 22, 25 26 C28 29, 32 29, 34.5 26.5 C36.5 24.5, 36.5 21.5, 35 20 Z" fill="#D48B9B"/>
+                            <circle cx="24" cy="23" r="2.8" fill="#FFF8F6" stroke="#4E674E" stroke-width="1.2"/>
+                            <path d="M24 31 C24 36, 21.5 39, 18 40 C20.5 37, 22.5 35, 24 31 Z" fill="#4E674E"/>
+                            <path d="M24 31 C24 36, 26.5 39, 30 40 C27.5 37, 25.5 35, 24 31 Z" fill="#6A856A"/>
+                        </svg>
+                        <span class="inline-flex items-center gap-0.5">
+                            <span class="font-serif tracking-normal text-obsidian font-bold">Blooming</span>
+                            <span class="font-serif italic font-normal text-bloom tracking-normal">Kembang</span>
+                            <span class="w-1.5 h-1.5 rounded-full bg-botanic inline-block ml-1 group-hover:scale-125 transition-transform"></span>
+                        </span>
                     </a>
                 </div>
 
@@ -183,21 +205,21 @@
                             @csrf
                             <button type="submit" class="hover:text-bloom uppercase tracking-widest transition-colors text-stone-500 cursor-pointer">Keluar</button>
                         </form>
+                        <button 
+                            type="button" 
+                            @click="$dispatch('open-cart')" 
+                            onclick="window.dispatchEvent(new CustomEvent('open-cart'))"
+                            class="hover:text-bloom transition-colors uppercase tracking-widest flex items-center space-x-1.5 cursor-pointer text-stone-800"
+                        >
+                            <span>Keranjang</span>
+                            <span class="font-mono text-[10px] font-semibold px-2 py-0.5 rounded-full bg-blush-100 text-blush-800 border border-blush-200">
+                                {{ app(\App\Services\CartService::class)->getCount() }}
+                            </span>
+                        </button>
                     @else
                         <a href="{{ route('login') }}" class="hover:text-bloom transition-colors text-stone-700">Masuk</a>
                         <a href="{{ route('register') }}" class="px-3 py-1 rounded-full border border-blush-300 text-bloom hover:bg-blush-50 transition-colors font-medium">Daftar</a>
                     @endauth
-                    <button 
-                        type="button" 
-                        @click="$dispatch('open-cart')" 
-                        onclick="window.dispatchEvent(new CustomEvent('open-cart'))"
-                        class="hover:text-bloom transition-colors uppercase tracking-widest flex items-center space-x-1.5 cursor-pointer text-stone-800"
-                    >
-                        <span>Keranjang</span>
-                        <span class="font-mono text-[10px] font-semibold px-2 py-0.5 rounded-full bg-blush-100 text-blush-800 border border-blush-200">
-                            {{ app(\App\Services\CartService::class)->getCount() }}
-                        </span>
-                    </button>
                 </div>
             </div>
         </header>
@@ -274,7 +296,7 @@
         </div>
 
         <!-- Museum Minimal Colophon Footer -->
-        <footer class="border-t border-bone bg-paper mt-24 py-16 text-xs text-obsidian">
+        <footer class="border-t border-sage-200/60 bg-gradient-to-b from-white/80 via-sage-50/40 to-blush-50/50 backdrop-blur-xs mt-24 py-16 text-xs text-obsidian">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-4 gap-12">
                 <div class="space-y-3">
                     <h4 class="text-xs tracking-widest uppercase font-medium">BloomingKembang</h4>

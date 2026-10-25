@@ -25,6 +25,7 @@ class AdminPanelProvider extends PanelProvider
             ->id('admin')
             ->path('admin')
             ->brandName('BloomingKembang Admin')
+            ->favicon(asset('favicon.svg'))
             ->colors([
                 'primary' => [
                     50 => '#f5f6f5',

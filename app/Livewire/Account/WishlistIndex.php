@@ -37,7 +37,7 @@ class WishlistIndex extends Component
             ->latest('id')
             ->paginate(12);
 
-        return view('livewire.account.wishlist-index', [
+        return view('pages.account.wishlist.index', [
             'wishlists' => $wishlists,
         ])->layout('layouts.storefront', [
             'title' => 'Wishlist Saya — BloomingKembang',

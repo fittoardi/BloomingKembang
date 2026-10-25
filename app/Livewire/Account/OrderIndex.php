@@ -35,7 +35,7 @@ class OrderIndex extends Component
 
         $orders = $query->paginate(8);
 
-        return view('livewire.account.order-index', [
+        return view('pages.account.orders.index', [
             'orders' => $orders,
         ])->layout('layouts.storefront', [
             'title' => 'Riwayat Pesanan — BloomingKembang',
