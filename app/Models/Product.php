@@ -60,6 +60,16 @@ class Product extends Model implements HasMedia
         return $this->hasMany(Wishlist::class);
     }
 
+    public function reviews(): HasMany
+    {
+        return $this->hasMany(Review::class);
+    }
+
+    public function approvedReviews(): HasMany
+    {
+        return $this->hasMany(Review::class)->where('is_approved', true)->latest();
+    }
+
     public function registerMediaCollections(): void
     {
         $this->addMediaCollection('images')

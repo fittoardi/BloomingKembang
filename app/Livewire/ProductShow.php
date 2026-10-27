@@ -2,9 +2,12 @@
 
 namespace App\Livewire;
 
+use App\Enums\OrderStatus;
 use App\Enums\ProductStatus;
+use App\Models\Order;
 use App\Models\Product;
 use App\Models\ProductVariant;
+use App\Models\Review;
 use App\Models\Wishlist;
 use App\Services\CartService;
 use Illuminate\Contracts\View\View;
@@ -22,6 +25,12 @@ class ProductShow extends Component
     public string $activeTab = 'description'; // description, material, size_guide, care_guide
 
     public int $activeImageIndex = 0;
+
+    public int $newRating = 5;
+
+    public string $newComment = '';
+
+    public string $newTitle = '';
 
     public function mount(string $slug): void
     {
@@ -119,6 +128,75 @@ class ProductShow extends Component
         }
     }
 
+    public function isVerifiedBuyer(): bool
+    {
+        if (! Auth::check()) {
+            return false;
+        }
+
+        return Order::where('user_id', Auth::id())
+            ->whereIn('status', [OrderStatus::Paid, OrderStatus::Processing, OrderStatus::Shipped, OrderStatus::Completed])
+            ->whereHas('items.variant', fn ($q) => $q->where('product_id', $this->product->id))
+            ->exists();
+    }
+
+    public function hasUserReviewed(): bool
+    {
+        if (! Auth::check()) {
+            return false;
+        }
+
+        return Review::where('user_id', Auth::id())
+            ->where('product_id', $this->product->id)
+            ->exists();
+    }
+
+    public function submitReview(): void
+    {
+        if (! Auth::check()) {
+            $this->redirect(route('login'));
+
+            return;
+        }
+
+        if (! $this->isVerifiedBuyer()) {
+            session()->flash('review_error', 'Hanya pelanggan yang telah membeli produk ini yang dapat memberikan ulasan.');
+
+            return;
+        }
+
+        if ($this->hasUserReviewed()) {
+            session()->flash('review_error', 'Anda telah memberikan ulasan untuk produk ini.');
+
+            return;
+        }
+
+        $this->validate([
+            'newRating' => 'required|integer|min:1|max:5',
+            'newComment' => 'required|string|min:5|max:1000',
+            'newTitle' => 'nullable|string|max:120',
+        ], [
+            'newRating.required' => 'Silakan pilih rating bintang.',
+            'newComment.required' => 'Isi ulasan wajib ditulis.',
+            'newComment.min' => 'Isi ulasan minimal 5 karakter.',
+        ]);
+
+        Review::create([
+            'user_id' => Auth::id(),
+            'product_id' => $this->product->id,
+            'rating' => $this->newRating,
+            'title' => $this->newTitle ?: null,
+            'comment' => $this->newComment,
+            'is_approved' => true,
+        ]);
+
+        $this->reset(['newComment', 'newTitle']);
+        $this->newRating = 5;
+        $this->product->refresh();
+
+        session()->flash('review_success', 'Terima kasih! Ulasan Anda telah berhasil diterbitkan.');
+    }
+
     public function render(): View
     {
         $selectedVariant = $this->getSelectedVariant();
@@ -131,6 +209,9 @@ class ProductShow extends Component
             ->where('status', ProductStatus::Active)
             ->take(3)
             ->get();
+
+        // Ulasan yang telah disetujui
+        $approvedReviews = $this->product->approvedReviews()->with('user')->get();
 
         // Schema JSON-LD Product
         $jsonLd = [
@@ -202,6 +283,9 @@ class ProductShow extends Component
             'availableStock' => $availableStock,
             'relatedProducts' => $relatedProducts,
             'images' => $images,
+            'approvedReviews' => $approvedReviews,
+            'isVerifiedBuyer' => $this->isVerifiedBuyer(),
+            'hasUserReviewed' => $this->hasUserReviewed(),
             'isInWishlist' => Auth::check() ? Wishlist::where('user_id', Auth::id())->where('product_id', $this->product->id)->exists() : false,
             'jsonLd' => $jsonLd,
             'breadcrumbJsonLd' => $breadcrumbJsonLd,

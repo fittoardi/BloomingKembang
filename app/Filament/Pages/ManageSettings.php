@@ -68,6 +68,7 @@ class ManageSettings extends Page
 
             'ga4_id' => Setting::get('analytics.ga4_id', ''),
             'meta_pixel_id' => Setting::get('analytics.meta_pixel_id', ''),
+            'whatsapp_token' => Setting::get('whatsapp.token', ''),
         ]);
     }
 
@@ -131,6 +132,17 @@ class ManageSettings extends Page
                                 'sicepat' => 'SiCepat Express',
                             ])
                             ->columns(3),
+                    ]),
+
+                Section::make('Notifikasi WhatsApp Gateway (Fonnte)')
+                    ->description('Integrasi pengiriman pesan WhatsApp otomatis untuk konfirmasi order, pembayaran, dan update resi.')
+                    ->schema([
+                        TextInput::make('whatsapp_token')
+                            ->label('Fonnte API Token')
+                            ->password()
+                            ->revealable()
+                            ->placeholder('Isi token dari dashboard Fonnte')
+                            ->helperText('Kosongkan untuk menggunakan logging lokal selama pengembangan.'),
                     ]),
 
                 Section::make('Integrasi Analitik Pemasaran (Opsional)')
@@ -198,6 +210,7 @@ class ManageSettings extends Page
 
         Setting::set('analytics.ga4_id', $data['ga4_id'] ?: null);
         Setting::set('analytics.meta_pixel_id', $data['meta_pixel_id'] ?: null);
+        Setting::set('whatsapp.token', $data['whatsapp_token'] ?: null);
 
         Notification::make()
             ->title('Pengaturan toko berhasil disimpan')

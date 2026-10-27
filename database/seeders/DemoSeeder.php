@@ -10,6 +10,7 @@ use App\Models\Category;
 use App\Models\Page;
 use App\Models\Product;
 use App\Models\ProductVariant;
+use App\Models\Review;
 use App\Models\StockMovement;
 use App\Models\User;
 use App\Models\Voucher;
@@ -349,5 +350,22 @@ class DemoSeeder extends Seeder
                 'is_active' => true,
             ]
         );
+
+        // 7. Ulasan Produk Contoh
+        $firstProduct = Product::first();
+        if ($firstProduct && $customer) {
+            Review::firstOrCreate(
+                [
+                    'user_id' => $customer->id,
+                    'product_id' => $firstProduct->id,
+                ],
+                [
+                    'rating' => 5,
+                    'title' => 'Bahan voal ultrafine ternyaman!',
+                    'comment' => 'Kainnya sangat halus, tegak sempurna di dahi dan tidak mudah kusut meski dipakai seharian untuk silaturahmi. Jahitan tepi rapi khas butik.',
+                    'is_approved' => true,
+                ]
+            );
+        }
     }
 }

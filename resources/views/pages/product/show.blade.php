@@ -116,6 +116,14 @@
                 <h1 class="text-2xl sm:text-3xl font-normal text-obsidian tracking-tight mt-1">
                     {{ $product->name }}
                 </h1>
+
+                @if($product->rating_count > 0)
+                    <div class="flex items-center space-x-2 mt-2 text-xs">
+                        <span class="text-amber-500 font-mono font-medium">★ {{ number_format($product->rating_avg, 1) }}</span>
+                        <span class="text-neutral-400">·</span>
+                        <a href="#reviews" class="text-neutral-500 hover:text-obsidian underline transition-colors">({{ $product->rating_count }} ulasan pembeli)</a>
+                    </div>
+                @endif
                 
                 <!-- Harga & Harga Coret -->
                 <div class="mt-4 flex items-baseline space-x-3">
@@ -297,6 +305,179 @@
                         </div>
                     @endif
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Ulasan Pelanggan Terverifikasi (Customer Reviews) -->
+    <div id="reviews" class="mt-20 pt-12 border-t border-bone">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-4 border-b border-bone gap-4">
+            <div>
+                <h2 class="text-xs uppercase tracking-widest font-medium text-obsidian">Ulasan Pelanggan Terverifikasi</h2>
+                <div class="flex items-center space-x-2 mt-1">
+                    <div class="flex items-center text-amber-500 text-sm">
+                        @for($i = 1; $i <= 5; $i++)
+                            <span>{{ $i <= round($product->rating_avg) ? '★' : '☆' }}</span>
+                        @endfor
+                    </div>
+                    <span class="text-xs font-mono font-medium text-obsidian">{{ number_format($product->rating_avg, 1) }} dari 5.0</span>
+                    <span class="text-neutral-400 text-xs">({{ $product->rating_count }} ulasan)</span>
+                </div>
+            </div>
+            <div class="text-[11px] text-neutral-400 font-mono">
+                Semua ulasan berasal dari pembeli asli yang terkonfirmasi.
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 mt-8">
+            <!-- Kolom Form Tulis Ulasan (4 cols) -->
+            <div class="lg:col-span-4 bg-paper/60 border border-bone p-5 space-y-4">
+                <h3 class="text-xs uppercase tracking-wider font-medium text-obsidian">Tulis Ulasan Anda</h3>
+
+                @if(session('review_success'))
+                    <div class="p-3 bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs rounded-sm">
+                        {{ session('review_success') }}
+                    </div>
+                @endif
+
+                @if(session('review_error'))
+                    <div class="p-3 bg-rose-50 border border-rose-200 text-rose-800 text-xs rounded-sm">
+                        {{ session('review_error') }}
+                    </div>
+                @endif
+
+                @auth
+                    @if($hasUserReviewed)
+                        <div class="p-4 border border-emerald-200 bg-emerald-50/50 text-xs text-emerald-900 flex items-center space-x-2 rounded-sm">
+                            <svg class="w-4 h-4 text-emerald-600 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                            </svg>
+                            <span>Terima kasih! Anda telah membagikan ulasan berharga untuk produk ini.</span>
+                        </div>
+                    @elseif($isVerifiedBuyer)
+                        <form wire:submit.prevent="submitReview" class="space-y-4">
+                            <!-- Rating Bintang -->
+                            <div>
+                                <label class="block text-[11px] uppercase tracking-wider text-neutral-500 font-medium mb-1.5">Penilaian Produk:</label>
+                                <div class="flex items-center space-x-1 text-xl cursor-pointer">
+                                    @for($star = 1; $star <= 5; $star++)
+                                        <button 
+                                            type="button" 
+                                            wire:click="$set('newRating', {{ $star }})" 
+                                            class="focus:outline-hidden transition-transform hover:scale-110 {{ $star <= $newRating ? 'text-amber-500' : 'text-neutral-300' }}"
+                                            title="{{ $star }} Bintang"
+                                        >
+                                            ★
+                                        </button>
+                                    @endfor
+                                    <span class="text-xs font-mono ml-2 text-neutral-500 font-medium">{{ $newRating }}/5</span>
+                                </div>
+                                @error('newRating') <span class="text-[11px] text-red-600 block mt-1">{{ $message }}</span> @enderror
+                            </div>
+
+                            <!-- Judul Ulasan (Opsional) -->
+                            <div>
+                                <label for="newTitle" class="block text-[11px] uppercase tracking-wider text-neutral-500 font-medium mb-1">Judul Ringkas (Opsional):</label>
+                                <input 
+                                    type="text" 
+                                    id="newTitle" 
+                                    wire:model="newTitle" 
+                                    placeholder="Contoh: Sangat nyaman & warna sesuai foto" 
+                                    class="w-full text-xs px-3 py-2 bg-white border border-bone focus:border-obsidian focus:outline-hidden"
+                                />
+                            </div>
+
+                            <!-- Isi Ulasan -->
+                            <div>
+                                <label for="newComment" class="block text-[11px] uppercase tracking-wider text-neutral-500 font-medium mb-1">Isi Ulasan:</label>
+                                <textarea 
+                                    id="newComment" 
+                                    wire:model="newComment" 
+                                    rows="4" 
+                                    placeholder="Ceritakan pengalaman Anda mengenai tekstur kain, kelembutan, dan kerapian jahitan..." 
+                                    class="w-full text-xs p-3 bg-white border border-bone focus:border-obsidian focus:outline-hidden"
+                                ></textarea>
+                                @error('newComment') <span class="text-[11px] text-red-600 block mt-1">{{ $message }}</span> @enderror
+                            </div>
+
+                            <button 
+                                type="submit" 
+                                wire:loading.attr="disabled"
+                                class="w-full btn-primary text-xs py-2.5 flex items-center justify-center space-x-2"
+                            >
+                                <span wire:loading.remove>Kirim Ulasan</span>
+                                <span wire:loading class="flex items-center space-x-1.5">
+                                    <svg class="animate-spin h-3.5 w-3.5 text-white" fill="none" viewBox="0 0 24 24">
+                                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"></path>
+                                    </svg>
+                                    <span>Mengirimkan...</span>
+                                </span>
+                            </button>
+                        </form>
+                    @else
+                        <div class="p-4 border border-bone bg-white text-xs text-neutral-500 space-y-2 rounded-sm">
+                            <p class="font-medium text-obsidian">Hanya Pembeli Terverifikasi</p>
+                            <p class="leading-relaxed">Formulir ulasan ini hanya terbuka bagi pelanggan yang telah memesan produk ini dan status pesanannya telah selesai atau dikirim.</p>
+                        </div>
+                    @endif
+                @else
+                    <div class="p-4 border border-bone bg-white text-xs text-neutral-500 space-y-3 rounded-sm">
+                        <p class="font-medium text-obsidian">Punya Akun BloomingKembang?</p>
+                        <p class="leading-relaxed">Silakan masuk ke akun Anda untuk menuliskan ulasan pesanan yang telah Anda beli.</p>
+                        <a href="{{ route('login') }}" class="inline-block btn-secondary text-xs px-4 py-2 text-center w-full">
+                            Masuk Sekarang
+                        </a>
+                    </div>
+                @endauth
+            </div>
+
+            <!-- Kolom Daftar Ulasan (8 cols) -->
+            <div class="lg:col-span-8 space-y-4">
+                @if($approvedReviews->isEmpty())
+                    <div class="p-8 border border-dashed border-bone text-center space-y-2 bg-white">
+                        <span class="text-2xl text-neutral-300 block">✦</span>
+                        <p class="text-xs font-medium text-obsidian">Belum Ada Ulasan</p>
+                        <p class="text-[11px] text-neutral-400 max-w-sm mx-auto">Jadilah pelanggan pertama yang membagikan kesan keanggunan dan kenyamanan koleksi ini.</p>
+                    </div>
+                @else
+                    <div class="space-y-4">
+                        @foreach($approvedReviews as $review)
+                            <div class="p-5 border border-bone bg-white space-y-2.5 rounded-sm">
+                                <div class="flex items-center justify-between">
+                                    <div class="flex items-center space-x-2">
+                                        <div class="w-7 h-7 rounded-full bg-bone border border-neutral-300 flex items-center justify-center text-xs font-medium text-obsidian">
+                                            {{ strtoupper(substr($review->user->name ?? 'P', 0, 1)) }}
+                                        </div>
+                                        <div>
+                                            <span class="text-xs font-medium text-obsidian block">{{ $review->user->name ?? 'Pelanggan' }}</span>
+                                            <span class="text-[10px] text-emerald-700 font-mono flex items-center space-x-1">
+                                                <svg class="w-3 h-3 text-emerald-600 inline" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                                                </svg>
+                                                <span>Pembeli Terverifikasi</span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <span class="text-[11px] text-neutral-400 font-mono">{{ $review->created_at->format('d M Y') }}</span>
+                                </div>
+
+                                <div class="flex items-center text-amber-500 text-xs">
+                                    @for($s = 1; $s <= 5; $s++)
+                                        <span>{{ $s <= $review->rating ? '★' : '☆' }}</span>
+                                    @endfor
+                                    @if($review->title)
+                                        <span class="ml-2 font-medium text-obsidian text-xs">{{ $review->title }}</span>
+                                    @endif
+                                </div>
+
+                                <p class="text-xs text-neutral-600 leading-relaxed pt-1">
+                                    {{ $review->comment }}
+                                </p>
+                            </div>
+                        @endforeach
+                    </div>
+                @endif
             </div>
         </div>
     </div>

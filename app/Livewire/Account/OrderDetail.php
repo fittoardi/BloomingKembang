@@ -89,6 +89,16 @@ class OrderDetail extends Component
                 ]);
             }
 
+            if ($this->order->voucherUsage) {
+                $voucher = $this->order->voucherUsage->voucher;
+
+                if ($voucher && $voucher->used_count > 0) {
+                    $voucher->decrement('used_count');
+                }
+
+                $this->order->voucherUsage->delete();
+            }
+
             $this->order->update([
                 'status' => OrderStatus::Cancelled,
                 'cancelled_at' => now(),

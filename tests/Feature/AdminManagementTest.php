@@ -86,6 +86,7 @@ test('super admin can update store settings via ManageSettings component', funct
             'guest_checkout_enabled' => false,
             'payment_expiry_hours' => 12,
             'active_couriers' => ['jne', 'sicepat'],
+            'whatsapp_token' => 'fonnte_dummy_token_123',
             'ga4_id' => 'G-TESTING123',
             'meta_pixel_id' => '987654321012345',
         ])
@@ -99,6 +100,7 @@ test('super admin can update store settings via ManageSettings component', funct
         ->and(Setting::get('checkout.guest_enabled'))->toBe(false)
         ->and(Setting::get('order.payment_expiry_hours'))->toBe(12)
         ->and(Setting::get('shipping.couriers'))->toEqual(['jne', 'sicepat'])
+        ->and(Setting::get('whatsapp.token'))->toBe('fonnte_dummy_token_123')
         ->and(Setting::get('analytics.ga4_id'))->toBe('G-TESTING123')
         ->and(Setting::get('analytics.meta_pixel_id'))->toBe('987654321012345');
 });
