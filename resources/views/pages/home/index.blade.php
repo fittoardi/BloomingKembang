@@ -81,59 +81,21 @@
             ->get();
     @endphp
 
-    <!-- 1. HERO CAROUSEL: 100% WIDTH, 300PX HEIGHT (ELZATTA STYLE) -->
+    <!-- 1. HERO CAROUSEL: 100% WIDTH, 600PX HEIGHT, HIJAU & PINK (NO TIMER) -->
     <section 
         x-data="{
             current: 0,
             total: {{ count($slides) }},
-            intervalMs: 3500,
-            stepMs: 50,
-            progress: 0,
-            timer: null,
-            isPaused: false,
             touchStartX: 0,
             touchEndX: 0,
-            init() {
-                this.startAutoplay();
-            },
-            startAutoplay() {
-                this.clearTimer();
-                this.timer = setInterval(() => {
-                    if (!this.isPaused) {
-                        this.progress += (this.stepMs / this.intervalMs) * 100;
-                        if (this.progress >= 100) {
-                            this.progress = 0;
-                            this.next();
-                        }
-                    }
-                }, this.stepMs);
-            },
-            clearTimer() {
-                if (this.timer) {
-                    clearInterval(this.timer);
-                    this.timer = null;
-                }
-            },
             next() {
                 this.current = (this.current + 1) % this.total;
-                this.progress = 0;
             },
             prev() {
                 this.current = (this.current - 1 + this.total) % this.total;
-                this.progress = 0;
             },
             goTo(index) {
                 this.current = index;
-                this.progress = 0;
-            },
-            pause() {
-                this.isPaused = true;
-            },
-            resume() {
-                this.isPaused = false;
-            },
-            togglePause() {
-                this.isPaused = !this.isPaused;
             },
             handleTouchStart(e) {
                 this.touchStartX = e.changedTouches[0].screenX;
@@ -147,18 +109,16 @@
                 }
             }
         }"
-        @mouseenter="pause()"
-        @mouseleave="resume()"
         @keydown.arrow-right.window="next()"
         @keydown.arrow-left.window="prev()"
         @touchstart="handleTouchStart($event)"
         @touchend="handleTouchEnd($event)"
-        class="w-full h-[300px] relative overflow-hidden bg-stone-900 select-none"
+        class="w-full h-[600px] relative overflow-hidden bg-stone-900 select-none"
         aria-roledescription="carousel"
         aria-label="Koleksi Unggulan BloomingKembang"
     >
-        <!-- Slide Track Stack -->
-        <div class="relative w-full h-[300px]">
+        <!-- Slide Track Stack (600px Height) -->
+        <div class="relative w-full h-[600px]">
             @foreach ($slides as $index => $slide)
                 <div 
                     x-show="current === {{ $index }}"
@@ -168,51 +128,58 @@
                     x-transition:leave="transition-opacity ease-in duration-500"
                     x-transition:leave-start="opacity-100"
                     x-transition:leave-end="opacity-0"
-                    class="absolute inset-0 w-full h-[300px] flex items-center"
+                    class="absolute inset-0 w-full h-[600px] flex items-center"
                 >
-                    <!-- Background Photo (300px Height, Object Cover) -->
+                    <!-- Background Photo (600px Height, Object Cover) -->
                     <img 
                         src="{{ asset($slide['image']) }}" 
                         alt="{{ $slide['title'] }}" 
-                        class="w-full h-[300px] object-cover object-center absolute inset-0"
+                        class="w-full h-[600px] object-cover object-center absolute inset-0"
                         loading="{{ $index === 0 ? 'eager' : 'lazy' }}"
                     />
 
-                    <!-- Atmospheric Gradient Overlay for Sharp Contrast -->
-                    <div class="absolute inset-0 bg-gradient-to-r from-stone-950/85 via-stone-950/50 to-stone-950/20 sm:from-stone-950/90 sm:via-stone-950/45 sm:to-transparent pointer-events-none"></div>
+                    <!-- Atmospheric Gradient Overlay for Contrast -->
+                    <div class="absolute inset-0 bg-gradient-to-r from-stone-950/92 via-stone-950/60 to-stone-950/25 sm:from-stone-950/95 sm:via-stone-950/55 sm:to-transparent pointer-events-none"></div>
 
                     <!-- Slide Content -->
-                    <div class="relative z-10 max-w-7xl mx-auto px-6 sm:px-12 w-full flex flex-col justify-center text-white">
-                        <div class="max-w-2xl space-y-2">
-                            <!-- Category Tag Pill -->
+                    <div class="relative z-10 max-w-7xl mx-auto px-6 sm:px-12 w-full flex flex-col justify-center text-white py-12">
+                        <div class="max-w-3xl space-y-4">
+                            <!-- Category Tag Pill (Hijau Sage & Soft Pink) -->
                             <div>
-                                <span class="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-white/20 backdrop-blur-md text-amber-200 text-[10px] font-mono tracking-widest uppercase border border-white/25">
-                                    <span class="w-1.5 h-1.5 rounded-full bg-amber-300 animate-pulse"></span>
+                                <span class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-botanic/85 backdrop-blur-md text-blush-100 text-xs font-mono tracking-widest uppercase border border-blush-300/40">
+                                    <span class="w-2 h-2 rounded-full bg-bloom animate-pulse"></span>
                                     {{ $slide['tag'] }}
                                 </span>
                             </div>
 
-                            <!-- Title -->
-                            <h1 class="text-xl sm:text-2xl md:text-3xl font-serif font-normal uppercase tracking-wider text-white leading-tight drop-shadow-sm line-clamp-1">
+                            <!-- Title (Spacious & Elegant for 600px Height) -->
+                            <h1 class="text-3xl sm:text-5xl lg:text-6xl font-serif font-normal uppercase tracking-wider text-white leading-tight drop-shadow-md">
                                 {{ $slide['title'] }}
                             </h1>
 
                             <!-- Subtitle -->
-                            <p class="text-xs sm:text-sm text-stone-200 line-clamp-2 max-w-xl font-normal leading-relaxed drop-shadow-xs">
+                            <p class="text-sm sm:text-base text-stone-100 max-w-2xl font-normal leading-relaxed drop-shadow-sm">
                                 {{ $slide['subtitle'] }}
                             </p>
 
-                            <!-- CTAs & Badge -->
-                            <div class="pt-2 flex flex-wrap items-center gap-3">
+                            <!-- CTAs & Badge (Hijau & Pink) -->
+                            <div class="pt-4 flex flex-wrap items-center gap-4">
                                 <a 
                                     href="{{ url($slide['link_url']) }}" 
-                                    class="px-5 py-2 bg-white text-[#491738] hover:bg-amber-50 text-xs uppercase tracking-widest font-semibold transition-all rounded-xs shadow-md inline-flex items-center gap-2"
+                                    class="px-8 py-3.5 bg-bloom hover:bg-blush-700 text-white text-xs uppercase tracking-widest font-semibold transition-all rounded-xs shadow-lg inline-flex items-center gap-2 group"
                                 >
                                     <span>{{ $slide['cta_text'] }}</span>
-                                    <span>&rarr;</span>
+                                    <span class="group-hover:translate-x-1 transition-transform">&rarr;</span>
                                 </a>
 
-                                <span class="hidden sm:inline-flex items-center text-[11px] font-mono tracking-wider text-stone-200 uppercase px-3 py-1 bg-black/40 rounded-full backdrop-blur-xs border border-white/15">
+                                <a 
+                                    href="{{ url('/koleksi') }}" 
+                                    class="px-7 py-3.5 bg-botanic/90 hover:bg-botanic text-white border border-white/20 text-xs uppercase tracking-widest font-semibold transition-all rounded-xs backdrop-blur-xs"
+                                >
+                                    Semua Koleksi
+                                </a>
+
+                                <span class="hidden sm:inline-flex items-center text-xs font-mono tracking-wider text-blush-100 uppercase px-3.5 py-1.5 bg-black/40 rounded-full backdrop-blur-xs border border-white/15">
                                     {{ $slide['badge'] }}
                                 </span>
                             </div>
@@ -222,140 +189,111 @@
             @endforeach
         </div>
 
-        <!-- Left Chevron Arrow Button -->
+        <!-- Left Chevron Arrow Button (Hijau Botanic & Pink Hover) -->
         <button 
             type="button"
             @click.stop="prev()"
-            class="absolute left-3 sm:left-6 top-1/2 -translate-y-1/2 w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-black/40 hover:bg-black/70 text-white backdrop-blur-sm flex items-center justify-center transition-all z-20 cursor-pointer shadow-md hover:scale-105"
+            class="absolute left-4 sm:left-8 top-1/2 -translate-y-1/2 w-11 h-11 sm:w-13 sm:h-13 rounded-full bg-botanic/75 hover:bg-botanic text-white hover:text-blush-200 backdrop-blur-md flex items-center justify-center transition-all z-20 cursor-pointer shadow-lg hover:scale-105 border border-white/20"
             aria-label="Slide sebelumnya"
         >
-            <svg class="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7"/></svg>
+            <svg class="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7"/></svg>
         </button>
 
-        <!-- Right Chevron Arrow Button -->
+        <!-- Right Chevron Arrow Button (Hijau Botanic & Pink Hover) -->
         <button 
             type="button"
             @click.stop="next()"
-            class="absolute right-3 sm:right-6 top-1/2 -translate-y-1/2 w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-black/40 hover:bg-black/70 text-white backdrop-blur-sm flex items-center justify-center transition-all z-20 cursor-pointer shadow-md hover:scale-105"
+            class="absolute right-4 sm:right-8 top-1/2 -translate-y-1/2 w-11 h-11 sm:w-13 sm:h-13 rounded-full bg-botanic/75 hover:bg-botanic text-white hover:text-blush-200 backdrop-blur-md flex items-center justify-center transition-all z-20 cursor-pointer shadow-lg hover:scale-105 border border-white/20"
             aria-label="Slide selanjutnya"
         >
-            <svg class="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/></svg>
+            <svg class="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/></svg>
         </button>
 
-        <!-- Bottom Pill Controls: Progress Indicators, Auto 3.5s & Counter -->
-        <div class="absolute bottom-3 left-1/2 -translate-x-1/2 flex items-center gap-3 px-4 py-1.5 rounded-full bg-black/55 backdrop-blur-md text-white border border-white/20 text-xs z-20 shadow-lg">
-            <!-- Indicator Dots with Active Progress Fill -->
-            <div class="flex items-center gap-1.5">
+        <!-- Bottom Pill Controls: Manual Dots & Slide Counter (No Timer) -->
+        <div class="absolute bottom-6 left-1/2 -translate-x-1/2 flex items-center gap-4 px-5 py-2.5 rounded-full bg-stone-950/70 backdrop-blur-md text-white border border-white/20 text-xs z-20 shadow-xl">
+            <!-- Indicator Dots (Active in Pink Bloom) -->
+            <div class="flex items-center gap-2">
                 @foreach ($slides as $index => $slide)
                     <button 
                         type="button"
                         @click="goTo({{ $index }})"
-                        class="relative h-2 rounded-full transition-all duration-300 focus:outline-none cursor-pointer overflow-hidden border border-white/30"
-                        :class="current === {{ $index }} ? 'w-8 sm:w-10 bg-white/20' : 'w-2 bg-white/50 hover:bg-white/80'"
+                        class="h-2.5 rounded-full transition-all duration-300 focus:outline-none cursor-pointer"
+                        :class="current === {{ $index }} ? 'w-8 bg-bloom ring-2 ring-bloom/40' : 'w-2.5 bg-white/50 hover:bg-white/90'"
                         aria-label="Pilih Slide {{ $index + 1 }}: {{ $slide['title'] }}"
-                    >
-                        <div 
-                            x-show="current === {{ $index }}"
-                            class="h-full bg-amber-300 rounded-full transition-all duration-75"
-                            :style="'width: ' + progress + '%'"
-                        ></div>
-                    </button>
+                    ></button>
                 @endforeach
             </div>
 
-            <div class="w-px h-3 bg-white/25"></div>
-
-            <!-- Auto 3.5s Play/Pause Toggle -->
-            <button 
-                type="button"
-                @click="togglePause()"
-                class="inline-flex items-center gap-1.5 text-[11px] font-mono tracking-wider text-amber-200 hover:text-white transition-colors cursor-pointer"
-                :title="isPaused ? 'Lanjutkan rotasi otomatis' : 'Jeda rotasi otomatis'"
-            >
-                <template x-if="!isPaused">
-                    <span class="flex items-center gap-1.5">
-                        <span class="w-1.5 h-1.5 rounded-full bg-amber-400 animate-ping"></span>
-                        <span class="font-medium">Auto 3.5s</span>
-                    </span>
-                </template>
-                <template x-if="isPaused">
-                    <span class="flex items-center gap-1.5 text-stone-300">
-                        <span class="w-1.5 h-1.5 rounded-full bg-stone-400"></span>
-                        <span>Dijeda</span>
-                    </span>
-                </template>
-            </button>
-
-            <div class="w-px h-3 bg-white/25 hidden sm:block"></div>
+            <div class="w-px h-3.5 bg-white/25"></div>
 
             <!-- Slide Counter -->
-            <span class="font-mono text-[11px] text-stone-300 hidden sm:inline">
+            <span class="font-mono text-xs text-stone-200 tracking-wider">
                 <span class="text-white font-bold" x-text="String(current + 1).padStart(2, '0')">01</span> / 
                 <span x-text="String(total).padStart(2, '0')">{{ sprintf('%02d', count($slides)) }}</span>
             </span>
         </div>
     </section>
 
-    <!-- 2. CIRCULAR CATEGORY SHORTCUTS (ELZATTA SIGNATURE CATEGORIES) -->
+    <!-- 2. CIRCULAR CATEGORY SHORTCUTS (HIJAU BOTANIC & PINK BLOOM) -->
     <section class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10 border-b border-stone-200/80">
         <div class="grid grid-cols-3 sm:grid-cols-6 gap-4 sm:gap-6 text-center">
             <!-- 1. Segi Empat -->
             <a href="{{ url('/koleksi/hijab-segi-empat') }}" class="group flex flex-col items-center space-y-2">
-                <div class="w-20 h-20 sm:w-24 sm:h-24 rounded-full overflow-hidden border-2 border-stone-200 group-hover:border-[#491738] shadow-xs group-hover:shadow-md transition-all duration-300 p-0.5 bg-white">
+                <div class="w-20 h-20 sm:w-24 sm:h-24 rounded-full overflow-hidden border-2 border-stone-200 group-hover:border-bloom shadow-xs group-hover:shadow-md transition-all duration-300 p-0.5 bg-white">
                     <img src="{{ asset('images/home/cat-segi-empat.jpg') }}" alt="Hijab Segi Empat" class="w-full h-full object-cover rounded-full group-hover:scale-110 transition-transform duration-500" />
                 </div>
-                <span class="text-xs font-semibold text-stone-800 uppercase tracking-wider group-hover:text-[#491738] transition-colors">Segi Empat</span>
+                <span class="text-xs font-semibold text-stone-800 uppercase tracking-wider group-hover:text-botanic transition-colors">Segi Empat</span>
             </a>
 
             <!-- 2. Pashmina -->
             <a href="{{ url('/koleksi/pashmina') }}" class="group flex flex-col items-center space-y-2">
-                <div class="w-20 h-20 sm:w-24 sm:h-24 rounded-full overflow-hidden border-2 border-stone-200 group-hover:border-[#491738] shadow-xs group-hover:shadow-md transition-all duration-300 p-0.5 bg-white">
+                <div class="w-20 h-20 sm:w-24 sm:h-24 rounded-full overflow-hidden border-2 border-stone-200 group-hover:border-bloom shadow-xs group-hover:shadow-md transition-all duration-300 p-0.5 bg-white">
                     <img src="{{ asset('images/home/cat-pashmina.jpg') }}" alt="Pashmina Flowy" class="w-full h-full object-cover rounded-full group-hover:scale-110 transition-transform duration-500" />
                 </div>
-                <span class="text-xs font-semibold text-stone-800 uppercase tracking-wider group-hover:text-[#491738] transition-colors">Pashmina</span>
+                <span class="text-xs font-semibold text-stone-800 uppercase tracking-wider group-hover:text-botanic transition-colors">Pashmina</span>
             </a>
 
             <!-- 3. Bergo Daily -->
             <a href="{{ url('/koleksi/bergo-daily') }}" class="group flex flex-col items-center space-y-2">
-                <div class="w-20 h-20 sm:w-24 sm:h-24 rounded-full overflow-hidden border-2 border-stone-200 group-hover:border-[#491738] shadow-xs group-hover:shadow-md transition-all duration-300 p-0.5 bg-white">
+                <div class="w-20 h-20 sm:w-24 sm:h-24 rounded-full overflow-hidden border-2 border-stone-200 group-hover:border-bloom shadow-xs group-hover:shadow-md transition-all duration-300 p-0.5 bg-white">
                     <img src="{{ asset('images/products/bergo-daily.jpg') }}" alt="Bergo Daily" class="w-full h-full object-cover rounded-full group-hover:scale-110 transition-transform duration-500" />
                 </div>
-                <span class="text-xs font-semibold text-stone-800 uppercase tracking-wider group-hover:text-[#491738] transition-colors">Bergo Daily</span>
+                <span class="text-xs font-semibold text-stone-800 uppercase tracking-wider group-hover:text-botanic transition-colors">Bergo Daily</span>
             </a>
 
             <!-- 4. Khimar Syar'i -->
             <a href="{{ url('/koleksi') }}" class="group flex flex-col items-center space-y-2">
-                <div class="w-20 h-20 sm:w-24 sm:h-24 rounded-full overflow-hidden border-2 border-stone-200 group-hover:border-[#491738] shadow-xs group-hover:shadow-md transition-all duration-300 p-0.5 bg-white">
+                <div class="w-20 h-20 sm:w-24 sm:h-24 rounded-full overflow-hidden border-2 border-stone-200 group-hover:border-bloom shadow-xs group-hover:shadow-md transition-all duration-300 p-0.5 bg-white">
                     <img src="{{ asset('images/products/khimar-syari.jpg') }}" alt="Khimar Syar'i" class="w-full h-full object-cover rounded-full group-hover:scale-110 transition-transform duration-500" />
                 </div>
-                <span class="text-xs font-semibold text-stone-800 uppercase tracking-wider group-hover:text-[#491738] transition-colors">Khimar Syar'i</span>
+                <span class="text-xs font-semibold text-stone-800 uppercase tracking-wider group-hover:text-botanic transition-colors">Khimar Syar'i</span>
             </a>
 
             <!-- 5. Inner & Aksesoris -->
             <a href="{{ url('/koleksi/inner-dan-aksesoris') }}" class="group flex flex-col items-center space-y-2">
-                <div class="w-20 h-20 sm:w-24 sm:h-24 rounded-full overflow-hidden border-2 border-stone-200 group-hover:border-[#491738] shadow-xs group-hover:shadow-md transition-all duration-300 p-0.5 bg-white">
+                <div class="w-20 h-20 sm:w-24 sm:h-24 rounded-full overflow-hidden border-2 border-stone-200 group-hover:border-bloom shadow-xs group-hover:shadow-md transition-all duration-300 p-0.5 bg-white">
                     <img src="{{ asset('images/home/cat-inner-aksesoris.jpg') }}" alt="Inner & Aksesoris" class="w-full h-full object-cover rounded-full group-hover:scale-110 transition-transform duration-500" />
                 </div>
-                <span class="text-xs font-semibold text-stone-800 uppercase tracking-wider group-hover:text-[#491738] transition-colors">Inner & Klip</span>
+                <span class="text-xs font-semibold text-stone-800 uppercase tracking-wider group-hover:text-botanic transition-colors">Inner & Klip</span>
             </a>
 
             <!-- 6. Voucher & Promo -->
             <a href="{{ url('/koleksi') }}" class="group flex flex-col items-center space-y-2">
-                <div class="w-20 h-20 sm:w-24 sm:h-24 rounded-full overflow-hidden border-2 border-stone-200 group-hover:border-[#491738] shadow-xs group-hover:shadow-md transition-all duration-300 p-0.5 bg-white">
+                <div class="w-20 h-20 sm:w-24 sm:h-24 rounded-full overflow-hidden border-2 border-stone-200 group-hover:border-bloom shadow-xs group-hover:shadow-md transition-all duration-300 p-0.5 bg-white">
                     <img src="{{ asset('images/home/elzatta-hero-loyalty.jpg') }}" alt="Voucher & Promo" class="w-full h-full object-cover rounded-full group-hover:scale-110 transition-transform duration-500" />
                 </div>
-                <span class="text-xs font-semibold text-stone-800 uppercase tracking-wider group-hover:text-[#491738] transition-colors">Promo Voucher</span>
+                <span class="text-xs font-semibold text-stone-800 uppercase tracking-wider group-hover:text-botanic transition-colors">Promo Voucher</span>
             </a>
         </div>
     </section>
 
-    <!-- 3. SPOTLIGHT HERO PRODUCT: KEISHA VERSA (ELZATTA SIGNATURE SPOTLIGHT) -->
+    <!-- 3. SPOTLIGHT HERO PRODUCT: KEISHA VERSA (HIJAU BOTANIC & PINK BLOOM) -->
     <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
-        <div class="bg-gradient-to-br from-stone-50 via-white to-[#fcf6f9] border border-stone-200/90 rounded-2xl overflow-hidden shadow-xs p-6 sm:p-10 lg:p-12">
+        <div class="bg-gradient-to-br from-sage-50/90 via-white to-blush-50/80 border border-sage-200/90 rounded-2xl overflow-hidden shadow-xs p-6 sm:p-10 lg:p-12">
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
                 <!-- Left: Lookbook Rack Image -->
                 <div class="lg:col-span-6">
-                    <div class="relative rounded-xl overflow-hidden border border-stone-200 shadow-md group">
+                    <div class="relative rounded-xl overflow-hidden border border-sage-200 shadow-md group">
                         <img 
                             src="{{ asset('images/home/keisha-rack.jpg') }}" 
                             alt="Keisha Versa Voal Rack Collection" 
@@ -363,7 +301,7 @@
                         />
                         <div class="absolute inset-0 bg-gradient-to-t from-stone-950/70 via-transparent to-transparent"></div>
                         <div class="absolute bottom-5 left-5 right-5 text-white">
-                            <span class="inline-block px-3 py-1 rounded-full bg-[#491738] text-amber-200 font-mono text-[10px] uppercase tracking-widest font-semibold mb-2">
+                            <span class="inline-block px-3 py-1 rounded-full bg-botanic text-blush-100 font-mono text-[10px] uppercase tracking-widest font-semibold mb-2 border border-blush-300/40">
                                 15 PILIHAN WARNA EXCLUSIVE
                             </span>
                             <h3 class="text-lg font-serif uppercase tracking-wider">Scarf Rack Atelier 2026</h3>
@@ -375,7 +313,7 @@
                 <!-- Right: Product Narrative & Purchase Details -->
                 <div class="lg:col-span-6 space-y-6">
                     <div>
-                        <span class="text-xs uppercase font-mono tracking-widest text-[#491738] font-bold block mb-1">
+                        <span class="text-xs uppercase font-mono tracking-widest text-bloom font-bold block mb-1">
                             BLOOMING SIGNATURE ESSENTIAL
                         </span>
                         <h2 class="text-2xl sm:text-3xl font-serif uppercase tracking-wider text-stone-900 leading-snug">
@@ -388,20 +326,20 @@
 
                     <!-- Modesty & Fabric Features Grid -->
                     <div class="grid grid-cols-2 gap-3 pt-2 text-left">
-                        <div class="p-3 bg-white border border-stone-200/80 rounded-lg shadow-2xs">
-                            <span class="text-[10px] font-mono uppercase tracking-wider text-[#491738] font-bold block">100% Ultrafine Voal</span>
+                        <div class="p-3 bg-white border border-sage-200/80 rounded-lg shadow-2xs">
+                            <span class="text-[10px] font-mono uppercase tracking-wider text-botanic font-bold block">100% Ultrafine Voal</span>
                             <span class="text-xs text-stone-700 font-medium">Serat bernapas, sejuk di cuaca panas</span>
                         </div>
-                        <div class="p-3 bg-white border border-stone-200/80 rounded-lg shadow-2xs">
-                            <span class="text-[10px] font-mono uppercase tracking-wider text-[#491738] font-bold block">Laser Cut Precision</span>
+                        <div class="p-3 bg-white border border-sage-200/80 rounded-lg shadow-2xs">
+                            <span class="text-[10px] font-mono uppercase tracking-wider text-botanic font-bold block">Laser Cut Precision</span>
                             <span class="text-xs text-stone-700 font-medium">Tepi rapi tanpa benang bertiras</span>
                         </div>
-                        <div class="p-3 bg-white border border-stone-200/80 rounded-lg shadow-2xs">
-                            <span class="text-[10px] font-mono uppercase tracking-wider text-[#491738] font-bold block">Tegak Sempurna</span>
+                        <div class="p-3 bg-white border border-sage-200/80 rounded-lg shadow-2xs">
+                            <span class="text-[10px] font-mono uppercase tracking-wider text-botanic font-bold block">Tegak Sempurna</span>
                             <span class="text-xs text-stone-700 font-medium">Mudah dibentuk & anti geser seharian</span>
                         </div>
-                        <div class="p-3 bg-white border border-stone-200/80 rounded-lg shadow-2xs">
-                            <span class="text-[10px] font-mono uppercase tracking-wider text-[#491738] font-bold block">Coverage Modest</span>
+                        <div class="p-3 bg-white border border-sage-200/80 rounded-lg shadow-2xs">
+                            <span class="text-[10px] font-mono uppercase tracking-wider text-botanic font-bold block">Coverage Modest</span>
                             <span class="text-xs text-stone-700 font-medium">Lebih panjang menutup dada</span>
                         </div>
                     </div>
@@ -410,7 +348,7 @@
                     <div class="space-y-2 pt-2">
                         <div class="flex items-center justify-between text-xs">
                             <span class="font-medium text-stone-700">Pilihan Warna Terfavorit:</span>
-                            <span class="text-[11px] font-mono text-[#491738] font-semibold">15 Warna Lengkap</span>
+                            <span class="text-[11px] font-mono text-botanic font-semibold">15 Warna Lengkap</span>
                         </div>
                         <div class="flex items-center space-x-2">
                             <span class="w-6 h-6 rounded-full border-2 border-white shadow-xs" style="background-color: #B87383;" title="726 Dusty Rose"></span>
@@ -423,16 +361,16 @@
                         </div>
                     </div>
 
-                    <!-- Price & CTA Button -->
-                    <div class="pt-4 border-t border-stone-200 flex flex-wrap items-center justify-between gap-4">
+                    <!-- Price & CTA Button (Hijau Botanic & Pink Bloom) -->
+                    <div class="pt-4 border-t border-sage-200 flex flex-wrap items-center justify-between gap-4">
                         <div>
                             <span class="text-[10px] font-mono uppercase tracking-wider text-stone-400 block">Harga Spesial</span>
-                            <span class="text-xl font-mono font-bold text-[#491738]">Rp 89.000</span>
+                            <span class="text-xl font-mono font-bold text-botanic">Rp 89.000</span>
                         </div>
                         <div class="flex items-center gap-3">
                             <a 
                                 href="{{ url('/koleksi/hijab-segi-empat') }}" 
-                                class="px-7 py-3 bg-[#491738] hover:bg-[#38112b] text-white text-xs uppercase tracking-widest font-semibold transition-colors rounded-xs shadow-sm inline-flex items-center gap-2"
+                                class="px-7 py-3 bg-botanic hover:bg-sage-700 text-white text-xs uppercase tracking-widest font-semibold transition-colors rounded-xs shadow-sm inline-flex items-center gap-2"
                             >
                                 <span>Beli Sekarang</span>
                                 <span>&rarr;</span>
@@ -444,10 +382,10 @@
         </div>
     </section>
 
-    <!-- 4. DESIGNED FOR EVERYDAY MODESTY (ELZATTA 2-COLUMN FEATURE SECTION) -->
+    <!-- 4. DESIGNED FOR EVERYDAY MODESTY (HIJAU BOTANIC & PINK BLOOM) -->
     <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
         <div class="text-center max-w-2xl mx-auto mb-10 space-y-2">
-            <span class="text-[10px] uppercase font-mono tracking-widest text-[#491738] font-bold block">
+            <span class="text-[10px] uppercase font-mono tracking-widest text-bloom font-bold block">
                 FILOSOFI KESEHARIAN MUSLIMAH
             </span>
             <h2 class="text-2xl sm:text-3xl font-serif uppercase tracking-wider text-stone-900">
@@ -460,7 +398,7 @@
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
             <!-- Card 1: Comfort & Breathability -->
-            <div class="group relative rounded-xl overflow-hidden border border-stone-200 shadow-sm aspect-[16/10] bg-stone-900">
+            <div class="group relative rounded-xl overflow-hidden border border-sage-200 shadow-sm aspect-[16/10] bg-stone-900">
                 <img 
                     src="{{ asset('images/home/modesty-group.jpg') }}" 
                     alt="Comfort & Breathability Collection" 
@@ -468,7 +406,7 @@
                 />
                 <div class="absolute inset-0 bg-gradient-to-t from-stone-950/85 via-stone-950/40 to-transparent"></div>
                 <div class="absolute bottom-6 left-6 right-6 text-white space-y-2">
-                    <span class="text-[10px] font-mono uppercase tracking-widest text-amber-200 font-semibold block">
+                    <span class="text-[10px] font-mono uppercase tracking-widest text-blush-200 font-semibold block">
                         PRIORITAS KENYAMANAN 01
                     </span>
                     <h3 class="text-xl font-serif uppercase tracking-wider">Comfort & Breathability</h3>
@@ -476,7 +414,7 @@
                         Menggunakan serat voal bernapas mikro yang menjaga sirkulasi udara tetap sejuk walau beraktivitas padat seharian.
                     </p>
                     <div class="pt-2">
-                        <a href="{{ url('/koleksi/bergo-daily') }}" class="text-xs uppercase font-semibold tracking-wider text-amber-200 hover:text-white inline-flex items-center gap-1.5 transition-colors">
+                        <a href="{{ url('/koleksi/bergo-daily') }}" class="text-xs uppercase font-semibold tracking-wider text-blush-200 hover:text-white inline-flex items-center gap-1.5 transition-colors">
                             <span>Jelajahi Bergo & Daily Wear</span>
                             <span>&rarr;</span>
                         </a>
@@ -485,7 +423,7 @@
             </div>
 
             <!-- Card 2: Coverage & Syar'i Silhouette -->
-            <div class="group relative rounded-xl overflow-hidden border border-stone-200 shadow-sm aspect-[16/10] bg-stone-900">
+            <div class="group relative rounded-xl overflow-hidden border border-sage-200 shadow-sm aspect-[16/10] bg-stone-900">
                 <img 
                     src="{{ asset('images/home/hero-editorial.jpg') }}" 
                     alt="Coverage & Syar'i Silhouette Collection" 
@@ -493,7 +431,7 @@
                 />
                 <div class="absolute inset-0 bg-gradient-to-t from-stone-950/85 via-stone-950/40 to-transparent"></div>
                 <div class="absolute bottom-6 left-6 right-6 text-white space-y-2">
-                    <span class="text-[10px] font-mono uppercase tracking-widest text-amber-200 font-semibold block">
+                    <span class="text-[10px] font-mono uppercase tracking-widest text-sage-200 font-semibold block">
                         ESTETIKA KESANTUNAN 02
                     </span>
                     <h3 class="text-xl font-serif uppercase tracking-wider">Coverage & Syar'i Silhouette</h3>
@@ -501,7 +439,7 @@
                         Potongan syar'i anggun yang menutup dada dengan presisi, drape kain jatuh lembut, dan tidak menerawang.
                     </p>
                     <div class="pt-2">
-                        <a href="{{ url('/koleksi/hijab-segi-empat') }}" class="text-xs uppercase font-semibold tracking-wider text-amber-200 hover:text-white inline-flex items-center gap-1.5 transition-colors">
+                        <a href="{{ url('/koleksi/hijab-segi-empat') }}" class="text-xs uppercase font-semibold tracking-wider text-sage-200 hover:text-white inline-flex items-center gap-1.5 transition-colors">
                             <span>Jelajahi Hijab Segi Empat Syar'i</span>
                             <span>&rarr;</span>
                         </a>
@@ -511,7 +449,7 @@
         </div>
     </section>
 
-    <!-- 5. FIND YOUR SHADE (ELZATTA INTERACTIVE COLOR PALETTE BAR) -->
+    <!-- 5. FIND YOUR SHADE (HIJAU BOTANIC & PINK BLOOM PALETTE) -->
     <section 
         x-data="{
             activeShade: { name: 'Dusty Rose', code: '726', hex: '#B87383', note: 'Anggun & Manis Bersahaja' },
@@ -530,10 +468,10 @@
         }"
         class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12"
     >
-        <div class="bg-stone-50 border border-stone-200/90 rounded-2xl p-6 sm:p-10 shadow-xs">
-            <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-6 pb-6 border-b border-stone-200">
+        <div class="bg-gradient-to-r from-sage-50/70 via-white to-blush-50/60 border border-sage-200/90 rounded-2xl p-6 sm:p-10 shadow-xs">
+            <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-6 pb-6 border-b border-sage-200">
                 <div>
-                    <span class="text-[10px] uppercase font-mono tracking-widest text-[#491738] font-bold block mb-1">
+                    <span class="text-[10px] uppercase font-mono tracking-widest text-botanic font-bold block mb-1">
                         COLOR PALETTE 2026
                     </span>
                     <h2 class="text-xl sm:text-2xl font-serif uppercase tracking-wider text-stone-900">
@@ -545,7 +483,7 @@
                 </div>
 
                 <!-- Active Selected Badge -->
-                <div class="flex items-center gap-3 bg-white px-4 py-2.5 rounded-xl border border-stone-200 shadow-2xs self-start md:self-auto">
+                <div class="flex items-center gap-3 bg-white px-4 py-2.5 rounded-xl border border-sage-200 shadow-2xs self-start md:self-auto">
                     <span class="w-7 h-7 rounded-full border border-stone-300 shadow-xs transition-colors" :style="'background-color: ' + activeShade.hex"></span>
                     <div>
                         <span class="text-xs font-semibold text-stone-900 block" x-text="activeShade.name + ' (' + activeShade.code + ')'">Dusty Rose (726)</span>
@@ -565,7 +503,7 @@
                         >
                             <span 
                                 class="w-10 h-10 sm:w-12 sm:h-12 rounded-full border-2 transition-all duration-300 shadow-2xs group-hover:scale-110 flex items-center justify-center"
-                                :class="activeShade.code === shade.code ? 'border-[#491738] ring-2 ring-[#491738]/20 scale-105' : 'border-white hover:border-stone-300'"
+                                :class="activeShade.code === shade.code ? 'border-bloom ring-2 ring-bloom/30 scale-105' : 'border-white hover:border-stone-300'"
                                 :style="'background-color: ' + shade.hex"
                             >
                                 <svg x-show="activeShade.code === shade.code" class="w-4 h-4 text-white drop-shadow-xs" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
@@ -578,7 +516,7 @@
                 <div class="text-center pt-6">
                     <a 
                         :href="'{{ url('/koleksi') }}?cari=' + encodeURIComponent(activeShade.name)" 
-                        class="inline-flex items-center gap-2 px-6 py-2.5 bg-[#491738] hover:bg-[#38112b] text-white text-xs uppercase tracking-widest font-semibold transition-colors rounded-xs shadow-sm"
+                        class="inline-flex items-center gap-2 px-6 py-2.5 bg-botanic hover:bg-sage-700 text-white text-xs uppercase tracking-widest font-semibold transition-colors rounded-xs shadow-sm"
                     >
                         <span>Cari Koleksi Warna Ini</span>
                         <span>&rarr;</span>
@@ -588,18 +526,18 @@
         </div>
     </section>
 
-    <!-- 6. CURATED BEST SELLERS CATALOG GRID (KOLEKSI TERLARIS) -->
+    <!-- 6. CURATED BEST SELLERS CATALOG GRID (HIJAU BOTANIC & PINK BLOOM) -->
     <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
         <div class="flex items-center justify-between mb-8 pb-3 border-b border-stone-200">
             <div>
-                <span class="text-[10px] uppercase font-mono tracking-widest text-[#491738] font-bold block mb-0.5">
+                <span class="text-[10px] uppercase font-mono tracking-widest text-bloom font-bold block mb-0.5">
                     PALING BANYAK DIPILIH
                 </span>
                 <h2 class="text-xl sm:text-2xl font-serif uppercase tracking-wider text-stone-900">
                     Koleksi Terlaris
                 </h2>
             </div>
-            <a href="{{ url('/koleksi') }}" class="text-xs uppercase tracking-wider text-[#491738] font-semibold hover:underline flex items-center gap-1.5">
+            <a href="{{ url('/koleksi') }}" class="text-xs uppercase tracking-wider text-botanic font-semibold hover:text-bloom hover:underline flex items-center gap-1.5 transition-colors">
                 <span>Lihat Semua Katalog</span>
                 <span>&rarr;</span>
             </a>
@@ -607,7 +545,7 @@
 
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
             @forelse($featuredProducts as $product)
-                <div class="group flex flex-col justify-between border border-stone-200 bg-white p-4 hover:border-[#491738] hover:shadow-md transition-all rounded-lg">
+                <div class="group flex flex-col justify-between border border-sage-200 bg-white p-4 hover:border-botanic hover:shadow-md transition-all rounded-lg">
                     <!-- Photo Frame -->
                     <div class="aspect-[3/4] bg-stone-50 relative overflow-hidden flex items-center justify-center border border-stone-100 rounded-md">
                         @php
@@ -622,7 +560,7 @@
                         />
 
                         @if($product->sold_count > 0)
-                            <span class="absolute top-3 left-3 bg-[#491738] text-white px-2.5 py-0.5 text-[9px] font-mono uppercase tracking-wider rounded-full shadow-xs">
+                            <span class="absolute top-3 left-3 bg-bloom text-white px-2.5 py-0.5 text-[9px] font-mono uppercase tracking-wider rounded-full shadow-xs">
                                 {{ $product->sold_count }} Terjual
                             </span>
                         @endif
@@ -632,11 +570,11 @@
                     <div class="mt-4 space-y-2">
                         <span class="text-[10px] uppercase tracking-wider font-mono text-stone-400 block">{{ $product->category->name ?? 'Hijab' }}</span>
                         <div class="flex items-center justify-between text-xs">
-                            <h3 class="font-semibold text-stone-900 uppercase tracking-wide group-hover:text-[#491738] transition-colors">
+                            <h3 class="font-semibold text-stone-900 uppercase tracking-wide group-hover:text-bloom transition-colors">
                                 <a href="{{ url('/produk/' . $product->slug) }}">{{ $product->name }}</a>
                             </h3>
                             @if($firstVariant = $product->variants->first())
-                                <span class="font-mono text-xs font-bold text-[#491738]">Rp {{ number_format($firstVariant->price, 0, ',', '.') }}</span>
+                                <span class="font-mono text-xs font-bold text-botanic">Rp {{ number_format($firstVariant->price, 0, ',', '.') }}</span>
                             @endif
                         </div>
                         <p class="text-[11px] text-stone-500 line-clamp-1 leading-relaxed">{{ $product->short_description }}</p>
@@ -654,7 +592,7 @@
                         </div>
 
                         <div class="pt-3 border-t border-stone-100 flex items-center justify-between text-[11px]">
-                            <a href="{{ url('/produk/' . $product->slug) }}" class="text-[#491738] font-semibold hover:underline uppercase tracking-wider text-[11px] inline-flex items-center gap-1">
+                            <a href="{{ url('/produk/' . $product->slug) }}" class="text-botanic font-semibold hover:text-bloom hover:underline uppercase tracking-wider text-[11px] inline-flex items-center gap-1 transition-colors">
                                 <span>Detail Produk</span>
                                 <span>&rarr;</span>
                             </a>
@@ -670,13 +608,13 @@
         </div>
     </section>
 
-    <!-- 7. 4-PILLAR TRUST & VALUE PROPOSITIONS (ELZATTA SIGNATURE TRUST STRIP) -->
-    <section class="border-y border-stone-200 bg-stone-50 py-12">
+    <!-- 7. 4-PILLAR TRUST & VALUE PROPOSITIONS (HIJAU BOTANIC & PINK BLOOM) -->
+    <section class="border-y border-sage-200 bg-stone-50/80 py-12">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                 <!-- 1. All-Channel Shopping -->
-                <div class="flex items-start gap-4 p-4 bg-white border border-stone-200 rounded-lg shadow-2xs">
-                    <div class="w-10 h-10 rounded-full bg-[#491738]/10 text-[#491738] flex items-center justify-center flex-shrink-0">
+                <div class="flex items-start gap-4 p-4 bg-white border border-sage-200 rounded-lg shadow-2xs">
+                    <div class="w-10 h-10 rounded-full bg-sage-100 text-botanic flex items-center justify-center flex-shrink-0">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
                     </div>
                     <div>
@@ -686,8 +624,8 @@
                 </div>
 
                 <!-- 2. Loyalty Point Reward -->
-                <div class="flex items-start gap-4 p-4 bg-white border border-stone-200 rounded-lg shadow-2xs">
-                    <div class="w-10 h-10 rounded-full bg-[#491738]/10 text-[#491738] flex items-center justify-center flex-shrink-0">
+                <div class="flex items-start gap-4 p-4 bg-white border border-blush-200 rounded-lg shadow-2xs">
+                    <div class="w-10 h-10 rounded-full bg-blush-100 text-bloom flex items-center justify-center flex-shrink-0">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
                     </div>
                     <div>
@@ -697,8 +635,8 @@
                 </div>
 
                 <!-- 3. Voucher & Promo -->
-                <div class="flex items-start gap-4 p-4 bg-white border border-stone-200 rounded-lg shadow-2xs">
-                    <div class="w-10 h-10 rounded-full bg-[#491738]/10 text-[#491738] flex items-center justify-center flex-shrink-0">
+                <div class="flex items-start gap-4 p-4 bg-white border border-sage-200 rounded-lg shadow-2xs">
+                    <div class="w-10 h-10 rounded-full bg-sage-100 text-botanic flex items-center justify-center flex-shrink-0">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 5v2m0 4v2m0 4v2M5 5a2 2 0 00-2 2v3a2 2 0 110 4v3a2 2 0 002 2h14a2 2 0 002-2v-3a2 2 0 110-4V7a2 2 0 00-2-2H5z"/></svg>
                     </div>
                     <div>
@@ -708,8 +646,8 @@
                 </div>
 
                 <!-- 4. Garansi Retur 7 Hari -->
-                <div class="flex items-start gap-4 p-4 bg-white border border-stone-200 rounded-lg shadow-2xs">
-                    <div class="w-10 h-10 rounded-full bg-[#491738]/10 text-[#491738] flex items-center justify-center flex-shrink-0">
+                <div class="flex items-start gap-4 p-4 bg-white border border-blush-200 rounded-lg shadow-2xs">
+                    <div class="w-10 h-10 rounded-full bg-blush-100 text-bloom flex items-center justify-center flex-shrink-0">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
                     </div>
                     <div>
@@ -721,10 +659,10 @@
         </div>
     </section>
 
-    <!-- 8. TESTIMONIALS / SUARA PELANGGAN -->
+    <!-- 8. TESTIMONIALS / SUARA PELANGGAN (HIJAU BOTANIC & PINK BLOOM) -->
     <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div class="text-center max-w-2xl mx-auto mb-12 space-y-2">
-            <span class="text-[10px] uppercase font-mono tracking-widest text-[#491738] font-bold block">
+            <span class="text-[10px] uppercase font-mono tracking-widest text-botanic font-bold block">
                 SUARA SAHABAT BLOOMINGKEMBANG
             </span>
             <h2 class="text-2xl sm:text-3xl font-serif uppercase tracking-wider text-stone-900">
@@ -737,7 +675,7 @@
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
             <!-- Review 1 -->
-            <div class="p-6 border border-stone-200 bg-white rounded-lg shadow-2xs space-y-4 flex flex-col justify-between">
+            <div class="p-6 border border-sage-200 bg-white rounded-lg shadow-2xs space-y-4 flex flex-col justify-between">
                 <div class="space-y-3">
                     <div class="flex items-center space-x-1 text-amber-500">
                         @for($i = 0; $i < 5; $i++)
@@ -751,12 +689,12 @@
                 <div class="pt-4 border-t border-stone-100 space-y-0.5">
                     <span class="text-xs font-semibold text-stone-900 block">Annisa Rahmawati</span>
                     <span class="text-[11px] text-stone-500 font-mono block">Bandung &bull; Pembeli Terverifikasi</span>
-                    <span class="text-[10px] text-[#491738] font-medium block mt-1">Koleksi: Voal Ultrafine Signature - Soft Sage</span>
+                    <span class="text-[10px] text-botanic font-medium block mt-1">Koleksi: Voal Ultrafine Signature - Soft Sage</span>
                 </div>
             </div>
 
             <!-- Review 2 -->
-            <div class="p-6 border border-stone-200 bg-white rounded-lg shadow-2xs space-y-4 flex flex-col justify-between">
+            <div class="p-6 border border-blush-200 bg-white rounded-lg shadow-2xs space-y-4 flex flex-col justify-between">
                 <div class="space-y-3">
                     <div class="flex items-center space-x-1 text-amber-500">
                         @for($i = 0; $i < 5; $i++)
@@ -770,12 +708,12 @@
                 <div class="pt-4 border-t border-stone-100 space-y-0.5">
                     <span class="text-xs font-semibold text-stone-900 block">Dian Savitri</span>
                     <span class="text-[11px] text-stone-500 font-mono block">Jakarta Selatan &bull; Pembeli Terverifikasi</span>
-                    <span class="text-[10px] text-[#491738] font-medium block mt-1">Koleksi: Pashmina Silk Premium - Rose Mauve</span>
+                    <span class="text-[10px] text-bloom font-medium block mt-1">Koleksi: Pashmina Silk Premium - Rose Mauve</span>
                 </div>
             </div>
 
             <!-- Review 3 -->
-            <div class="p-6 border border-stone-200 bg-white rounded-lg shadow-2xs space-y-4 flex flex-col justify-between">
+            <div class="p-6 border border-sage-200 bg-white rounded-lg shadow-2xs space-y-4 flex flex-col justify-between">
                 <div class="space-y-3">
                     <div class="flex items-center space-x-1 text-amber-500">
                         @for($i = 0; $i < 5; $i++)
@@ -789,17 +727,17 @@
                 <div class="pt-4 border-t border-stone-100 space-y-0.5">
                     <span class="text-xs font-semibold text-stone-900 block">Fatimah Azzahra</span>
                     <span class="text-[11px] text-stone-500 font-mono block">Surabaya &bull; Pembeli Terverifikasi</span>
-                    <span class="text-[10px] text-[#491738] font-medium block mt-1">Koleksi: Bergo Khimar Daily - Mocca Haze</span>
+                    <span class="text-[10px] text-botanic font-medium block mt-1">Koleksi: Bergo Khimar Daily - Mocca Haze</span>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- 9. NEWSLETTER & WELCOME VOUCHER (DISKON 10%) -->
-    <section class="border-t border-stone-200 bg-gradient-to-r from-stone-100 via-white to-stone-100 py-16">
+    <section class="border-t border-sage-200 bg-gradient-to-r from-sage-50 via-white to-blush-50 py-16">
         <div class="max-w-4xl mx-auto px-4 text-center space-y-6" x-data="{ email: '', submitted: false }">
-            <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white border border-stone-200 text-[#491738] text-[10px] uppercase font-mono tracking-widest font-semibold shadow-2xs">
-                <span class="w-1.5 h-1.5 rounded-full bg-[#491738]"></span>
+            <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white border border-sage-200 text-botanic text-[10px] uppercase font-mono tracking-widest font-semibold shadow-2xs">
+                <span class="w-1.5 h-1.5 rounded-full bg-bloom"></span>
                 Warta & Penawaran Eksklusif
             </span>
 
@@ -821,11 +759,11 @@
                             x-model="email" 
                             placeholder="Ketik alamat email Anda..." 
                             required 
-                            class="flex-1 text-xs border border-stone-300 bg-white px-4 py-3 focus:border-[#491738] focus:ring-0 placeholder-stone-400 rounded-xs shadow-2xs"
+                            class="flex-1 text-xs border border-sage-300 bg-white px-4 py-3 focus:border-botanic focus:ring-0 placeholder-stone-400 rounded-xs shadow-2xs"
                         />
                         <button 
                             type="submit" 
-                            class="px-6 py-3 bg-[#491738] hover:bg-[#38112b] text-white text-xs uppercase tracking-widest font-semibold transition-colors shadow-xs rounded-xs cursor-pointer whitespace-nowrap"
+                            class="px-6 py-3 bg-botanic hover:bg-sage-700 text-white text-xs uppercase tracking-widest font-semibold transition-colors shadow-xs rounded-xs cursor-pointer whitespace-nowrap"
                         >
                             Berlangganan
                         </button>
@@ -833,8 +771,8 @@
                 </template>
 
                 <template x-if="submitted">
-                    <div class="p-4 bg-white border border-stone-300 text-stone-800 rounded-xs text-xs font-medium space-y-1 shadow-xs">
-                        <p class="text-sm font-semibold text-[#491738]">✓ Terima kasih telah bergabung!</p>
+                    <div class="p-4 bg-white border border-sage-300 text-stone-800 rounded-xs text-xs font-medium space-y-1 shadow-xs">
+                        <p class="text-sm font-semibold text-botanic">✓ Terima kasih telah bergabung!</p>
                         <p class="text-stone-600 text-[11px]">Kupon sambutan 10% Anda: <strong class="font-mono text-stone-900 uppercase">RAMADHAN20</strong>. Gunakan saat melakukan checkout pesanan pertama Anda.</p>
                     </div>
                 </template>
