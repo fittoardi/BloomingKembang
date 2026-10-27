@@ -82,9 +82,33 @@ test('catalog can sort and reset filters', function () {
         ->assertSet('sortBy', 'price_low')
         ->set('color', 'Dusty Rose')
         ->assertSet('color', 'Dusty Rose')
+        ->set('search', 'Pashmina')
+        ->assertSet('search', 'Pashmina')
         ->call('resetFilters')
         ->assertSet('color', '')
+        ->assertSet('search', '')
         ->assertSet('sortBy', 'newest');
+});
+
+test('catalog can perform live search by keyword', function () {
+    Livewire::test(CatalogIndex::class)
+        ->set('search', 'Pashmina')
+        ->assertSee('Pashmina')
+        ->assertSee('Hasil pencarian untuk');
+
+    Livewire::test(CatalogIndex::class)
+        ->set('search', 'KataKunciYangPastiTidakAda123XYZ')
+        ->assertSee('Tidak ada produk yang cocok dengan pencarian');
+});
+
+test('homepage renders testimonials and newsletter section', function () {
+    $response = $this->get('/');
+
+    $response->assertSuccessful();
+    $response->assertSee('Dipercaya oleh Muslimah Indonesia');
+    $response->assertSee('Annisa Rahmawati');
+    $response->assertSee('Dapatkan Voucher Sambutan Diskon 10%');
+    $response->assertSee('Berlangganan');
 });
 
 test('product model has registered media collections', function () {

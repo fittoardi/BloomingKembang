@@ -281,4 +281,133 @@
             </div>
         </div>
     </section>
+
+    <!-- Testimonials / Suara Sahabat BloomingKembang -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+        <div class="text-center max-w-2xl mx-auto mb-14 space-y-3">
+            <span class="text-[10px] uppercase font-mono tracking-widest text-botanic font-semibold block">Suara Pelanggan</span>
+            <h2 class="text-xl sm:text-3xl font-serif font-normal uppercase tracking-wider text-obsidian">
+                Dipercaya oleh Muslimah Indonesia
+            </h2>
+            <p class="text-xs sm:text-sm text-stone-600 leading-relaxed font-normal">
+                Kesan tulus dari para sahabat yang telah merasakan kenyamanan serat voal ultrafine dan jahitan butik presisi kami.
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <!-- Review 1 -->
+            <div class="p-8 border border-sage-200/80 bg-white/90 rounded-sm shadow-2xs space-y-4 flex flex-col justify-between">
+                <div class="space-y-3">
+                    <div class="flex items-center space-x-1 text-amber-500">
+                        @for($i = 0; $i < 5; $i++)
+                            <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20">
+                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                            </svg>
+                        @endfor
+                    </div>
+                    <p class="text-xs text-stone-700 leading-relaxed italic">
+                        "Bahan voal ultrafine-nya benar-benar tegak di dahi dan tidak mudah kusut walau dipakai seharian beraktivitas di luar ruangan. Jahitan tepinya sangat rapi standar butik. Sudah langganan 3 warna!"
+                    </p>
+                </div>
+                <div class="pt-4 border-t border-bone space-y-0.5">
+                    <span class="text-xs font-semibold text-obsidian block">Annisa Rahmawati</span>
+                    <span class="text-[11px] text-stone-500 font-mono block">Bandung &bull; Pembeli Terverifikasi</span>
+                    <span class="text-[10px] text-botanic font-medium block mt-1">Koleksi: Voal Ultrafine Signature - Soft Sage</span>
+                </div>
+            </div>
+
+            <!-- Review 2 -->
+            <div class="p-8 border border-blush-200/80 bg-white/90 rounded-sm shadow-2xs space-y-4 flex flex-col justify-between">
+                <div class="space-y-3">
+                    <div class="flex items-center space-x-1 text-amber-500">
+                        @for($i = 0; $i < 5; $i++)
+                            <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20">
+                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                            </svg>
+                        @endfor
+                    </div>
+                    <p class="text-xs text-stone-700 leading-relaxed italic">
+                        "Pashmina silk-nya jatuh sangat anggun, tidak licin berlebihan, dan warnanya persis seperti di foto katalog. Kemasan amplop eksklusifnya memberi pengalaman unboxing yang sangat mewah."
+                    </p>
+                </div>
+                <div class="pt-4 border-t border-bone space-y-0.5">
+                    <span class="text-xs font-semibold text-obsidian block">Dian Savitri</span>
+                    <span class="text-[11px] text-stone-500 font-mono block">Jakarta Selatan &bull; Pembeli Terverifikasi</span>
+                    <span class="text-[10px] text-bloom font-medium block mt-1">Koleksi: Pashmina Silk Premium - Rose Mauve</span>
+                </div>
+            </div>
+
+            <!-- Review 3 -->
+            <div class="p-8 border border-sage-200/80 bg-white/90 rounded-sm shadow-2xs space-y-4 flex flex-col justify-between">
+                <div class="space-y-3">
+                    <div class="flex items-center space-x-1 text-amber-500">
+                        @for($i = 0; $i < 5; $i++)
+                            <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20">
+                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                            </svg>
+                        @endfor
+                    </div>
+                    <p class="text-xs text-stone-700 leading-relaxed italic">
+                        "Bergo daily ini penyelamat saat harus keluar mendadak. Bahannya sejuk, pet-nya pas di muka tidak kaku. Pengiriman super kilat, sore pesan besok paginya sudah sampai di rumah."
+                    </p>
+                </div>
+                <div class="pt-4 border-t border-bone space-y-0.5">
+                    <span class="text-xs font-semibold text-obsidian block">Fatimah Azzahra</span>
+                    <span class="text-[11px] text-stone-500 font-mono block">Surabaya &bull; Pembeli Terverifikasi</span>
+                    <span class="text-[10px] text-botanic font-medium block mt-1">Koleksi: Bergo Khimar Daily - Mocca Haze</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter & Exclusive Voucher Strip -->
+    <section class="border-t border-sage-200/80 bg-gradient-to-r from-sage-100/70 via-white to-blush-100/60 py-16">
+        <div class="max-w-4xl mx-auto px-4 text-center space-y-6" x-data="{ email: '', submitted: false }">
+            <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white border border-sage-200 text-botanic text-[10px] uppercase font-mono tracking-widest font-semibold">
+                <span class="w-1.5 h-1.5 rounded-full bg-bloom"></span>
+                Warta & Penawaran Eksklusif
+            </span>
+
+            <div class="space-y-2">
+                <h3 class="text-xl sm:text-3xl font-serif font-normal uppercase tracking-wider text-obsidian">
+                    Dapatkan Voucher Sambutan Diskon 10%
+                </h3>
+                <p class="text-xs sm:text-sm text-stone-600 max-w-lg mx-auto leading-relaxed">
+                    Daftarkan alamat email Anda untuk menerima kabar peluncuran warna baru, restock produk unggulan, dan kupon potongan belanja pertama.
+                </p>
+            </div>
+
+            <!-- Form -->
+            <div class="max-w-md mx-auto">
+                <template x-if="!submitted">
+                    <form @submit.prevent="if(email) { submitted = true; }" class="flex flex-col sm:flex-row gap-2">
+                        <input 
+                            type="email" 
+                            x-model="email" 
+                            placeholder="Ketik alamat email Anda..." 
+                            required 
+                            class="flex-1 text-xs border border-sage-300 bg-white px-4 py-3 focus:border-obsidian focus:ring-0 placeholder-stone-400 rounded-xs shadow-2xs"
+                        />
+                        <button 
+                            type="submit" 
+                            class="px-6 py-3 bg-botanic text-paper text-xs uppercase tracking-widest font-medium hover:bg-sage-700 transition-colors shadow-xs rounded-xs cursor-pointer whitespace-nowrap"
+                        >
+                            Berlangganan
+                        </button>
+                    </form>
+                </template>
+
+                <template x-if="submitted">
+                    <div class="p-4 bg-white border border-sage-300 text-botanic rounded-xs text-xs font-medium space-y-1 shadow-xs">
+                        <p class="text-sm font-semibold">✓ Terima kasih telah bergabung!</p>
+                        <p class="text-stone-600 text-[11px]">Kupon sambutan 10% Anda: <strong class="font-mono text-obsidian uppercase">RAMADHAN20</strong>. Gunakan saat melakukan checkout pesanan pertama Anda.</p>
+                    </div>
+                </template>
+
+                <span class="text-[10px] text-stone-400 mt-2 block font-mono">
+                    Kami menghargai privasi Anda. Bebas berhenti berlangganan kapan saja.
+                </span>
+            </div>
+        </div>
+    </section>
 </x-storefront-layout>

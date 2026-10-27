@@ -195,7 +195,21 @@
                 </div>
 
                 <!-- Right Utility Links -->
-                <div class="flex items-center space-x-6 text-xs uppercase tracking-widest">
+                <div class="flex items-center space-x-5 text-xs uppercase tracking-widest">
+                    <!-- Quick Search Bar -->
+                    <form action="{{ url('/koleksi') }}" method="GET" class="hidden sm:flex items-center relative">
+                        <input 
+                            type="text" 
+                            name="cari" 
+                            value="{{ request('cari') }}" 
+                            placeholder="Cari koleksi..." 
+                            class="text-[11px] font-sans border border-sage-200/90 rounded-full pl-7 pr-3 py-1 bg-white/80 focus:bg-white focus:border-botanic focus:ring-0 placeholder-stone-400 w-28 focus:w-44 transition-all duration-300"
+                        />
+                        <svg class="w-3.5 h-3.5 text-stone-400 absolute left-2.5 top-2 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                        </svg>
+                    </form>
+
                     @auth
                         @if(auth()->user()->hasAnyRole(['super_admin', 'admin', 'warehouse_staff']))
                             <a href="{{ url('/admin') }}" class="link-underlined text-botanic font-medium">Panel Admin</a>
