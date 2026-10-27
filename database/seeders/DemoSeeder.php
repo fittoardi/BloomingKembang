@@ -327,18 +327,58 @@ class DemoSeeder extends Seeder
             );
         }
 
-        // 6. Banner Promo
-        Banner::updateOrCreate(
-            ['title' => 'Koleksi Syar\'i & Elegan 2026'],
+        // 6. Banner Promo (Hero Carousel & Top Bar)
+        $heroBannersData = [
             [
-                'subtitle' => 'Ditenun dari serat voal ultrafine dan ceruty babydoll pilihan.',
+                'title' => 'Sentuhan Lembut & Elegan Hijab Pilihan',
+                'subtitle' => 'Ditenun dari serat voal ultrafine dan ceruty babydoll pilihan. Lembut bersahaja, tegak di dahi, dan anggun dalam setiap momen.',
+                'image' => 'images/home/hero-portrait.jpg',
+                'link_url' => '/koleksi',
+                'sort_order' => 1,
+            ],
+            [
+                'title' => 'Pashmina Silk Shimmer & Ceruty Flowy',
+                'subtitle' => 'Kilau lembut mewah yang memikat dengan drape kain jatuh sempurna. Sangat anggun untuk resepsi dan momen istimewa.',
+                'image' => 'images/products/pashmina-silk.jpg',
+                'link_url' => '/koleksi/pashmina-silk',
+                'sort_order' => 2,
+            ],
+            [
+                'title' => 'Voal Miracle & Segi Empat Laser Cut',
+                'subtitle' => 'Potongan laser cut presisi dengan tekstur kain anti kusut. Pilihan tepat untuk kenyamanan seharian penuh percaya diri.',
+                'image' => 'images/products/voal-signature.jpg',
+                'link_url' => '/koleksi/hijab-segi-empat',
+                'sort_order' => 3,
+            ],
+            [
+                'title' => 'Bergo Daily & Khimar Soft Pet Series',
+                'subtitle' => 'Praktis, langsung pakai, dan sejuk di cuaca tropis. Jahit butik tepi halus dengan ketahanan bahan tinggi.',
+                'image' => 'images/products/bergo-daily.jpg',
+                'link_url' => '/koleksi/bergo-daily',
+                'sort_order' => 4,
+            ],
+            [
+                'title' => 'Koleksi Syar\'i & Elegan 2026',
+                'subtitle' => 'Ditenun dari serat voal ultrafine dan ceruty babydoll pilihan. Sempurna menemani ibadah dan aktivitas harian Anda.',
                 'image' => 'images/home/hero-editorial.jpg',
                 'link_url' => '/koleksi',
-                'position' => 'hero',
-                'sort_order' => 1,
-                'is_active' => true,
-            ]
-        );
+                'sort_order' => 5,
+            ],
+        ];
+
+        foreach ($heroBannersData as $b) {
+            Banner::updateOrCreate(
+                ['title' => $b['title']],
+                [
+                    'subtitle' => $b['subtitle'],
+                    'image' => $b['image'],
+                    'link_url' => $b['link_url'],
+                    'position' => 'hero',
+                    'sort_order' => $b['sort_order'],
+                    'is_active' => true,
+                ]
+            );
+        }
 
         Banner::firstOrCreate(
             ['title' => 'GRATIS ONGKIR SELURUH INDONESIA DENGAN KODE VOUCHER "BLOOMINGFIRST"'],

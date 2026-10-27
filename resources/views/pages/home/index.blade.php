@@ -1,11 +1,90 @@
 <x-storefront-layout title="BloomingKembang — Koleksi Hijab Elegan & Bersahaja">
     @php
-        $heroBanner = \App\Models\Banner::where('is_active', true)
+        $heroBanners = \App\Models\Banner::where('is_active', true)
             ->where('position', 'hero')
             ->where(fn($q) => $q->whereNull('starts_at')->orWhere('starts_at', '<=', now()))
             ->where(fn($q) => $q->whereNull('ends_at')->orWhere('ends_at', '>=', now()))
             ->orderBy('sort_order')
-            ->first();
+            ->get();
+
+        $defaultSlides = [
+            [
+                'title' => 'Sentuhan Lembut & Elegan Hijab Pilihan',
+                'subtitle' => 'Ditenun dari serat voal ultrafine dan ceruty babydoll pilihan. Lembut bersahaja, tegak di dahi, dan anggun dalam setiap momen.',
+                'image' => 'images/home/hero-portrait.jpg',
+                'link_url' => '/koleksi',
+                'tag' => 'Atelier Hijab Kurasi 2026',
+                'badge' => 'Signature Edition',
+                'label_subtitle' => 'Voal & Pashmina Draped in Grace',
+                'label_detail' => 'Warna Sage & Dusty Rose Kurasi 2026',
+                'cta_text' => 'Jelajahi Koleksi',
+            ],
+            [
+                'title' => 'Pashmina Silk Shimmer & Ceruty Flowy',
+                'subtitle' => 'Kilau lembut mewah yang memikat dengan drape kain jatuh sempurna. Sangat anggun untuk resepsi dan momen istimewa.',
+                'image' => 'images/products/pashmina-silk.jpg',
+                'link_url' => '/koleksi/pashmina',
+                'tag' => 'Shimmer & Glow Series',
+                'badge' => 'Silk Shimmer',
+                'label_subtitle' => 'Kilau Anggun Elegan',
+                'label_detail' => 'Kain Lembut Jatuh & Sejuk Seharian',
+                'cta_text' => 'Lihat Pashmina Silk',
+            ],
+            [
+                'title' => 'Voal Miracle & Segi Empat Laser Cut',
+                'subtitle' => 'Potongan laser cut presisi dengan tekstur kain anti kusut. Pilihan tepat untuk kenyamanan seharian penuh percaya diri.',
+                'image' => 'images/products/voal-signature.jpg',
+                'link_url' => '/koleksi/hijab-segi-empat',
+                'tag' => 'Best Seller Voal',
+                'badge' => 'Laser Cut Edge',
+                'label_subtitle' => 'Voal Ultrafine Turkish',
+                'label_detail' => 'Tegak di Dahi, Anti Geser',
+                'cta_text' => 'Beli Voal Signature',
+            ],
+            [
+                'title' => 'Bergo Daily & Khimar Soft Pet Series',
+                'subtitle' => 'Praktis, langsung pakai, dan sejuk di cuaca tropis. Jahit butik tepi halus dengan ketahanan bahan tinggi.',
+                'image' => 'images/products/bergo-daily.jpg',
+                'link_url' => '/koleksi/bergo-daily',
+                'tag' => 'Daily Practical Wear',
+                'badge' => 'Instant Bergo',
+                'label_subtitle' => 'Soft Pet Nyaman & Pas',
+                'label_detail' => 'Jersey ITY Premium Breathable',
+                'cta_text' => 'Lihat Bergo Daily',
+            ],
+            [
+                'title' => 'Koleksi Syar\'i & Elegan 2026',
+                'subtitle' => 'Ditenun dari serat voal ultrafine dan ceruty babydoll pilihan. Sempurna menemani ibadah dan aktivitas harian Anda.',
+                'image' => 'images/home/hero-editorial.jpg',
+                'link_url' => '/koleksi',
+                'tag' => 'Editorial Collection',
+                'badge' => 'Syar\'i Silhouette',
+                'label_subtitle' => 'Anggun Bersahaja Syar\'i',
+                'label_detail' => 'Menutup Dada dengan Sempurna',
+                'cta_text' => 'Temukan Koleksi',
+            ],
+        ];
+
+        $slides = [];
+        if ($heroBanners->isNotEmpty()) {
+            foreach ($heroBanners as $idx => $banner) {
+                $preset = $defaultSlides[$idx % count($defaultSlides)];
+                $slides[] = [
+                    'id' => $banner->id,
+                    'title' => $banner->title,
+                    'subtitle' => $banner->subtitle ?? $preset['subtitle'],
+                    'image' => $banner->image ?: $preset['image'],
+                    'link_url' => $banner->link_url ?: $preset['link_url'],
+                    'tag' => $preset['tag'],
+                    'badge' => $preset['badge'],
+                    'label_subtitle' => $preset['label_subtitle'],
+                    'label_detail' => $preset['label_detail'],
+                    'cta_text' => $preset['cta_text'],
+                ];
+            }
+        } else {
+            $slides = $defaultSlides;
+        }
 
         $featuredProducts = \App\Models\Product::with(['category', 'variants'])
             ->where('status', \App\Enums\ProductStatus::Active)
@@ -14,43 +93,130 @@
             ->get();
     @endphp
 
-    <!-- Hero Editorial Section -->
-    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-16 relative">
-        <div class="border border-blush-200/90 bg-gradient-to-br from-sage-50/95 via-white/95 to-blush-50/90 relative overflow-hidden rounded-xl shadow-xs backdrop-blur-xs">
+    <!-- Hero Editorial Section with Auto-Advancing Carousel (3.5s) -->
+    <section 
+        x-data="{
+            current: 0,
+            total: {{ count($slides) }},
+            intervalMs: 3500,
+            stepMs: 50,
+            progress: 0,
+            timer: null,
+            isPaused: false,
+            touchStartX: 0,
+            touchEndX: 0,
+            init() {
+                this.startAutoplay();
+            },
+            startAutoplay() {
+                this.clearTimer();
+                this.timer = setInterval(() => {
+                    if (!this.isPaused) {
+                        this.progress += (this.stepMs / this.intervalMs) * 100;
+                        if (this.progress >= 100) {
+                            this.progress = 0;
+                            this.next();
+                        }
+                    }
+                }, this.stepMs);
+            },
+            clearTimer() {
+                if (this.timer) {
+                    clearInterval(this.timer);
+                    this.timer = null;
+                }
+            },
+            next() {
+                this.current = (this.current + 1) % this.total;
+                this.progress = 0;
+            },
+            prev() {
+                this.current = (this.current - 1 + this.total) % this.total;
+                this.progress = 0;
+            },
+            goTo(index) {
+                this.current = index;
+                this.progress = 0;
+            },
+            pause() {
+                this.isPaused = true;
+            },
+            resume() {
+                this.isPaused = false;
+            },
+            togglePause() {
+                this.isPaused = !this.isPaused;
+            },
+            handleTouchStart(e) {
+                this.touchStartX = e.changedTouches[0].screenX;
+            },
+            handleTouchEnd(e) {
+                this.touchEndX = e.changedTouches[0].screenX;
+                if (this.touchStartX - this.touchEndX > 45) {
+                    this.next();
+                } else if (this.touchEndX - this.touchStartX > 45) {
+                    this.prev();
+                }
+            }
+        }"
+        @mouseenter="pause()"
+        @mouseleave="resume()"
+        @keydown.arrow-right.window="next()"
+        @keydown.arrow-left.window="prev()"
+        class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-14 relative select-none"
+        aria-roledescription="carousel"
+        aria-label="Koleksi Unggulan BloomingKembang"
+    >
+        <div class="border border-blush-200/90 bg-gradient-to-br from-sage-50/95 via-white/95 to-blush-50/90 relative overflow-hidden rounded-2xl shadow-xs backdrop-blur-xs">
             <!-- Atmospheric Ambient Orbs -->
             <div class="absolute -top-24 -left-24 w-80 h-80 rounded-full bg-sage-200/40 blur-3xl pointer-events-none"></div>
             <div class="absolute -bottom-24 -right-24 w-80 h-80 rounded-full bg-blush-200/40 blur-3xl pointer-events-none"></div>
 
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center p-6 sm:p-12 lg:p-16 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center p-6 sm:p-10 lg:p-14 relative z-10">
                 <!-- Text Column (Left) -->
-                <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
-                    <div>
-                        <span class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-sage-100/90 text-botanic text-[11px] font-mono tracking-widest uppercase border border-sage-200">
-                            <span class="w-1.5 h-1.5 rounded-full bg-bloom animate-pulse"></span>
-                            Atelier Hijab Kurasi 2026
-                        </span>
+                <div class="lg:col-span-7 text-center lg:text-left relative flex flex-col justify-between">
+                    <div class="grid [grid-template-areas:'stack'] items-center min-h-[290px] sm:min-h-[280px]">
+                        @foreach ($slides as $index => $slide)
+                            <div 
+                                x-show="current === {{ $index }}"
+                                x-transition:enter="transition-all ease-out duration-600 delay-100"
+                                x-transition:enter-start="opacity-0 translate-y-2"
+                                x-transition:enter-end="opacity-100 translate-y-0"
+                                x-transition:leave="transition-all ease-in duration-300"
+                                x-transition:leave-start="opacity-100 translate-y-0"
+                                x-transition:leave-end="opacity-0 -translate-y-2"
+                                class="col-start-1 row-start-1 space-y-5"
+                            >
+                                <div>
+                                    <span class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-sage-100/90 text-botanic text-[11px] font-mono tracking-widest uppercase border border-sage-200">
+                                        <span class="w-1.5 h-1.5 rounded-full bg-bloom animate-pulse"></span>
+                                        {{ $slide['tag'] }}
+                                    </span>
+                                </div>
+
+                                <h1 class="text-2xl sm:text-4xl lg:text-5xl font-serif font-normal tracking-wide text-obsidian uppercase leading-tight min-h-[2.4em] flex items-center justify-center lg:justify-start">
+                                    {{ $slide['title'] }}
+                                </h1>
+
+                                <p class="max-w-xl mx-auto lg:mx-0 text-xs sm:text-sm text-stone-600 leading-relaxed font-normal min-h-[3.2em]">
+                                    {{ $slide['subtitle'] }}
+                                </p>
+
+                                <!-- CTAs -->
+                                <div class="pt-2 flex flex-wrap items-center justify-center lg:justify-start gap-4">
+                                    <a href="{{ url($slide['link_url']) }}" class="px-8 py-3.5 bg-botanic text-paper text-xs uppercase tracking-widest font-medium hover:bg-sage-700 transition-colors shadow-sm rounded-sm">
+                                        {{ $slide['cta_text'] }} &rarr;
+                                    </a>
+                                    <a href="{{ url('/tentang-kami') }}" class="px-6 py-3.5 border border-blush-300 bg-white/80 text-bloom text-xs uppercase tracking-widest font-medium hover:bg-blush-50 transition-colors rounded-sm">
+                                        Filosofi Brand
+                                    </a>
+                                </div>
+                            </div>
+                        @endforeach
                     </div>
 
-                    <h1 class="text-2xl sm:text-4xl lg:text-5xl font-serif font-normal tracking-wide text-obsidian uppercase leading-tight">
-                        {{ $heroBanner?->title ?? 'Sentuhan Lembut & Elegan Hijab Pilihan' }}
-                    </h1>
-
-                    <p class="max-w-xl mx-auto lg:mx-0 text-xs sm:text-sm text-stone-600 leading-relaxed font-normal">
-                        {{ $heroBanner?->subtitle ?? 'Ditenun dari serat voal ultrafine dan ceruty babydoll pilihan. Lembut bersahaja, tegak di dahi, dan anggun dalam setiap momen.' }}
-                    </p>
-
-                    <!-- CTAs -->
-                    <div class="pt-2 flex flex-wrap items-center justify-center lg:justify-start gap-4">
-                        <a href="{{ url('/koleksi') }}" class="px-8 py-3.5 bg-botanic text-paper text-xs uppercase tracking-widest font-medium hover:bg-sage-700 transition-colors shadow-sm rounded-sm">
-                            Jelajahi Koleksi &rarr;
-                        </a>
-                        <a href="{{ url('/tentang-kami') }}" class="px-6 py-3.5 border border-blush-300 bg-white/80 text-bloom text-xs uppercase tracking-widest font-medium hover:bg-blush-50 transition-colors rounded-sm">
-                            Filosofi Brand
-                        </a>
-                    </div>
-
-                    <!-- Mini Value Badges -->
-                    <div class="pt-6 border-t border-bone/70 grid grid-cols-3 gap-3 text-left">
+                    <!-- Mini Value Badges (always visible, anchor to foundation) -->
+                    <div class="pt-6 border-t border-bone/70 grid grid-cols-3 gap-3 text-left mt-6">
                         <div class="space-y-0.5">
                             <span class="text-[10px] font-mono uppercase tracking-wider text-botanic font-semibold block">100% Alami</span>
                             <span class="text-[11px] text-stone-600 font-medium block">Voal Ultrafine Turkish</span>
@@ -67,22 +233,138 @@
                 </div>
 
                 <!-- Visual Column (Right) -->
-                <div class="lg:col-span-5 relative flex justify-center">
-                    <div class="relative w-full max-w-sm sm:max-w-md aspect-[3/4] rounded-lg overflow-hidden border border-blush-200/90 shadow-lg group">
-                        <img 
-                            src="{{ asset('images/home/hero-portrait.jpg') }}" 
-                            alt="BloomingKembang Signature Hijab Collection" 
-                            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                        />
-                        <!-- Subtle Gradient Overlay on Portrait -->
-                        <div class="absolute inset-0 bg-gradient-to-t from-obsidian/60 via-transparent to-transparent opacity-80"></div>
-                        
-                        <!-- Floating Glassmorphism Label -->
-                        <div class="absolute bottom-4 left-4 right-4 p-4 rounded-md bg-white/90 backdrop-blur-md border border-white/40 shadow-sm text-left">
-                            <span class="text-[10px] uppercase font-mono tracking-widest text-botanic font-bold block">Signature Edition</span>
-                            <p class="text-xs font-serif font-medium text-obsidian uppercase">Voal & Pashmina Draped in Grace</p>
-                            <span class="text-[10px] text-stone-500 font-mono block mt-0.5">Warna Sage & Dusty Rose Kurasi 2026</span>
-                        </div>
+                <div 
+                    class="lg:col-span-5 relative flex flex-col items-center justify-center"
+                    @touchstart="handleTouchStart($event)"
+                    @touchend="handleTouchEnd($event)"
+                >
+                    <!-- Visual Image Container -->
+                    <div class="relative w-full max-w-sm sm:max-w-md aspect-[3/4] rounded-xl overflow-hidden border border-blush-200/90 shadow-lg group bg-stone-100 grid">
+                        @foreach ($slides as $index => $slide)
+                            <div 
+                                x-show="current === {{ $index }}"
+                                x-transition:enter="transition-opacity ease-out duration-700"
+                                x-transition:enter-start="opacity-0"
+                                x-transition:enter-end="opacity-100"
+                                x-transition:leave="transition-opacity ease-in duration-500"
+                                x-transition:leave-start="opacity-100"
+                                x-transition:leave-end="opacity-0"
+                                class="col-start-1 row-start-1 w-full h-full relative"
+                            >
+                                <img 
+                                    src="{{ asset($slide['image']) }}" 
+                                    alt="{{ $slide['title'] }}" 
+                                    class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                                    loading="{{ $index === 0 ? 'eager' : 'lazy' }}"
+                                />
+                                <!-- Subtle Gradient Overlay -->
+                                <div class="absolute inset-0 bg-gradient-to-t from-obsidian/75 via-transparent to-black/20 pointer-events-none"></div>
+
+                                <!-- Slide Index Badge Top Right -->
+                                <div class="absolute top-4 right-4 px-2.5 py-1 rounded-full bg-obsidian/60 backdrop-blur-md border border-white/20 text-white font-mono text-[10px] tracking-widest pointer-events-none shadow-xs">
+                                    <span>{{ sprintf('%02d', $index + 1) }}</span> / <span>{{ sprintf('%02d', count($slides)) }}</span>
+                                </div>
+
+                                <!-- Floating Glassmorphism Label Bottom -->
+                                <div class="absolute bottom-4 left-4 right-4 p-4 rounded-lg bg-white/95 backdrop-blur-md border border-white/50 shadow-md text-left transition-all">
+                                    <span class="text-[10px] uppercase font-mono tracking-widest text-botanic font-bold block">{{ $slide['badge'] }}</span>
+                                    <p class="text-xs font-serif font-medium text-obsidian uppercase truncate mt-0.5">{{ $slide['label_subtitle'] }}</p>
+                                    <span class="text-[10px] text-stone-500 font-mono block mt-0.5">{{ $slide['label_detail'] }}</span>
+                                </div>
+                            </div>
+                        @endforeach
+
+                        <!-- Navigation Arrows Overlay (Left & Right) -->
+                        <button 
+                            type="button"
+                            @click.stop="prev()"
+                            class="absolute left-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-white/90 hover:bg-white text-obsidian shadow-md flex items-center justify-center opacity-0 group-hover:opacity-100 sm:opacity-75 sm:hover:opacity-100 transition-all focus:outline-none focus:ring-2 focus:ring-botanic z-20 cursor-pointer"
+                            aria-label="Slide sebelumnya"
+                        >
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+                        </button>
+                        <button 
+                            type="button"
+                            @click.stop="next()"
+                            class="absolute right-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-white/90 hover:bg-white text-obsidian shadow-md flex items-center justify-center opacity-0 group-hover:opacity-100 sm:opacity-75 sm:hover:opacity-100 transition-all focus:outline-none focus:ring-2 focus:ring-botanic z-20 cursor-pointer"
+                            aria-label="Slide selanjutnya"
+                        >
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Carousel Control Bar (Indicators, Progress & Autoplay Toggle) -->
+            <div class="px-6 py-4 bg-white/60 border-t border-blush-200/60 backdrop-blur-xs flex flex-wrap items-center justify-between gap-4 text-xs">
+                <!-- Left: Slide Indicators with Live Progress Bar -->
+                <div class="flex items-center gap-2">
+                    @foreach ($slides as $index => $slide)
+                        <button 
+                            type="button"
+                            @click="goTo({{ $index }})"
+                            class="group relative h-2.5 rounded-full transition-all duration-300 focus:outline-none cursor-pointer overflow-hidden border border-stone-200/80"
+                            :class="current === {{ $index }} ? 'w-12 sm:w-16 bg-botanic/15' : 'w-3 bg-stone-200 hover:bg-stone-300'"
+                            aria-label="Pilih Slide {{ $index + 1 }}: {{ $slide['title'] }}"
+                        >
+                            <!-- Progress fill inside the active pill -->
+                            <div 
+                                x-show="current === {{ $index }}"
+                                class="h-full bg-botanic rounded-full transition-all duration-75"
+                                :style="'width: ' + progress + '%'"
+                            ></div>
+                        </button>
+                    @endforeach
+                </div>
+
+                <!-- Center/Right: Slide Counter & Play/Pause Controls -->
+                <div class="flex items-center gap-3">
+                    <!-- Autoplay Status & Play/Pause Button -->
+                    <button 
+                        type="button"
+                        @click="togglePause()"
+                        class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-mono tracking-wider border border-stone-200 bg-white/80 hover:bg-white text-stone-600 transition-colors cursor-pointer"
+                        :title="isPaused ? 'Lanjutkan rotasi otomatis' : 'Jeda rotasi otomatis'"
+                    >
+                        <template x-if="!isPaused">
+                            <span class="flex items-center gap-1.5 text-botanic">
+                                <span class="w-1.5 h-1.5 rounded-full bg-bloom animate-ping"></span>
+                                <span>Auto 3.5s</span>
+                            </span>
+                        </template>
+                        <template x-if="isPaused">
+                            <span class="flex items-center gap-1.5 text-amber-700">
+                                <span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
+                                <span>Dijeda</span>
+                            </span>
+                        </template>
+                    </button>
+
+                    <!-- Slide Index Counter -->
+                    <span class="font-mono text-[11px] text-stone-500 tracking-wider">
+                        <span class="text-obsidian font-semibold" x-text="String(current + 1).padStart(2, '0')">01</span> / 
+                        <span x-text="String(total).padStart(2, '0')">{{ sprintf('%02d', count($slides)) }}</span>
+                    </span>
+
+                    <!-- Next / Prev Buttons -->
+                    <div class="inline-flex items-center rounded-sm border border-stone-200 bg-white/80 overflow-hidden shadow-2xs">
+                        <button 
+                            type="button"
+                            @click="prev()"
+                            class="p-1.5 hover:bg-stone-100 text-stone-600 transition-colors focus:outline-none cursor-pointer"
+                            aria-label="Sebelumnya"
+                        >
+                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+                        </button>
+                        <div class="w-px h-4 bg-stone-200"></div>
+                        <button 
+                            type="button"
+                            @click="next()"
+                            class="p-1.5 hover:bg-stone-100 text-stone-600 transition-colors focus:outline-none cursor-pointer"
+                            aria-label="Selanjutnya"
+                        >
+                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                        </button>
                     </div>
                 </div>
             </div>

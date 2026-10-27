@@ -103,3 +103,13 @@ test('guest is redirected to login when accessing admin panel', function () {
     $response = $this->get('/admin');
     $response->assertRedirect('/login');
 });
+
+test('home page renders hero carousel with auto rotation and controls', function () {
+    $response = $this->get('/');
+    $response->assertOk();
+    $response->assertSee('aria-roledescription="carousel"', false);
+    $response->assertSee('intervalMs: 3500', false);
+    $response->assertSee('Pashmina Silk Shimmer &amp; Ceruty Flowy', false);
+    $response->assertSee('Voal Miracle &amp; Segi Empat Laser Cut', false);
+    $response->assertSee('Auto 3.5s');
+});
