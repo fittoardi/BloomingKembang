@@ -7,6 +7,7 @@ use App\Models\Category;
 use App\Models\Product;
 use App\Models\ProductVariant;
 use Illuminate\Contracts\View\View;
+use Illuminate\Support\Facades\Cache;
 use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -14,6 +15,9 @@ use Livewire\WithPagination;
 class CatalogIndex extends Component
 {
     use WithPagination;
+
+    #[Url(as: 'cari')]
+    public string $search = '';
 
     #[Url(as: 'kategori')]
     public string $categorySlug = '';
@@ -41,43 +45,65 @@ class CatalogIndex extends Component
         if ($category) {
             $this->categorySlug = $category;
         }
+
+        if (request()->has('cari')) {
+            $this->search = (string) request()->query('cari', '');
+        } elseif (request()->has('search')) {
+            $this->search = (string) request()->query('search', '');
+        }
     }
 
     public function updating($property): void
     {
-        if (in_array($property, ['categorySlug', 'color', 'material', 'availability', 'minPrice', 'maxPrice', 'sortBy'])) {
+        if (in_array($property, ['search', 'categorySlug', 'color', 'material', 'availability', 'minPrice', 'maxPrice', 'sortBy'])) {
             $this->resetPage();
         }
     }
 
     public function resetFilters(): void
     {
-        $this->reset(['color', 'material', 'availability', 'minPrice', 'maxPrice', 'sortBy']);
+        $this->reset(['search', 'color', 'material', 'availability', 'minPrice', 'maxPrice', 'sortBy']);
         $this->resetPage();
     }
 
     public function render(): View
     {
-        $categories = Category::where('is_active', true)->orderBy('position')->get(['id', 'name', 'slug', 'description']);
+        $categories = Cache::remember('catalog_categories', 3600, function () {
+            return Category::where('is_active', true)->orderBy('position')->get(['id', 'name', 'slug', 'description']);
+        });
 
-        $availableColors = ProductVariant::where('is_active', true)
-            ->whereNotNull('color')
-            ->select('color', 'color_hex')
-            ->distinct()
-            ->get();
+        $availableColors = Cache::remember('catalog_available_colors', 3600, function () {
+            return ProductVariant::where('is_active', true)
+                ->whereNotNull('color')
+                ->select('color', 'color_hex')
+                ->distinct()
+                ->get();
+        });
 
-        $availableMaterials = Product::where('status', ProductStatus::Active)
-            ->whereNotNull('material')
-            ->pluck('material')
-            ->unique()
-            ->filter()
-            ->values();
+        $availableMaterials = Cache::remember('catalog_available_materials', 3600, function () {
+            return Product::where('status', ProductStatus::Active)
+                ->whereNotNull('material')
+                ->pluck('material')
+                ->unique()
+                ->filter()
+                ->values();
+        });
 
         $query = Product::query()
             ->with(['category', 'variants' => function ($q) {
                 $q->where('is_active', true)->orderBy('position');
             }])
             ->where('status', ProductStatus::Active);
+
+        // Filter search term
+        if (! empty(trim($this->search))) {
+            $term = trim($this->search);
+            $query->where(function ($q) use ($term) {
+                $q->where('name', 'like', "%{$term}%")
+                    ->orWhere('short_description', 'like', "%{$term}%")
+                    ->orWhere('material', 'like', "%{$term}%");
+            });
+        }
 
         // Filter category
         if ($this->categorySlug) {

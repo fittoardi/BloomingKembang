@@ -39,15 +39,41 @@
         <aside class="lg:col-span-1 space-y-8 bg-white/85 backdrop-blur-xs p-6 border border-sage-200/80 rounded-sm shadow-2xs">
             <div class="flex items-center justify-between pb-3 border-b border-sage-100">
                 <h2 class="text-xs uppercase tracking-widest font-semibold text-obsidian">Filter Koleksi</h2>
-                @if($color || $material || $availability || $minPrice || $maxPrice || $sortBy !== 'newest')
-                    <button wire:click="resetFilters" class="text-[11px] underline text-neutral-500 hover:text-obsidian">
-                        Reset
+                @if($search || $color || $material || $availability || $minPrice || $maxPrice || $sortBy !== 'newest')
+                    <button wire:click="resetFilters" class="text-[11px] underline text-neutral-500 hover:text-obsidian cursor-pointer">
+                        Reset Semua
                     </button>
                 @endif
             </div>
 
-            <!-- Urutkan -->
+            <!-- Pencarian Cepat (Live Search) -->
             <div class="space-y-2">
+                <label class="text-[11px] uppercase tracking-wider text-neutral-500 font-medium block">Pencarian Produk</label>
+                <div class="relative">
+                    <input 
+                        type="text" 
+                        wire:model.live.debounce.350ms="search" 
+                        placeholder="Cari voal, silk, pashmina..." 
+                        class="w-full text-xs border border-bone bg-white pl-8 pr-8 py-2.5 focus:border-obsidian focus:ring-0 placeholder-stone-400"
+                    />
+                    <svg class="w-3.5 h-3.5 text-stone-400 absolute left-2.5 top-3 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                    </svg>
+                    @if($search)
+                        <button 
+                            type="button" 
+                            wire:click="$set('search', '')" 
+                            class="absolute right-2.5 top-2.5 text-stone-400 hover:text-stone-700 text-xs cursor-pointer font-bold"
+                            title="Hapus pencarian"
+                        >
+                            &times;
+                        </button>
+                    @endif
+                </div>
+            </div>
+
+            <!-- Urutkan -->
+            <div class="space-y-2 pt-2 border-t border-bone">
                 <label class="text-[11px] uppercase tracking-wider text-neutral-500 font-medium block">Urutan</label>
                 <select wire:model.live="sortBy" class="w-full text-xs border border-bone bg-white p-2.5 focus:border-obsidian focus:ring-0">
                     <option value="newest">Terbaru</option>
@@ -123,6 +149,25 @@
 
         <!-- Product Grid & Listing -->
         <main class="lg:col-span-3 space-y-8">
+            <!-- Active Search Filter Indicator -->
+            @if(!empty(trim($search)))
+                <div class="flex items-center justify-between p-3.5 bg-sage-50/80 border border-sage-200/90 rounded-sm text-xs">
+                    <div class="flex items-center space-x-2">
+                        <span class="text-stone-500">Hasil pencarian untuk:</span>
+                        <span class="font-medium text-obsidian bg-white px-2 py-0.5 border border-sage-200 rounded-xs">"{{ $search }}"</span>
+                        <span class="text-stone-400 font-mono text-[11px]">({{ $products->total() }} produk ditemukan)</span>
+                    </div>
+                    <button 
+                        type="button" 
+                        wire:click="$set('search', '')" 
+                        class="text-bloom hover:text-stone-900 font-medium text-[11px] uppercase tracking-wider flex items-center space-x-1 cursor-pointer"
+                    >
+                        <span>Hapus Pencarian</span>
+                        <span>&times;</span>
+                    </button>
+                </div>
+            @endif
+
             <!-- Loading Indicator -->
             <div wire:loading class="w-full py-4 text-center text-xs text-neutral-400 font-mono tracking-wider">
                 MEMPERBARUI KATALOG...
@@ -130,11 +175,18 @@
 
             <!-- Empty State -->
             @if($products->isEmpty())
-                <div class="border border-bone p-16 text-center space-y-4 bg-paper">
-                    <p class="text-sm text-neutral-600">Tidak ada produk yang sesuai dengan filter yang dipilih.</p>
-                    <button wire:click="resetFilters" class="link-underlined text-xs uppercase tracking-wider font-medium">
-                        Reset Semua Filter
-                    </button>
+                <div class="border border-bone p-16 text-center space-y-4 bg-paper rounded-sm">
+                    @if(!empty(trim($search)))
+                        <p class="text-sm text-neutral-700">Tidak ada produk yang cocok dengan pencarian <strong class="text-obsidian">"{{ $search }}"</strong>.</p>
+                        <p class="text-xs text-neutral-500">Coba periksa ejaan, gunakan kata kunci yang lebih umum, atau reset filter.</p>
+                    @else
+                        <p class="text-sm text-neutral-600">Tidak ada produk yang sesuai dengan filter yang dipilih.</p>
+                    @endif
+                    <div class="pt-2">
+                        <button wire:click="resetFilters" class="link-underlined text-xs uppercase tracking-wider font-medium cursor-pointer">
+                            Reset Semua Filter
+                        </button>
+                    </div>
                 </div>
             @else
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
