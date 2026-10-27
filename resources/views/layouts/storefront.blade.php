@@ -130,39 +130,36 @@
         <div class="fixed top-[45%] left-[10%] w-[28rem] sm:w-[36rem] h-[28rem] sm:h-[36rem] bg-sage-100/40 rounded-full blur-[110px] pointer-events-none -z-10 transform-gpu"></div>
         <div class="fixed bottom-[-10%] right-[-5%] w-[34rem] sm:w-[44rem] h-[34rem] sm:h-[44rem] bg-blush-200/30 rounded-full blur-[120px] pointer-events-none -z-10 transform-gpu"></div>
 
-        <!-- Top Announcement Banner -->
-        @php
-            $globalTopBanner = \App\Models\Banner::where('is_active', true)
-                ->where('position', 'top_bar')
-                ->where(fn($q) => $q->whereNull('starts_at')->orWhere('starts_at', '<=', now()))
-                ->where(fn($q) => $q->whereNull('ends_at')->orWhere('ends_at', '>=', now()))
-                ->orderBy('sort_order')
-                ->first();
-        @endphp
-        @if($globalTopBanner)
-            <div class="bg-gradient-to-r from-sage-900 via-stone-900 to-blush-900 text-paper py-2 px-4 text-center text-xs tracking-wider uppercase font-medium border-b border-sage-800/40">
-                @if($globalTopBanner->link_url)
-                    <a href="{{ $globalTopBanner->link_url }}" class="hover:underline flex items-center justify-center gap-2">
-                        <span class="inline-block w-1.5 h-1.5 rounded-full bg-sage-300"></span>
-                        <span>{{ $globalTopBanner->title }}</span>
-                        @if($globalTopBanner->subtitle) <span class="opacity-80 hidden sm:inline">&bull; {{ $globalTopBanner->subtitle }}</span> @endif
-                        <span class="text-blush-200">&rarr;</span>
-                    </a>
-                @else
-                    <span class="flex items-center justify-center gap-2">
-                        <span class="inline-block w-1.5 h-1.5 rounded-full bg-sage-300"></span>
-                        <span>{{ $globalTopBanner->title }}</span>
-                        @if($globalTopBanner->subtitle) <span class="opacity-80 hidden sm:inline">&bull; {{ $globalTopBanner->subtitle }}</span> @endif
+        <!-- Top Signature Burgundy Category & Announcement Bar (Elzatta Style) -->
+        <div class="bg-[#491738] text-white/90 text-xs tracking-wider border-b border-[#38112b] select-none">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2 flex flex-wrap items-center justify-between gap-3 text-[11px] font-sans">
+                <!-- Left: Quick Top Categories -->
+                <div class="flex items-center space-x-3 sm:space-x-5 uppercase tracking-widest font-medium overflow-x-auto whitespace-nowrap scrollbar-none">
+                    <a href="{{ url('/') }}" class="hover:text-amber-200 transition-colors {{ request()->is('/') ? 'text-amber-200 font-semibold' : '' }}">BERANDA</a>
+                    <span class="text-white/30 hidden sm:inline">&bull;</span>
+                    <a href="{{ url('/koleksi/hijab-segi-empat') }}" class="hover:text-amber-200 transition-colors {{ request()->is('koleksi/hijab-segi-empat') ? 'text-amber-200 font-semibold' : '' }}">SEGI EMPAT</a>
+                    <span class="text-white/30 hidden sm:inline">&bull;</span>
+                    <a href="{{ url('/koleksi/pashmina') }}" class="hover:text-amber-200 transition-colors {{ request()->is('koleksi/pashmina') ? 'text-amber-200 font-semibold' : '' }}">PASHMINA</a>
+                    <span class="text-white/30 hidden sm:inline">&bull;</span>
+                    <a href="{{ url('/koleksi/bergo-daily') }}" class="hover:text-amber-200 transition-colors {{ request()->is('koleksi/bergo-daily') ? 'text-amber-200 font-semibold' : '' }}">BERGO</a>
+                    <span class="text-white/30 hidden sm:inline">&bull;</span>
+                    <a href="{{ url('/koleksi/inner-dan-aksesoris') }}" class="hover:text-amber-200 transition-colors {{ request()->is('koleksi/inner-dan-aksesoris') ? 'text-amber-200 font-semibold' : '' }}">AKSESORIS</a>
+                </div>
+
+                <!-- Right: Free Shipping & WhatsApp CS ticker -->
+                <div class="hidden md:flex items-center space-x-4 text-[11px] text-white/80">
+                    <span class="inline-flex items-center gap-1.5">
+                        <svg class="w-3.5 h-3.5 text-amber-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg>
+                        <span>GRATIS ONGKIR MIN. RP150RB (KODE: <strong class="text-white font-mono">BLOOMINGFIRST</strong>)</span>
                     </span>
-                @endif
+                    <span class="text-white/30">&bull;</span>
+                    <a href="https://wa.me/6281234567890" target="_blank" rel="noopener" class="inline-flex items-center gap-1 hover:text-amber-200 transition-colors">
+                        <svg class="w-3.5 h-3.5 text-emerald-400" fill="currentColor" viewBox="0 0 24 24"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.771-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.007c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86.173.086.275.072.376-.044.101-.116.433-.506.549-.68.116-.173.231-.145.39-.087s1.011.477 1.184.564.289.13.332.202c.043.073.043.419-.101.824z"/></svg>
+                        <span>CS WHATSAPP: 0812-3456-7890</span>
+                    </a>
+                </div>
             </div>
-        @else
-            <div class="bg-gradient-to-r from-sage-900 via-stone-900 to-blush-900 text-stone-100 py-2 px-4 text-center text-xs tracking-wider uppercase font-medium border-b border-sage-800/40">
-                <span class="inline-block w-1.5 h-1.5 rounded-full bg-sage-300 mr-2"></span>
-                Gratis Ongkir Seluruh Pulau Jawa untuk Pembelian di Atas Rp 150.000
-                <span class="inline-block w-1.5 h-1.5 rounded-full bg-blush-300 ml-2"></span>
-            </div>
-        @endif
+        </div>
 
         <!-- Minimal Header Navigation -->
         <header x-data class="border-b border-blush-200/60 bg-white/85 backdrop-blur-md sticky top-0 z-40 transition-colors shadow-[0_2px_12px_rgba(78,103,78,0.03)]">
