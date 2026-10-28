@@ -130,8 +130,8 @@
         <div class="fixed top-[45%] left-[10%] w-[28rem] sm:w-[36rem] h-[28rem] sm:h-[36rem] bg-sage-100/40 rounded-full blur-[110px] pointer-events-none -z-10 transform-gpu"></div>
         <div class="fixed bottom-[-10%] right-[-5%] w-[34rem] sm:w-[44rem] h-[34rem] sm:h-[44rem] bg-blush-200/30 rounded-full blur-[120px] pointer-events-none -z-10 transform-gpu"></div>
 
-        <!-- Top Botanic Green & Blush Pink Category & Announcement Bar -->
-        <div class="bg-[#2c3d2c] text-white/90 text-xs tracking-wider border-b border-[#223022] select-none">
+        <!-- Top Green to Pink Gradient Category & Announcement Bar -->
+        <div class="bg-gradient-to-r from-sage-900 via-botanic to-bloom text-white text-xs tracking-wider border-b border-white/15 select-none shadow-xs">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2 flex flex-wrap items-center justify-between gap-3 text-[11px] font-sans">
                 <!-- Left: Quick Top Categories -->
                 <div class="flex items-center space-x-3 sm:space-x-5 uppercase tracking-widest font-medium overflow-x-auto whitespace-nowrap scrollbar-none">
@@ -147,14 +147,14 @@
                 </div>
 
                 <!-- Right: Free Shipping & WhatsApp CS ticker -->
-                <div class="hidden md:flex items-center space-x-4 text-[11px] text-white/80">
+                <div class="hidden md:flex items-center space-x-4 text-[11px] text-white/90">
                     <span class="inline-flex items-center gap-1.5">
-                        <svg class="w-3.5 h-3.5 text-blush-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg>
-                        <span>GRATIS ONGKIR MIN. RP150RB (KODE: <strong class="text-blush-200 font-mono">BLOOMINGFIRST</strong>)</span>
+                        <svg class="w-3.5 h-3.5 text-blush-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg>
+                        <span>GRATIS ONGKIR MIN. RP150RB (KODE: <strong class="text-white font-mono bg-white/20 px-1.5 py-0.5 rounded-xs">BLOOMINGFIRST</strong>)</span>
                     </span>
                     <span class="text-white/30">&bull;</span>
-                    <a href="https://wa.me/6281234567890" target="_blank" rel="noopener" class="inline-flex items-center gap-1 hover:text-blush-200 transition-colors">
-                        <svg class="w-3.5 h-3.5 text-emerald-400" fill="currentColor" viewBox="0 0 24 24"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.771-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.007c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86.173.086.275.072.376-.044.101-.116.433-.506.549-.68.116-.173.231-.145.39-.087s1.011.477 1.184.564.289.13.332.202c.043.073.043.419-.101.824z"/></svg>
+                    <a href="https://wa.me/6281234567890" target="_blank" rel="noopener" class="inline-flex items-center gap-1 hover:text-white transition-colors">
+                        <svg class="w-3.5 h-3.5 text-emerald-300" fill="currentColor" viewBox="0 0 24 24"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.771-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.007c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86.173.086.275.072.376-.044.101-.116.433-.506.549-.68.116-.173.231-.145.39-.087s1.011.477 1.184.564.289.13.332.202c.043.073.043.419-.101.824z"/></svg>
                         <span>CS WHATSAPP: 0812-3456-7890</span>
                     </a>
                 </div>

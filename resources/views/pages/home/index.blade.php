@@ -81,13 +81,30 @@
             ->get();
     @endphp
 
-    <!-- 1. HERO CAROUSEL: 100% WIDTH, 600PX HEIGHT, HIJAU & PINK (NO TIMER) -->
+    <!-- 1. HERO CAROUSEL: 100% WIDTH, 600PX HEIGHT, HIJAU & PINK (AUTO 2S, NO SIDE BUTTONS) -->
     <section 
         x-data="{
             current: 0,
             total: {{ count($slides) }},
+            intervalMs: 2000,
+            timer: null,
             touchStartX: 0,
             touchEndX: 0,
+            init() {
+                this.startAutoplay();
+            },
+            startAutoplay() {
+                this.clearTimer();
+                this.timer = setInterval(() => {
+                    this.next();
+                }, this.intervalMs);
+            },
+            clearTimer() {
+                if (this.timer) {
+                    clearInterval(this.timer);
+                    this.timer = null;
+                }
+            },
             next() {
                 this.current = (this.current + 1) % this.total;
             },
@@ -96,6 +113,7 @@
             },
             goTo(index) {
                 this.current = index;
+                this.startAutoplay();
             },
             handleTouchStart(e) {
                 this.touchStartX = e.changedTouches[0].screenX;
@@ -104,13 +122,17 @@
                 this.touchEndX = e.changedTouches[0].screenX;
                 if (this.touchStartX - this.touchEndX > 45) {
                     this.next();
+                    this.startAutoplay();
                 } else if (this.touchEndX - this.touchStartX > 45) {
                     this.prev();
+                    this.startAutoplay();
                 }
             }
         }"
-        @keydown.arrow-right.window="next()"
-        @keydown.arrow-left.window="prev()"
+        @mouseenter="clearTimer()"
+        @mouseleave="startAutoplay()"
+        @keydown.arrow-right.window="next(); startAutoplay()"
+        @keydown.arrow-left.window="prev(); startAutoplay()"
         @touchstart="handleTouchStart($event)"
         @touchend="handleTouchEnd($event)"
         class="w-full h-[600px] relative overflow-hidden bg-stone-900 select-none"
@@ -189,27 +211,7 @@
             @endforeach
         </div>
 
-        <!-- Left Chevron Arrow Button (Hijau Botanic & Pink Hover) -->
-        <button 
-            type="button"
-            @click.stop="prev()"
-            class="absolute left-4 sm:left-8 top-1/2 -translate-y-1/2 w-11 h-11 sm:w-13 sm:h-13 rounded-full bg-botanic/75 hover:bg-botanic text-white hover:text-blush-200 backdrop-blur-md flex items-center justify-center transition-all z-20 cursor-pointer shadow-lg hover:scale-105 border border-white/20"
-            aria-label="Slide sebelumnya"
-        >
-            <svg class="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7"/></svg>
-        </button>
-
-        <!-- Right Chevron Arrow Button (Hijau Botanic & Pink Hover) -->
-        <button 
-            type="button"
-            @click.stop="next()"
-            class="absolute right-4 sm:right-8 top-1/2 -translate-y-1/2 w-11 h-11 sm:w-13 sm:h-13 rounded-full bg-botanic/75 hover:bg-botanic text-white hover:text-blush-200 backdrop-blur-md flex items-center justify-center transition-all z-20 cursor-pointer shadow-lg hover:scale-105 border border-white/20"
-            aria-label="Slide selanjutnya"
-        >
-            <svg class="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/></svg>
-        </button>
-
-        <!-- Bottom Pill Controls: Manual Dots & Slide Counter (No Timer) -->
+        <!-- Bottom Pill Controls: Dots & Slide Counter -->
         <div class="absolute bottom-6 left-1/2 -translate-x-1/2 flex items-center gap-4 px-5 py-2.5 rounded-full bg-stone-950/70 backdrop-blur-md text-white border border-white/20 text-xs z-20 shadow-xl">
             <!-- Indicator Dots (Active in Pink Bloom) -->
             <div class="flex items-center gap-2">
