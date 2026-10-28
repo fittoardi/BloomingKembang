@@ -13,7 +13,7 @@
         </div>
         <a 
             href="{{ url('/koleksi') }}"
-            class="px-4 py-2.5 bg-obsidian text-paper text-xs uppercase tracking-widest font-medium hover:bg-neutral-800 transition-colors text-center"
+            class="px-4 py-2.5 bg-botanic text-white text-xs uppercase tracking-widest font-semibold hover:bg-sage-700 transition-colors text-center rounded-xs shadow-xs"
         >
             Belanja Lagi
         </a>
@@ -23,19 +23,19 @@
         <!-- Sidebar Navigation -->
         <aside class="space-y-2 text-xs uppercase tracking-wider">
             <nav class="space-y-1">
-                <a href="{{ route('account.dashboard') }}" class="block p-3 border border-bone hover:border-neutral-300 transition-colors">
+                <a href="{{ route('account.dashboard') }}" class="block p-3 border border-sage-200/80 bg-white/70 hover:border-bloom hover:text-bloom text-stone-700 rounded-xs transition-colors">
                     Dashboard
                 </a>
-                <a href="{{ url('/akun/pesanan') }}" class="block p-3 border border-obsidian bg-bone text-obsidian font-medium">
+                <a href="{{ url('/akun/pesanan') }}" class="block p-3 border border-botanic bg-sage-50 text-botanic font-semibold rounded-xs shadow-2xs">
                     Pesanan Saya
                 </a>
-                <a href="{{ url('/akun/alamat') }}" class="block p-3 border border-bone hover:border-neutral-300 transition-colors">
+                <a href="{{ url('/akun/alamat') }}" class="block p-3 border border-sage-200/80 bg-white/70 hover:border-bloom hover:text-bloom text-stone-700 rounded-xs transition-colors">
                     Buku Alamat
                 </a>
-                <a href="{{ url('/akun/wishlist') }}" class="block p-3 border border-bone hover:border-neutral-300 transition-colors">
+                <a href="{{ url('/akun/wishlist') }}" class="block p-3 border border-sage-200/80 bg-white/70 hover:border-bloom hover:text-bloom text-stone-700 rounded-xs transition-colors">
                     Wishlist
                 </a>
-                <a href="{{ route('profile.edit') }}" class="block p-3 border border-bone hover:border-neutral-300 transition-colors">
+                <a href="{{ route('profile.edit') }}" class="block p-3 border border-sage-200/80 bg-white/70 hover:border-bloom hover:text-bloom text-stone-700 rounded-xs transition-colors">
                     Pengaturan Profil
                 </a>
             </nav>
@@ -44,7 +44,7 @@
         <!-- Orders Section -->
         <section class="md:col-span-3 space-y-6">
             <!-- Filter Tabs -->
-            <div class="flex items-center gap-2 overflow-x-auto pb-2 border-b border-bone text-xs font-mono uppercase tracking-wider">
+            <div class="flex items-center gap-2 overflow-x-auto pb-2 border-b border-sage-100 text-xs font-mono uppercase tracking-wider">
                 @php
                     $tabs = [
                         'all' => 'Semua',
@@ -59,7 +59,7 @@
                     <button
                         type="button"
                         wire:click="setFilter('{{ $key }}')"
-                        class="px-3 py-1.5 whitespace-nowrap transition-colors {{ $statusFilter === $key ? 'bg-obsidian text-paper font-medium' : 'bg-paper text-neutral-600 hover:bg-bone border border-bone' }}"
+                        class="px-3 py-1.5 whitespace-nowrap transition-colors rounded-xs cursor-pointer {{ $statusFilter === $key ? 'bg-botanic text-white font-semibold shadow-xs' : 'bg-white text-stone-600 hover:border-bloom hover:text-bloom border border-sage-200' }}"
                     >
                         {{ $label }}
                     </button>

@@ -161,7 +161,7 @@
                                 <span class="uppercase tracking-wider font-medium text-xs">Subtotal:</span>
                                 <span class="font-mono text-base font-medium">Rp {{ number_format($subtotal, 0, ',', '.') }}</span>
                             </div>
-                            <p class="text-[10px] text-neutral-400">Ongkos kirim dan kode voucher dihitung saat checkout.</p>
+                            <p class="text-[10px] text-neutral-400">Ongkos kirim dihitung saat checkout.</p>
                         </div>
 
                         <div class="space-y-2 pt-2">

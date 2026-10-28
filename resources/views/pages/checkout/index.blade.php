@@ -26,8 +26,9 @@
                 <!-- 1. Data Pemesan -->
                 <div class="border border-sage-200/80 p-6 sm:p-8 bg-white/90 backdrop-blur-xs space-y-4 rounded-sm shadow-2xs">
                     <div class="flex items-center justify-between border-b border-sage-100 pb-3">
-                        <h2 class="text-xs uppercase tracking-[0.2em] font-medium text-obsidian">
-                            1. Data Kontak Pemesan
+                        <h2 class="text-xs uppercase tracking-[0.2em] font-semibold text-obsidian flex items-center gap-2">
+                            <span class="w-5 h-5 rounded-full bg-sage-100 text-botanic font-mono font-bold inline-flex items-center justify-center text-[11px] border border-sage-200">1</span>
+                            <span>Data Kontak Pemesan</span>
                         </h2>
                         @guest
                             <a href="{{ route('login') }}" class="link-underlined text-xs">
@@ -61,8 +62,9 @@
                 <!-- 2. Alamat Pengiriman -->
                 <div class="border border-sage-200/80 p-6 sm:p-8 bg-white/90 backdrop-blur-xs space-y-4 rounded-sm shadow-2xs">
                     <div class="flex items-center justify-between border-b border-sage-100 pb-3">
-                        <h2 class="text-xs uppercase tracking-[0.2em] font-medium text-obsidian">
-                            2. Alamat Tujuan Pengiriman
+                        <h2 class="text-xs uppercase tracking-[0.2em] font-semibold text-obsidian flex items-center gap-2">
+                            <span class="w-5 h-5 rounded-full bg-sage-100 text-botanic font-mono font-bold inline-flex items-center justify-center text-[11px] border border-sage-200">2</span>
+                            <span>Alamat Tujuan Pengiriman</span>
                         </h2>
                         @auth
                             @if($savedAddresses->isNotEmpty())
@@ -80,7 +82,7 @@
                                 @foreach($savedAddresses as $addr)
                                     <div 
                                         wire:click="selectAddress({{ $addr->id }})"
-                                        class="cursor-pointer border p-4 transition-all text-xs {{ $selectedAddressId === $addr->id ? 'border-obsidian bg-bone ring-1 ring-obsidian' : 'border-bone hover:border-neutral-400 bg-white' }}"
+                                        class="cursor-pointer border p-4 transition-all text-xs rounded-xs {{ $selectedAddressId === $addr->id ? 'border-botanic bg-sage-50/60 ring-1 ring-botanic' : 'border-sage-200/90 hover:border-bloom bg-white' }}"
                                     >
                                         <div class="flex items-center justify-between mb-1">
                                             <span class="font-mono uppercase font-medium text-[11px]">{{ $addr->label }}</span>
@@ -150,8 +152,9 @@
                 <!-- 3. Pilihan Ekspedisi Pengiriman -->
                 <div class="border border-sage-200/80 p-6 sm:p-8 bg-white/90 backdrop-blur-xs space-y-4 rounded-sm shadow-2xs">
                     <div class="flex items-center justify-between border-b border-sage-100 pb-3">
-                        <h2 class="text-xs uppercase tracking-[0.2em] font-medium text-obsidian">
-                            3. Layanan Kurir Pengiriman
+                        <h2 class="text-xs uppercase tracking-[0.2em] font-semibold text-obsidian flex items-center gap-2">
+                            <span class="w-5 h-5 rounded-full bg-sage-100 text-botanic font-mono font-bold inline-flex items-center justify-center text-[11px] border border-sage-200">3</span>
+                            <span>Layanan Kurir Pengiriman</span>
                         </h2>
                         <span class="text-[11px] font-mono text-neutral-400">
                             Berat: {{ number_format($totalWeight, 0, ',', '.') }} gram
@@ -163,9 +166,9 @@
                             @php
                                 $valKey = "{$rate['courier']}|{$rate['service']}|{$rate['cost']}";
                             @endphp
-                            <label class="flex items-center justify-between p-4 border cursor-pointer transition-colors text-xs {{ $selectedCourierKey === $valKey ? 'border-obsidian bg-bone ring-1 ring-obsidian' : 'border-bone hover:border-neutral-400 bg-white' }}">
+                            <label class="flex items-center justify-between p-4 border cursor-pointer transition-colors text-xs rounded-xs {{ $selectedCourierKey === $valKey ? 'border-botanic bg-sage-50/60 ring-1 ring-botanic' : 'border-sage-200/90 hover:border-bloom bg-white' }}">
                                 <div class="flex items-center space-x-3">
-                                    <input type="radio" wire:model.live="selectedCourierKey" value="{{ $valKey }}" class="text-obsidian focus:ring-0 border-neutral-300" />
+                                    <input type="radio" wire:model.live="selectedCourierKey" value="{{ $valKey }}" class="text-botanic focus:ring-botanic border-sage-300" />
                                     <div>
                                         <span class="font-medium text-obsidian">{{ $rate['name'] }}</span>
                                         <span class="text-[11px] text-neutral-400 block font-mono">Estimasi tiba: {{ $rate['etd'] }}</span>
@@ -218,44 +221,7 @@
                         @endforeach
                     </div>
 
-                    <!-- Kode Voucher Promo -->
-                    <div class="space-y-2 pt-2 border-t border-bone">
-                        <label class="uppercase font-medium text-neutral-500 text-[10px] tracking-wider block">Gunakan Kode Voucher</label>
-                        @if($appliedVoucherCode)
-                            <div class="flex items-center justify-between p-2.5 bg-bone border border-bone text-xs">
-                                <div class="flex items-center space-x-2">
-                                    <span class="font-mono uppercase font-semibold text-obsidian">{{ $appliedVoucherCode }}</span>
-                                    <span class="text-[10px] text-emerald-700 bg-emerald-50 px-2 py-0.5 font-medium">Terpasang</span>
-                                </div>
-                                <button type="button" wire:click="removeVoucher" class="text-neutral-400 hover:text-red-600 text-xs">
-                                    Hapus
-                                </button>
-                            </div>
-                        @else
-                            <div class="flex gap-2">
-                                <input 
-                                    type="text" 
-                                    wire:model="voucherCodeInput" 
-                                    placeholder="Masukkan kode promo" 
-                                    class="flex-1 text-xs uppercase border border-bone p-2.5 bg-white focus:border-obsidian focus:ring-0 font-mono"
-                                />
-                                <button 
-                                    type="button" 
-                                    wire:click="applyVoucher" 
-                                    class="px-4 py-2.5 border border-obsidian text-obsidian text-xs uppercase tracking-wider hover:bg-obsidian hover:text-paper transition-colors font-medium"
-                                >
-                                    Terapkan
-                                </button>
-                            </div>
-                        @endif
-
-                        @if($voucherError)
-                            <p class="text-red-600 text-[11px]">{{ $voucherError }}</p>
-                        @endif
-                        @if($voucherSuccess)
-                            <p class="text-emerald-700 text-[11px]">{{ $voucherSuccess }}</p>
-                        @endif
-                    </div>
+                    {{-- Kode Voucher Promo Sementara Dinonaktifkan --}}
 
                     <!-- Rincian Biaya -->
                     <div class="space-y-2 text-xs pt-4 border-t border-bone">
@@ -273,9 +239,9 @@
                             <span>Ongkos Kirim:</span>
                             <span class="font-mono">Rp {{ number_format($pricing['shipping_cost'], 0, ',', '.') }}</span>
                         </div>
-                        <div class="flex justify-between items-baseline pt-3 border-t border-bone text-obsidian">
+                        <div class="flex justify-between items-baseline pt-3 border-t border-sage-100 text-obsidian">
                             <span class="uppercase tracking-widest text-xs font-semibold">Total Pembayaran:</span>
-                            <span class="font-mono text-lg sm:text-xl font-medium">Rp {{ number_format($pricing['grand_total'], 0, ',', '.') }}</span>
+                            <span class="font-mono text-lg sm:text-xl font-bold text-botanic">Rp {{ number_format($pricing['grand_total'], 0, ',', '.') }}</span>
                         </div>
                     </div>
 

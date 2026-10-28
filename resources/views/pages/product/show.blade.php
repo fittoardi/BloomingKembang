@@ -107,11 +107,12 @@
             </div>
         </div>
 
-        <!-- Kolom Informasi & Pemilihan Varian -->
-        <div class="lg:col-span-5 space-y-8 bg-white/90 backdrop-blur-xs p-6 sm:p-8 border border-sage-200/80 rounded-sm shadow-2xs">
+        <!-- Kolom Informasi & Pemilihan Varian (Kombinasi Botanic & Bloom) -->
+        <div class="lg:col-span-5 space-y-8 bg-white/95 backdrop-blur-xs p-6 sm:p-8 border border-sage-200/90 rounded-sm shadow-2xs">
             <div>
-                <span class="text-[11px] uppercase tracking-[0.18em] text-stone-400 font-medium block">
-                    {{ $product->category->name ?? 'Koleksi' }}
+                <span class="text-[11px] uppercase tracking-[0.2em] text-botanic font-semibold block flex items-center gap-1.5">
+                    <span class="w-1.5 h-1.5 rounded-full bg-bloom"></span>
+                    <span>{{ $product->category->name ?? 'Koleksi' }}</span>
                 </span>
                 <h1 class="text-2xl sm:text-3xl font-serif font-normal text-obsidian tracking-wide mt-1">
                     {{ $product->name }}
@@ -121,14 +122,14 @@
                     <div class="flex items-center space-x-2 mt-2 text-xs">
                         <span class="text-amber-500 font-mono font-medium">★ {{ number_format($product->rating_avg, 1) }}</span>
                         <span class="text-neutral-400">·</span>
-                        <a href="#reviews" class="text-neutral-500 hover:text-obsidian underline transition-colors">({{ $product->rating_count }} ulasan pembeli)</a>
+                        <a href="#reviews" class="text-stone-500 hover:text-bloom underline transition-colors">({{ $product->rating_count }} ulasan pembeli)</a>
                     </div>
                 @endif
                 
                 <!-- Harga & Harga Coret -->
                 <div class="mt-4 flex items-baseline space-x-3">
                     @if($selectedVariant)
-                        <span class="text-xl sm:text-2xl font-mono font-medium text-obsidian">
+                        <span class="text-2xl sm:text-3xl font-mono font-bold text-botanic">
                             Rp {{ number_format($selectedVariant->price, 0, ',', '.') }}
                         </span>
                         @if($selectedVariant->compare_price && $selectedVariant->compare_price > $selectedVariant->price)
@@ -145,12 +146,12 @@
             </div>
 
             <!-- Pilihan Varian Warna & Ukuran -->
-            <div class="space-y-6 pt-6 border-t border-bone">
+            <div class="space-y-6 pt-6 border-t border-sage-100">
                 <!-- Swatch Warna -->
                 <div class="space-y-3">
                     <div class="flex items-center justify-between text-xs">
                         <span class="uppercase tracking-wider text-neutral-500 font-medium">Pilihan Warna:</span>
-                        <span class="text-obsidian font-mono font-medium">{{ $selectedVariant?->color }}</span>
+                        <span class="text-botanic font-mono font-semibold">{{ $selectedVariant?->color }}</span>
                     </div>
                     <div class="flex flex-wrap gap-2.5">
                         @foreach($product->variants as $variant)
@@ -161,7 +162,7 @@
                                 type="button"
                                 wire:click="selectVariant({{ $variant->id }})"
                                 title="{{ $variant->color }} ({{ $variant->size }})"
-                                class="flex items-center gap-2 px-3 py-1.5 text-xs border transition-all {{ $selectedVariantId === $variant->id ? 'border-obsidian bg-bone font-medium ring-1 ring-obsidian' : 'border-bone hover:border-neutral-400' }} {{ !$isVarReady ? 'opacity-60' : '' }}"
+                                class="flex items-center gap-2 px-3 py-1.5 text-xs border rounded-xs transition-all {{ $selectedVariantId === $variant->id ? 'border-bloom bg-blush-50 text-bloom font-semibold ring-1 ring-bloom shadow-xs' : 'border-sage-200/90 hover:border-bloom bg-white' }} {{ !$isVarReady ? 'opacity-60' : '' }}"
                             >
                                 @if($variant->color_hex)
                                     <span class="w-3.5 h-3.5 rounded-none border border-neutral-300 inline-block" style="background-color: {{ $variant->color_hex }};"></span>
@@ -179,8 +180,8 @@
                 <div class="space-y-1 text-xs">
                     <span class="uppercase tracking-wider text-neutral-500 font-medium block">Ketersediaan Stok:</span>
                     @if($availableStock > 10)
-                        <span class="text-green-700 font-medium flex items-center space-x-1.5">
-                            <span class="w-2 h-2 rounded-full bg-green-600 inline-block"></span>
+                        <span class="text-botanic font-medium flex items-center space-x-1.5">
+                            <span class="w-2 h-2 rounded-full bg-botanic inline-block"></span>
                             <span>Tersedia (Ready Stock)</span>
                         </span>
                     @elseif($availableStock > 0)
@@ -197,7 +198,7 @@
                 </div>
 
                 <!-- Jumlah (Quantity) & CTA Button -->
-                <div class="space-y-4 pt-4 border-t border-bone">
+                <div class="space-y-4 pt-4 border-t border-sage-100">
                     <div class="flex items-center space-x-4">
                         <span class="text-xs uppercase tracking-wider text-neutral-500 font-medium">Jumlah:</span>
                         <div class="flex items-center border border-bone">
@@ -226,7 +227,7 @@
                             <button 
                                 type="button"
                                 wire:click="addToCart"
-                                class="flex-1 py-3.5 bg-obsidian text-paper text-xs uppercase tracking-widest font-medium hover:bg-neutral-800 transition-colors text-center"
+                                class="flex-1 py-3.5 bg-botanic hover:bg-sage-700 text-white text-xs uppercase tracking-widest font-semibold transition-colors text-center rounded-xs shadow-xs cursor-pointer"
                             >
                                 Tambah ke Keranjang
                             </button>
@@ -245,7 +246,7 @@
                             type="button"
                             wire:click="toggleWishlist"
                             title="{{ $isInWishlist ? 'Hapus dari Wishlist' : 'Simpan ke Wishlist' }}"
-                            class="p-3.5 border border-bone hover:border-obsidian text-obsidian transition-colors flex items-center justify-center {{ $isInWishlist ? 'bg-bone text-red-600' : 'bg-paper text-neutral-400' }}"
+                            class="p-3.5 border transition-colors flex items-center justify-center rounded-xs cursor-pointer {{ $isInWishlist ? 'bg-blush-50 text-bloom border-bloom' : 'border-sage-200 hover:border-bloom bg-white text-neutral-400 hover:text-bloom' }}"
                         >
                             <svg class="w-4 h-4 {{ $isInWishlist ? 'fill-current text-red-600' : 'stroke-current fill-none' }}" viewBox="0 0 24 24" stroke-width="1.5">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
@@ -256,29 +257,29 @@
             </div>
 
             <!-- Tabs: Deskripsi, Bahan, Panduan Ukuran, Perawatan -->
-            <div class="pt-6 border-t border-bone space-y-4">
-                <div class="flex border-b border-bone text-xs">
+            <div class="pt-6 border-t border-sage-100 space-y-4">
+                <div class="flex border-b border-sage-200/80 text-xs">
                     <button 
                         wire:click="setTab('description')"
-                        class="pb-2.5 px-3 border-b-2 font-medium transition-colors {{ $activeTab === 'description' ? 'border-obsidian text-obsidian' : 'border-transparent text-neutral-400 hover:text-obsidian' }}"
+                        class="pb-2.5 px-3 border-b-2 font-medium transition-colors cursor-pointer {{ $activeTab === 'description' ? 'border-botanic text-botanic font-semibold' : 'border-transparent text-neutral-500 hover:text-bloom' }}"
                     >
                         Deskripsi
                     </button>
                     <button 
                         wire:click="setTab('material')"
-                        class="pb-2.5 px-3 border-b-2 font-medium transition-colors {{ $activeTab === 'material' ? 'border-obsidian text-obsidian' : 'border-transparent text-neutral-400 hover:text-obsidian' }}"
+                        class="pb-2.5 px-3 border-b-2 font-medium transition-colors cursor-pointer {{ $activeTab === 'material' ? 'border-botanic text-botanic font-semibold' : 'border-transparent text-neutral-500 hover:text-bloom' }}"
                     >
                         Bahan
                     </button>
                     <button 
                         wire:click="setTab('size_guide')"
-                        class="pb-2.5 px-3 border-b-2 font-medium transition-colors {{ $activeTab === 'size_guide' ? 'border-obsidian text-obsidian' : 'border-transparent text-neutral-400 hover:text-obsidian' }}"
+                        class="pb-2.5 px-3 border-b-2 font-medium transition-colors cursor-pointer {{ $activeTab === 'size_guide' ? 'border-botanic text-botanic font-semibold' : 'border-transparent text-neutral-500 hover:text-bloom' }}"
                     >
                         Ukuran
                     </button>
                     <button 
                         wire:click="setTab('care_guide')"
-                        class="pb-2.5 px-3 border-b-2 font-medium transition-colors {{ $activeTab === 'care_guide' ? 'border-obsidian text-obsidian' : 'border-transparent text-neutral-400 hover:text-obsidian' }}"
+                        class="pb-2.5 px-3 border-b-2 font-medium transition-colors cursor-pointer {{ $activeTab === 'care_guide' ? 'border-botanic text-botanic font-semibold' : 'border-transparent text-neutral-500 hover:text-bloom' }}"
                     >
                         Perawatan
                     </button>
@@ -403,7 +404,7 @@
                             <button 
                                 type="submit" 
                                 wire:loading.attr="disabled"
-                                class="w-full py-3 px-4 bg-obsidian text-paper hover:bg-neutral-800 text-xs uppercase tracking-widest font-medium transition-colors flex items-center justify-center space-x-2 disabled:opacity-50 cursor-pointer shadow-sm rounded-xs"
+                                class="w-full py-3 px-4 bg-botanic hover:bg-sage-700 text-white text-xs uppercase tracking-widest font-semibold transition-colors flex items-center justify-center space-x-2 disabled:opacity-50 cursor-pointer shadow-xs rounded-xs"
                             >
                                 <span wire:loading.remove>Kirim Ulasan</span>
                                 <span wire:loading class="flex items-center space-x-1.5">
@@ -425,7 +426,7 @@
                     <div class="p-4 border border-bone bg-white text-xs text-neutral-500 space-y-3 rounded-sm">
                         <p class="font-medium text-obsidian">Punya Akun BloomingKembang?</p>
                         <p class="leading-relaxed">Silakan masuk ke akun Anda untuk menuliskan ulasan pesanan yang telah Anda beli.</p>
-                        <a href="{{ route('login') }}" class="inline-block py-2.5 px-4 border border-obsidian text-obsidian hover:bg-obsidian hover:text-paper text-xs uppercase tracking-widest font-medium transition-colors text-center w-full rounded-xs">
+                        <a href="{{ route('login') }}" class="inline-block py-2.5 px-4 border border-bloom text-bloom hover:bg-bloom hover:text-white text-xs uppercase tracking-widest font-semibold transition-colors text-center w-full rounded-xs">
                             Masuk Sekarang
                         </a>
                     </div>
@@ -485,10 +486,13 @@
     <!-- Produk Terkait (Related Products) -->
     @if($relatedProducts->isNotEmpty())
         <div class="mt-20 pt-12 border-t border-bone">
-            <div class="flex items-center justify-between mb-8 pb-3 border-b border-bone">
-                <h2 class="text-xs uppercase tracking-widest font-medium text-obsidian">Produk Terkait Lainnya</h2>
-                <a href="{{ url('/koleksi/' . ($product->category->slug ?? '')) }}" class="link-underlined text-xs uppercase tracking-wider">
-                    Lihat Kategori Ini
+            <div class="flex items-center justify-between mb-8 pb-3 border-b border-sage-200/80">
+                <h2 class="text-xs uppercase tracking-widest font-semibold text-obsidian flex items-center gap-1.5">
+                    <span class="w-1.5 h-1.5 rounded-full bg-botanic"></span>
+                    <span>Produk Terkait Lainnya</span>
+                </h2>
+                <a href="{{ url('/koleksi/' . ($product->category->slug ?? '')) }}" class="text-xs uppercase tracking-wider text-botanic hover:text-bloom underline font-semibold transition-colors">
+                    Lihat Kategori Ini &rarr;
                 </a>
             </div>
 

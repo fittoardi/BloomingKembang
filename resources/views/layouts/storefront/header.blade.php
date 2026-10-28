@@ -3,11 +3,11 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
         <!-- Left: Mobile Menu Toggle & Desktop Nav -->
         <div class="flex items-center space-x-3">
-            <!-- Mobile Hamburger Button -->
+            <!-- Mobile Hamburger Button (Tampil hanya pada tampilan mobile < md) -->
             <button 
                 type="button" 
                 @click="mobileMenuOpen = !mobileMenuOpen" 
-                class="md:hidden p-2 -ml-2 text-stone-700 hover:text-bloom focus:outline-none cursor-pointer"
+                class="inline-flex md:hidden p-2 -ml-2 text-stone-700 hover:text-bloom focus:outline-none cursor-pointer"
                 aria-label="Buka Menu Navigasi"
                 :aria-expanded="mobileMenuOpen.toString()"
             >
@@ -19,7 +19,7 @@
                 </svg>
             </button>
 
-            <!-- Desktop Nav Items -->
+            <!-- Desktop Nav Items (Tampil pada tampilan desktop >= md) -->
             <nav class="hidden md:flex items-center space-x-8 text-xs uppercase tracking-widest" aria-label="Menu Utama">
                 <a href="{{ url('/') }}" class="hover:text-bloom transition-colors {{ request()->is('/') ? 'text-botanic font-semibold border-b-2 border-botanic pb-1' : 'text-stone-700' }}">Beranda</a>
                 <a href="{{ url('/koleksi') }}" class="hover:text-bloom transition-colors {{ request()->is('koleksi*') ? 'text-botanic font-semibold border-b-2 border-botanic pb-1' : 'text-stone-700' }}">Koleksi</a>
@@ -50,7 +50,7 @@
         <!-- Right Utility Links -->
         <div class="flex items-center space-x-3 sm:space-x-5 text-xs uppercase tracking-widest">
             <!-- Quick Search Bar (Desktop) -->
-            <form action="{{ url('/koleksi') }}" method="GET" class="hidden sm:flex items-center relative">
+            <form action="{{ url('/koleksi') }}" method="GET" class="hidden md:flex items-center relative">
                 <input 
                     type="text" 
                     name="cari" 
@@ -66,16 +66,16 @@
 
             @auth
                 @if(auth()->user()->hasAnyRole(['super_admin', 'admin', 'warehouse_staff']))
-                    <a href="{{ url('/admin') }}" class="hidden sm:inline-block link-underlined text-botanic font-medium">Panel Admin</a>
+                    <a href="{{ url('/admin') }}" class="hidden md:inline-block link-underlined text-botanic font-medium">Panel Admin</a>
                 @endif
-                <a href="{{ route('account.dashboard') }}" class="hidden sm:inline-block hover:text-bloom transition-colors text-stone-700">Akun Saya</a>
-                <form method="POST" action="{{ route('logout') }}" class="hidden sm:inline">
+                <a href="{{ route('account.dashboard') }}" class="hidden md:inline-block hover:text-bloom transition-colors text-stone-700">Akun Saya</a>
+                <form method="POST" action="{{ route('logout') }}" class="hidden md:inline">
                     @csrf
                     <button type="submit" class="hover:text-bloom uppercase tracking-widest transition-colors text-stone-500 cursor-pointer">Keluar</button>
                 </form>
             @else
-                <a href="{{ route('login') }}" class="hidden sm:inline-block hover:text-bloom transition-colors text-stone-700">Masuk</a>
-                <a href="{{ route('register') }}" class="hidden sm:inline-block px-3 py-1 rounded-full border border-blush-300 text-bloom hover:bg-blush-50 transition-colors font-medium">Daftar</a>
+                <a href="{{ route('login') }}" class="hidden md:inline-block hover:text-bloom transition-colors text-stone-700">Masuk</a>
+                <a href="{{ route('register') }}" class="hidden md:inline-block px-3 py-1 rounded-full border border-blush-300 text-bloom hover:bg-blush-50 transition-colors font-medium">Daftar</a>
             @endauth
 
             <!-- Cart Trigger Button (Accessible for both Guest and Authenticated users) -->
@@ -86,9 +86,9 @@
                 class="hover:text-bloom transition-colors uppercase tracking-widest flex items-center space-x-1.5 cursor-pointer text-stone-800"
                 aria-label="Buka Keranjang Belanja"
             >
-                <span class="hidden sm:inline">Keranjang</span>
+                <span class="hidden md:inline">Keranjang</span>
                 <!-- Cart icon on mobile -->
-                <svg class="w-5 h-5 sm:hidden text-stone-800 hover:text-bloom transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg class="w-5 h-5 md:hidden text-stone-800 hover:text-bloom transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/>
                 </svg>
                 <span class="font-mono text-[10px] font-semibold px-1.5 sm:px-2 py-0.5 rounded-full bg-blush-100 text-blush-800 border border-blush-200">

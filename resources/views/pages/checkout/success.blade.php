@@ -1,22 +1,23 @@
 <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
-    <div class="border border-bone bg-paper p-8 sm:p-12 space-y-8">
+    <div class="border border-sage-200/90 bg-white/95 backdrop-blur-xs rounded-lg shadow-sm p-8 sm:p-12 space-y-8">
         <!-- Top Banner -->
-        <div class="text-center space-y-3 pb-8 border-b border-bone">
-            <span class="text-xs uppercase font-mono tracking-widest text-emerald-700 bg-emerald-50 px-3 py-1 inline-block">
-                Pesanan Berhasil Dibuat
+        <div class="text-center space-y-3 pb-8 border-b border-sage-100">
+            <span class="text-xs uppercase font-mono tracking-widest text-botanic bg-sage-100 border border-sage-200 px-4 py-1.5 rounded-full inline-flex items-center gap-1.5 font-semibold">
+                <span class="w-1.5 h-1.5 rounded-full bg-bloom"></span>
+                <span>Pesanan Berhasil Dibuat</span>
             </span>
-            <h1 class="text-2xl sm:text-3xl font-normal text-obsidian uppercase tracking-wider">
+            <h1 class="text-2xl sm:text-3xl font-serif font-normal text-obsidian uppercase tracking-wider">
                 Terima Kasih atas Pesanan Anda
             </h1>
-            <p class="text-xs sm:text-sm text-neutral-500 max-w-md mx-auto">
-                Nomor Referensi Pesanan: <strong class="font-mono text-obsidian">{{ $order->number }}</strong>
+            <p class="text-xs sm:text-sm text-neutral-600 max-w-md mx-auto">
+                Nomor Referensi Pesanan: <strong class="font-mono text-botanic font-bold">{{ $order->number }}</strong>
             </p>
-            <p class="text-[11px] text-neutral-400 font-mono">
+            <p class="text-[11px] text-stone-500 font-mono">
                 Batas waktu penyelesaian pembayaran: {{ $order->expires_at?->translatedFormat('d F Y, H:i') ?? '24 Jam' }} WIB
             </p>
 
             @if($errorMessage)
-                <div class="mt-4 p-3 border border-rose-300 bg-rose-50 text-xs text-rose-700 max-w-md mx-auto">
+                <div class="mt-4 p-3 border border-rose-300 bg-rose-50 text-xs text-rose-700 max-w-md mx-auto rounded-xs">
                     {{ $errorMessage }}
                 </div>
             @endif
@@ -27,7 +28,7 @@
                         type="button"
                         wire:click="payNow"
                         wire:loading.attr="disabled"
-                        class="px-8 py-3 bg-obsidian text-paper text-xs uppercase tracking-widest font-medium hover:bg-neutral-800 transition-colors shadow-md disabled:opacity-50"
+                        class="px-8 py-3.5 bg-botanic text-white text-xs uppercase tracking-widest font-semibold hover:bg-sage-700 transition-colors shadow-md rounded-xs disabled:opacity-50 cursor-pointer"
                     >
                         <span wire:loading.remove wire:target="payNow">Bayar Sekarang Via Midtrans &rarr;</span>
                         <span wire:loading wire:target="payNow">Menyiapkan Pembayaran...</span>
@@ -72,26 +73,26 @@
                     <span>Ongkos Kirim ({{ $order->courier }} {{ $order->courier_service }}):</span>
                     <span class="font-mono">Rp {{ number_format($order->shipping_cost, 0, ',', '.') }}</span>
                 </div>
-                <div class="flex justify-between items-baseline pt-3 border-t border-bone text-obsidian font-semibold">
+                <div class="flex justify-between items-baseline pt-3 border-t border-sage-100 text-obsidian font-semibold">
                     <span class="uppercase tracking-widest text-xs">Total yang Harus Dibayar:</span>
-                    <span class="font-mono text-lg font-bold">Rp {{ number_format($order->grand_total, 0, ',', '.') }}</span>
+                    <span class="font-mono text-xl font-bold text-botanic">Rp {{ number_format($order->grand_total, 0, ',', '.') }}</span>
                 </div>
             </div>
 
             <!-- Alamat Kirim -->
-            <div class="border border-bone p-4 bg-bone text-xs space-y-1">
-                <span class="text-[10px] uppercase font-mono tracking-wider text-neutral-500 block">Tujuan Pengiriman</span>
+            <div class="border border-sage-200/80 p-4 bg-sage-50/50 rounded-xs text-xs space-y-1">
+                <span class="text-[10px] uppercase font-mono tracking-wider text-botanic font-semibold block">Tujuan Pengiriman</span>
                 <p class="font-medium text-obsidian">{{ $order->shipping_address['recipient_name'] ?? $order->customer_name }} ({{ $order->shipping_address['phone'] ?? $order->customer_phone }})</p>
                 <p class="text-neutral-600">{{ $order->shipping_address['detail'] ?? '' }}, {{ $order->shipping_address['city'] ?? '' }}, {{ $order->shipping_address['province'] ?? '' }} {{ $order->shipping_address['postal_code'] ?? '' }}</p>
             </div>
         </div>
 
-        <div class="pt-6 border-t border-bone flex flex-col sm:flex-row items-center justify-between gap-4">
-            <a href="{{ url('/koleksi') }}" class="link-underlined text-xs uppercase tracking-wider">
+        <div class="pt-6 border-t border-sage-100 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <a href="{{ url('/koleksi') }}" class="text-xs uppercase tracking-wider text-botanic hover:text-bloom underline font-semibold transition-colors">
                 &larr; Kembali Berbelanja
             </a>
             @auth
-                <a href="{{ url('/akun') }}" class="px-6 py-3 bg-obsidian text-paper text-xs uppercase tracking-widest font-medium hover:bg-neutral-800 transition-colors">
+                <a href="{{ url('/akun') }}" class="px-6 py-3 bg-bloom hover:bg-blush-700 text-white text-xs uppercase tracking-widest font-semibold transition-colors rounded-xs shadow-xs">
                     Lihat Akun & Pesanan
                 </a>
             @endauth

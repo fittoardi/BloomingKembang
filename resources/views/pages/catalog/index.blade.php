@@ -20,13 +20,13 @@
                 </p>
             </div>
             
-            <!-- Category Quick Tabs -->
+            <!-- Category Quick Tabs (Kombinasi Botanic & Bloom) -->
             <div class="flex flex-wrap gap-2 text-xs">
-                <a href="{{ url('/koleksi') }}" class="px-3.5 py-1.5 border {{ empty($categorySlug) ? 'border-botanic bg-botanic text-paper font-medium shadow-xs' : 'border-sage-200/80 bg-white/70 hover:border-botanic text-neutral-600' }} transition-colors rounded-xs">
+                <a href="{{ url('/koleksi') }}" class="px-3.5 py-1.5 border {{ empty($categorySlug) ? 'border-botanic bg-botanic text-paper font-semibold shadow-xs' : 'border-sage-200/80 bg-white/70 hover:border-bloom hover:text-bloom text-neutral-600' }} transition-colors rounded-xs">
                     Semua
                 </a>
                 @foreach($categories as $cat)
-                    <a href="{{ url('/koleksi/' . $cat->slug) }}" class="px-3.5 py-1.5 border {{ $categorySlug === $cat->slug ? 'border-botanic bg-botanic text-paper font-medium shadow-xs' : 'border-sage-200/80 bg-white/70 hover:border-botanic text-neutral-600' }} transition-colors rounded-xs">
+                    <a href="{{ url('/koleksi/' . $cat->slug) }}" class="px-3.5 py-1.5 border {{ $categorySlug === $cat->slug ? 'border-botanic bg-botanic text-paper font-semibold shadow-xs' : 'border-sage-200/80 bg-white/70 hover:border-bloom hover:text-bloom text-neutral-600' }} transition-colors rounded-xs">
                         {{ $cat->name }}
                     </a>
                 @endforeach
@@ -68,9 +68,12 @@
             class="lg:col-span-1 space-y-8 bg-white/85 backdrop-blur-xs p-6 border border-sage-200/80 rounded-sm shadow-2xs transition-all"
         >
             <div class="flex items-center justify-between pb-3 border-b border-sage-100">
-                <h2 class="text-xs uppercase tracking-widest font-semibold text-obsidian">Filter Koleksi</h2>
+                <h2 class="text-xs uppercase tracking-widest font-semibold text-obsidian flex items-center gap-1.5">
+                    <span class="w-1.5 h-1.5 rounded-full bg-botanic"></span>
+                    <span>Filter Koleksi</span>
+                </h2>
                 @if($search || $color || $material || $availability || $minPrice || $maxPrice || $sortBy !== 'newest')
-                    <button wire:click="resetFilters" class="text-[11px] underline text-neutral-500 hover:text-obsidian cursor-pointer">
+                    <button wire:click="resetFilters" class="text-[11px] underline text-bloom hover:text-blush-800 cursor-pointer font-medium">
                         Reset Semua
                     </button>
                 @endif
@@ -84,7 +87,7 @@
                         type="text" 
                         wire:model.live.debounce.350ms="search" 
                         placeholder="Cari voal, silk, pashmina..." 
-                        class="w-full text-xs border border-bone bg-white pl-8 pr-8 py-2.5 focus:border-obsidian focus:ring-0 placeholder-stone-400"
+                        class="w-full text-xs border border-sage-200 bg-white pl-8 pr-8 py-2.5 focus:border-botanic focus:ring-botanic/20 placeholder-stone-400 rounded-xs"
                     />
                     <svg class="w-3.5 h-3.5 text-stone-400 absolute left-2.5 top-3 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
@@ -93,7 +96,7 @@
                         <button 
                             type="button" 
                             wire:click="$set('search', '')" 
-                            class="absolute right-2.5 top-2.5 text-stone-400 hover:text-stone-700 text-xs cursor-pointer font-bold"
+                            class="absolute right-2.5 top-2.5 text-stone-400 hover:text-bloom text-xs cursor-pointer font-bold"
                             title="Hapus pencarian"
                         >
                             &times;
@@ -103,9 +106,9 @@
             </div>
 
             <!-- Urutkan -->
-            <div class="space-y-2 pt-2 border-t border-bone">
+            <div class="space-y-2 pt-2 border-t border-sage-100">
                 <label class="text-[11px] uppercase tracking-wider text-neutral-500 font-medium block">Urutan</label>
-                <select wire:model.live="sortBy" class="w-full text-xs border border-bone bg-white p-2.5 focus:border-obsidian focus:ring-0">
+                <select wire:model.live="sortBy" class="w-full text-xs border border-sage-200 bg-white p-2.5 focus:border-botanic focus:ring-botanic/20 rounded-xs">
                     <option value="newest">Terbaru</option>
                     <option value="best_seller">Paling Banyak Terjual</option>
                     <option value="price_low">Harga: Terendah ke Tertinggi</option>
@@ -114,15 +117,15 @@
             </div>
 
             <!-- Ketersediaan Stok -->
-            <div class="space-y-2 pt-2 border-t border-bone">
+            <div class="space-y-2 pt-2 border-t border-sage-100">
                 <label class="text-[11px] uppercase tracking-wider text-neutral-500 font-medium block">Ketersediaan</label>
                 <div class="space-y-1.5 text-xs">
                     <label class="flex items-center space-x-2 cursor-pointer">
-                        <input type="radio" wire:model.live="availability" value="" name="availability" class="text-obsidian focus:ring-0 border-neutral-300">
+                        <input type="radio" wire:model.live="availability" value="" name="availability" class="text-botanic focus:ring-botanic border-sage-300">
                         <span>Semua Produk</span>
                     </label>
                     <label class="flex items-center space-x-2 cursor-pointer">
-                        <input type="radio" wire:model.live="availability" value="ready" name="availability" class="text-obsidian focus:ring-0 border-neutral-300">
+                        <input type="radio" wire:model.live="availability" value="ready" name="availability" class="text-botanic focus:ring-botanic border-sage-300">
                         <span>Hanya Stok Ready</span>
                     </label>
                 </div>
@@ -130,9 +133,9 @@
 
             <!-- Filter Bahan -->
             @if($availableMaterials->isNotEmpty())
-                <div class="space-y-2 pt-2 border-t border-bone">
+                <div class="space-y-2 pt-2 border-t border-sage-100">
                     <label class="text-[11px] uppercase tracking-wider text-neutral-500 font-medium block">Bahan Hijab</label>
-                    <select wire:model.live="material" class="w-full text-xs border border-bone bg-white p-2.5 focus:border-obsidian focus:ring-0">
+                    <select wire:model.live="material" class="w-full text-xs border border-sage-200 bg-white p-2.5 focus:border-botanic focus:ring-botanic/20 rounded-xs">
                         <option value="">Semua Bahan</option>
                         @foreach($availableMaterials as $mat)
                             <option value="{{ $mat }}">{{ $mat }}</option>
@@ -143,11 +146,11 @@
 
             <!-- Filter Warna -->
             @if($availableColors->isNotEmpty())
-                <div class="space-y-3 pt-2 border-t border-bone">
+                <div class="space-y-3 pt-2 border-t border-sage-100">
                     <div class="flex items-center justify-between">
                         <label class="text-[11px] uppercase tracking-wider text-neutral-500 font-medium block">Warna</label>
                         @if($color)
-                            <button wire:click="$set('color', '')" class="text-[10px] underline text-neutral-400 hover:text-obsidian">Clear</button>
+                            <button wire:click="$set('color', '')" class="text-[10px] underline text-bloom hover:text-blush-800">Clear</button>
                         @endif
                     </div>
                     <div class="flex flex-wrap gap-2">
@@ -155,7 +158,7 @@
                             <button 
                                 wire:click="$set('color', '{{ $color === $c->color ? '' : $c->color }}')"
                                 title="{{ $c->color }}"
-                                class="flex items-center gap-1.5 px-2.5 py-1 text-xs border {{ $color === $c->color ? 'border-obsidian bg-bone font-medium' : 'border-bone hover:border-neutral-400' }} transition-all"
+                                class="flex items-center gap-1.5 px-2.5 py-1 text-xs border rounded-xs {{ $color === $c->color ? 'border-bloom bg-blush-50 text-bloom font-medium ring-1 ring-bloom' : 'border-sage-200/90 hover:border-bloom bg-white' }} transition-all"
                             >
                                 @if($c->color_hex)
                                     <span class="w-2.5 h-2.5 rounded-none border border-neutral-300 inline-block" style="background-color: {{ $c->color_hex }};"></span>
@@ -168,11 +171,11 @@
             @endif
 
             <!-- Filter Rentang Harga -->
-            <div class="space-y-2 pt-2 border-t border-bone">
+            <div class="space-y-2 pt-2 border-t border-sage-100">
                 <label class="text-[11px] uppercase tracking-wider text-neutral-500 font-medium block">Rentang Harga (IDR)</label>
                 <div class="grid grid-cols-2 gap-2 text-xs">
-                    <input type="number" wire:model.live.debounce.400ms="minPrice" placeholder="Min" class="w-full border border-bone p-2 focus:border-obsidian focus:ring-0">
-                    <input type="number" wire:model.live.debounce.400ms="maxPrice" placeholder="Maks" class="w-full border border-bone p-2 focus:border-obsidian focus:ring-0">
+                    <input type="number" wire:model.live.debounce.400ms="minPrice" placeholder="Min" class="w-full border border-sage-200 p-2 focus:border-botanic focus:ring-botanic/20 rounded-xs">
+                    <input type="number" wire:model.live.debounce.400ms="maxPrice" placeholder="Maks" class="w-full border border-sage-200 p-2 focus:border-botanic focus:ring-botanic/20 rounded-xs">
                 </div>
             </div>
         </aside>
@@ -181,16 +184,16 @@
         <main class="lg:col-span-3 space-y-8">
             <!-- Active Search Filter Indicator -->
             @if(!empty(trim($search)))
-                <div class="flex items-center justify-between p-3.5 bg-sage-50/80 border border-sage-200/90 rounded-sm text-xs">
+                <div class="flex items-center justify-between p-3.5 bg-sage-50/80 border border-sage-200/90 rounded-sm text-xs shadow-2xs">
                     <div class="flex items-center space-x-2">
                         <span class="text-stone-500">Hasil pencarian untuk:</span>
-                        <span class="font-medium text-obsidian bg-white px-2 py-0.5 border border-sage-200 rounded-xs">"{{ $search }}"</span>
+                        <span class="font-medium text-botanic bg-white px-2 py-0.5 border border-sage-200 rounded-xs">"{{ $search }}"</span>
                         <span class="text-stone-400 font-mono text-[11px]">({{ $products->total() }} produk ditemukan)</span>
                     </div>
                     <button 
                         type="button" 
                         wire:click="$set('search', '')" 
-                        class="text-bloom hover:text-stone-900 font-medium text-[11px] uppercase tracking-wider flex items-center space-x-1 cursor-pointer"
+                        class="text-bloom hover:text-blush-800 font-medium text-[11px] uppercase tracking-wider flex items-center space-x-1 cursor-pointer"
                     >
                         <span>Hapus Pencarian</span>
                         <span>&times;</span>
@@ -199,13 +202,13 @@
             @endif
 
             <!-- Loading Indicator -->
-            <div wire:loading class="w-full py-4 text-center text-xs text-neutral-400 font-mono tracking-wider">
+            <div wire:loading class="w-full py-4 text-center text-xs text-botanic font-mono tracking-wider">
                 MEMPERBARUI KATALOG...
             </div>
 
             <!-- Empty State -->
             @if($products->isEmpty())
-                <div class="border border-bone p-16 text-center space-y-4 bg-paper rounded-sm">
+                <div class="border border-sage-200/80 p-16 text-center space-y-4 bg-white/90 rounded-sm shadow-2xs">
                     @if(!empty(trim($search)))
                         <p class="text-sm text-neutral-700">Tidak ada produk yang cocok dengan pencarian <strong class="text-obsidian">"{{ $search }}"</strong>.</p>
                         <p class="text-xs text-neutral-500">Coba periksa ejaan, gunakan kata kunci yang lebih umum, atau reset filter.</p>
@@ -213,7 +216,7 @@
                         <p class="text-sm text-neutral-600">Tidak ada produk yang sesuai dengan filter yang dipilih.</p>
                     @endif
                     <div class="pt-2">
-                        <button wire:click="resetFilters" class="link-underlined text-xs uppercase tracking-wider font-medium cursor-pointer">
+                        <button wire:click="resetFilters" class="text-xs uppercase tracking-wider font-semibold text-botanic hover:text-bloom underline cursor-pointer">
                             Reset Semua Filter
                         </button>
                     </div>
@@ -227,7 +230,7 @@
                             $prodMaxPrice = $product->variants->max('price');
                             $hasStock = $product->variants->contains(fn($v) => ($v->stock - $v->reserved) > 0);
                         @endphp
-                        <article class="group flex flex-col justify-between border border-sage-200/60 hover:border-bloom transition-all p-3.5 bg-white/90 backdrop-blur-xs rounded-sm shadow-2xs hover:shadow-md">
+                        <article class="group flex flex-col justify-between border border-sage-200/70 hover:border-botanic transition-all p-3.5 bg-white/90 backdrop-blur-xs rounded-sm shadow-2xs hover:shadow-md">
                             <!-- Image Frame -->
                             <a href="{{ url('/produk/' . $product->slug) }}" class="aspect-[3/4] bg-stone-50 border border-stone-100 relative overflow-hidden block rounded-xs">
                                 @php
@@ -249,7 +252,7 @@
                                     </div>
                                 @elseif($product->is_featured)
                                     <div class="absolute top-2 left-2">
-                                        <span class="text-[9px] uppercase tracking-widest bg-obsidian text-paper px-2 py-0.5 font-medium">
+                                        <span class="text-[9px] uppercase tracking-widest bg-bloom text-white px-2 py-0.5 font-semibold rounded-xs shadow-2xs">
                                             Unggulan
                                         </span>
                                     </div>
@@ -259,10 +262,10 @@
                             <!-- Caption & Pricing -->
                             <div class="mt-4 space-y-1.5">
                                 <div class="flex items-start justify-between gap-2">
-                                    <a href="{{ url('/produk/' . $product->slug) }}" class="text-xs font-normal text-obsidian hover:underline">
+                                    <a href="{{ url('/produk/' . $product->slug) }}" class="text-xs font-normal text-obsidian hover:text-bloom transition-colors">
                                         {{ $product->name }}
                                     </a>
-                                    <span class="text-xs font-mono font-medium text-obsidian whitespace-nowrap">
+                                    <span class="text-xs font-mono font-bold text-botanic whitespace-nowrap">
                                         @if($prodMinPrice && $prodMaxPrice && $prodMinPrice !== $prodMaxPrice)
                                             Rp {{ number_format($prodMinPrice, 0, ',', '.') }} - {{ number_format($prodMaxPrice, 0, ',', '.') }}
                                         @elseif($prodMinPrice)
@@ -282,7 +285,7 @@
                                     @foreach($product->variants->take(5) as $v)
                                         @if($v->color_hex)
                                             <span 
-                                                class="w-3 h-3 border border-neutral-300 inline-block" 
+                                                class="w-3 h-3 border border-stone-300 rounded-full inline-block shadow-2xs" 
                                                 style="background-color: {{ $v->color_hex }};" 
                                                 title="{{ $v->color }}{{ $v->size ? ' (' . $v->size . ')' : '' }}"
                                             ></span>

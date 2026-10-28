@@ -34,7 +34,7 @@
 
         <a 
             href="{{ url('/akun/pesanan') }}" 
-            class="text-xs uppercase font-mono tracking-wider text-neutral-500 hover:text-obsidian link-underlined"
+            class="text-xs uppercase font-mono tracking-wider text-botanic hover:text-bloom underline font-semibold transition-colors"
         >
             &larr; Kembali ke Daftar
         </a>
@@ -65,7 +65,7 @@
                     type="button"
                     wire:click="payNow"
                     wire:loading.attr="disabled"
-                    class="px-5 py-2.5 bg-obsidian text-paper text-xs uppercase tracking-widest font-medium hover:bg-neutral-800 transition-colors whitespace-nowrap shadow-sm disabled:opacity-50"
+                    class="px-5 py-2.5 bg-botanic text-white text-xs uppercase tracking-widest font-semibold hover:bg-sage-700 transition-colors whitespace-nowrap shadow-xs rounded-xs disabled:opacity-50 cursor-pointer"
                 >
                     <span wire:loading.remove wire:target="payNow">Bayar Sekarang &rarr;</span>
                     <span wire:loading wire:target="payNow">Menghubungkan...</span>
@@ -83,16 +83,17 @@
     @endif
 
     <!-- Timeline Status -->
-    <div class="border border-bone bg-paper p-6 sm:p-8 mb-8">
-        <h2 class="text-xs uppercase tracking-[0.2em] font-medium text-obsidian mb-6 pb-2 border-b border-bone">
+    <div class="border border-sage-200/90 bg-white/95 rounded-lg shadow-2xs p-6 sm:p-8 mb-8">
+        <h2 class="text-xs uppercase tracking-[0.2em] font-semibold text-botanic mb-6 pb-2 border-b border-sage-200/80 flex items-center">
+            <span class="inline-block w-1.5 h-1.5 rounded-full bg-bloom mr-2"></span>
             Status Pelacakan Pesanan
         </h2>
 
         @if(in_array($order->status->value, ['cancelled', 'expired']))
-            <div class="p-4 border border-bone bg-bone text-xs text-neutral-600 space-y-1">
-                <span class="font-medium text-obsidian uppercase tracking-wider">Pesanan {{ $order->status->label() }}</span>
+            <div class="p-4 border border-rose-200 bg-rose-50/70 text-xs text-rose-800 space-y-1 rounded-sm">
+                <span class="font-medium uppercase tracking-wider">Pesanan {{ $order->status->label() }}</span>
                 <p>{{ $order->cancel_reason ?? 'Pesanan telah dibatalkan atau waktu pembayaran telah habis.' }}</p>
-                <span class="text-[11px] font-mono text-neutral-400">{{ $order->cancelled_at?->format('d M Y, H:i') }}</span>
+                <span class="text-[11px] font-mono text-rose-500">{{ $order->cancelled_at?->format('d M Y, H:i') }}</span>
             </div>
         @else
             @php
@@ -103,37 +104,37 @@
             @endphp
             <div class="grid grid-cols-1 sm:grid-cols-4 gap-4 sm:gap-2 text-center text-xs">
                 <!-- Step 1: Dibuat -->
-                <div class="space-y-2 p-3 bg-bone border border-obsidian">
-                    <span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-obsidian text-paper text-[10px] font-mono font-bold">1</span>
-                    <p class="font-medium text-obsidian uppercase tracking-wider text-[11px]">Dibuat</p>
-                    <p class="text-[10px] font-mono text-neutral-500">{{ $order->created_at->format('d/m/Y H:i') }}</p>
+                <div class="space-y-2 p-3 bg-sage-50/80 border border-botanic rounded-sm">
+                    <span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-botanic text-white text-[10px] font-mono font-bold shadow-2xs">1</span>
+                    <p class="font-semibold text-botanic uppercase tracking-wider text-[11px]">Dibuat</p>
+                    <p class="text-[10px] font-mono text-stone-500">{{ $order->created_at->format('d/m/Y H:i') }}</p>
                 </div>
 
                 <!-- Step 2: Dibayar -->
-                <div class="space-y-2 p-3 {{ $isPaid ? 'bg-bone border border-obsidian' : 'bg-paper border border-bone opacity-50' }}">
-                    <span class="inline-flex items-center justify-center w-6 h-6 rounded-full {{ $isPaid ? 'bg-obsidian text-paper' : 'bg-neutral-200 text-neutral-600' }} text-[10px] font-mono font-bold">2</span>
-                    <p class="font-medium text-obsidian uppercase tracking-wider text-[11px]">Dibayar</p>
-                    <p class="text-[10px] font-mono text-neutral-500">{{ $order->paid_at?->format('d/m/Y H:i') ?? 'Menunggu' }}</p>
+                <div class="space-y-2 p-3 {{ $isPaid ? 'bg-sage-50/80 border border-botanic rounded-sm' : 'bg-white border border-sage-200/80 opacity-60 rounded-sm' }}">
+                    <span class="inline-flex items-center justify-center w-6 h-6 rounded-full {{ $isPaid ? 'bg-botanic text-white shadow-2xs' : 'bg-stone-200 text-stone-600' }} text-[10px] font-mono font-bold">2</span>
+                    <p class="font-semibold {{ $isPaid ? 'text-botanic' : 'text-stone-600' }} uppercase tracking-wider text-[11px]">Dibayar</p>
+                    <p class="text-[10px] font-mono text-stone-500">{{ $order->paid_at?->format('d/m/Y H:i') ?? 'Menunggu' }}</p>
                 </div>
 
                 <!-- Step 3: Dikirim -->
-                <div class="space-y-2 p-3 {{ $isShipped ? 'bg-bone border border-obsidian' : 'bg-paper border border-bone opacity-50' }}">
-                    <span class="inline-flex items-center justify-center w-6 h-6 rounded-full {{ $isShipped ? 'bg-obsidian text-paper' : 'bg-neutral-200 text-neutral-600' }} text-[10px] font-mono font-bold">3</span>
-                    <p class="font-medium text-obsidian uppercase tracking-wider text-[11px]">Dikirim</p>
-                    <p class="text-[10px] font-mono text-neutral-500">{{ $order->shipped_at?->format('d/m/Y H:i') ?? 'Proses kemas' }}</p>
+                <div class="space-y-2 p-3 {{ $isShipped ? 'bg-sage-50/80 border border-botanic rounded-sm' : 'bg-white border border-sage-200/80 opacity-60 rounded-sm' }}">
+                    <span class="inline-flex items-center justify-center w-6 h-6 rounded-full {{ $isShipped ? 'bg-botanic text-white shadow-2xs' : 'bg-stone-200 text-stone-600' }} text-[10px] font-mono font-bold">3</span>
+                    <p class="font-semibold {{ $isShipped ? 'text-botanic' : 'text-stone-600' }} uppercase tracking-wider text-[11px]">Dikirim</p>
+                    <p class="text-[10px] font-mono text-stone-500">{{ $order->shipped_at?->format('d/m/Y H:i') ?? 'Proses kemas' }}</p>
                     @if($order->tracking_number)
-                        <div class="mt-1 pt-1 border-t border-bone">
-                            <span class="text-[9px] font-mono text-neutral-500 uppercase block">Resi ({{ $order->courier }}):</span>
-                            <span class="font-mono font-bold text-obsidian select-all text-[11px]">{{ $order->tracking_number }}</span>
+                        <div class="mt-1 pt-1 border-t border-sage-200/80">
+                            <span class="text-[9px] font-mono text-stone-500 uppercase block">Resi ({{ $order->courier }}):</span>
+                            <span class="font-mono font-bold text-botanic select-all text-[11px]">{{ $order->tracking_number }}</span>
                         </div>
                     @endif
                 </div>
 
                 <!-- Step 4: Selesai -->
-                <div class="space-y-2 p-3 {{ $isCompleted ? 'bg-bone border border-obsidian' : 'bg-paper border border-bone opacity-50' }}">
-                    <span class="inline-flex items-center justify-center w-6 h-6 rounded-full {{ $isCompleted ? 'bg-obsidian text-paper' : 'bg-neutral-200 text-neutral-600' }} text-[10px] font-mono font-bold">4</span>
-                    <p class="font-medium text-obsidian uppercase tracking-wider text-[11px]">Selesai</p>
-                    <p class="text-[10px] font-mono text-neutral-500">{{ $order->completed_at?->format('d/m/Y H:i') ?? '-' }}</p>
+                <div class="space-y-2 p-3 {{ $isCompleted ? 'bg-sage-50/80 border border-botanic rounded-sm' : 'bg-white border border-sage-200/80 opacity-60 rounded-sm' }}">
+                    <span class="inline-flex items-center justify-center w-6 h-6 rounded-full {{ $isCompleted ? 'bg-botanic text-white shadow-2xs' : 'bg-stone-200 text-stone-600' }} text-[10px] font-mono font-bold">4</span>
+                    <p class="font-semibold {{ $isCompleted ? 'text-botanic' : 'text-stone-600' }} uppercase tracking-wider text-[11px]">Selesai</p>
+                    <p class="text-[10px] font-mono text-stone-500">{{ $order->completed_at?->format('d/m/Y H:i') ?? '-' }}</p>
                 </div>
             </div>
         @endif

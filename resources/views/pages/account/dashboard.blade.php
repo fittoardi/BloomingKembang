@@ -17,19 +17,19 @@
             <!-- Sidebar Navigation -->
             <aside class="space-y-2 text-xs uppercase tracking-wider">
                 <nav class="space-y-1">
-                    <a href="{{ route('account.dashboard') }}" class="block p-3 border border-obsidian bg-bone text-obsidian font-medium">
+                    <a href="{{ route('account.dashboard') }}" class="block p-3 border border-botanic bg-sage-50 text-botanic font-semibold rounded-xs shadow-2xs">
                         Dashboard
                     </a>
-                    <a href="{{ url('/akun/pesanan') }}" class="block p-3 border border-bone hover:border-neutral-300 transition-colors">
+                    <a href="{{ url('/akun/pesanan') }}" class="block p-3 border border-sage-200/80 bg-white/70 hover:border-bloom hover:text-bloom text-stone-700 rounded-xs transition-colors">
                         Riwayat Pesanan
                     </a>
-                    <a href="{{ url('/akun/alamat') }}" class="block p-3 border border-bone hover:border-neutral-300 transition-colors">
+                    <a href="{{ url('/akun/alamat') }}" class="block p-3 border border-sage-200/80 bg-white/70 hover:border-bloom hover:text-bloom text-stone-700 rounded-xs transition-colors">
                         Buku Alamat
                     </a>
-                    <a href="{{ url('/akun/wishlist') }}" class="block p-3 border border-bone hover:border-neutral-300 transition-colors">
+                    <a href="{{ url('/akun/wishlist') }}" class="block p-3 border border-sage-200/80 bg-white/70 hover:border-bloom hover:text-bloom text-stone-700 rounded-xs transition-colors">
                         Wishlist
                     </a>
-                    <a href="{{ route('profile.edit') }}" class="block p-3 border border-bone hover:border-neutral-300 transition-colors">
+                    <a href="{{ route('profile.edit') }}" class="block p-3 border border-sage-200/80 bg-white/70 hover:border-bloom hover:text-bloom text-stone-700 rounded-xs transition-colors">
                         Pengaturan Profil
                     </a>
                 </nav>
@@ -37,7 +37,7 @@
                 <div class="pt-6">
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
-                        <button type="submit" class="w-full text-left p-3 text-neutral-400 hover:text-obsidian transition-colors text-xs uppercase tracking-widest">
+                        <button type="submit" class="w-full text-left p-3 text-stone-500 hover:text-bloom transition-colors text-xs uppercase tracking-widest cursor-pointer">
                             Keluar dari Akun
                         </button>
                     </form>
@@ -46,53 +46,62 @@
 
             <!-- Main Account Content -->
             <section class="md:col-span-3 space-y-8">
-                <!-- Status Cards -->
+                <!-- Status Cards (Botanic & Bloom Accents) -->
                 <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs">
-                    <div class="border border-bone p-4 space-y-1 bg-paper">
-                        <span class="text-[10px] uppercase font-mono text-neutral-400">Total Pesanan</span>
-                        <p class="text-lg font-mono text-obsidian">{{ Auth::user()->orders()->count() }}</p>
+                    <div class="border border-sage-200/90 p-4 space-y-1 bg-white rounded-sm shadow-2xs">
+                        <span class="text-[10px] uppercase font-mono text-stone-500 font-medium">Total Pesanan</span>
+                        <p class="text-xl font-mono font-bold text-botanic">{{ Auth::user()->orders()->count() }}</p>
                     </div>
-                    <div class="border border-bone p-4 space-y-1 bg-paper">
-                        <span class="text-[10px] uppercase font-mono text-neutral-400">Pesanan Aktif</span>
-                        <p class="text-lg font-mono text-obsidian">{{ Auth::user()->orders()->whereIn('status', [\App\Enums\OrderStatus::PendingPayment, \App\Enums\OrderStatus::Processing, \App\Enums\OrderStatus::Shipped])->count() }}</p>
+                    <div class="border border-blush-200/90 p-4 space-y-1 bg-white rounded-sm shadow-2xs">
+                        <span class="text-[10px] uppercase font-mono text-stone-500 font-medium">Pesanan Aktif</span>
+                        <p class="text-xl font-mono font-bold text-bloom">{{ Auth::user()->orders()->whereIn('status', [\App\Enums\OrderStatus::PendingPayment, \App\Enums\OrderStatus::Processing, \App\Enums\OrderStatus::Shipped])->count() }}</p>
                     </div>
-                    <div class="border border-bone p-4 space-y-1 bg-paper">
-                        <span class="text-[10px] uppercase font-mono text-neutral-400">Wishlist</span>
-                        <p class="text-lg font-mono text-obsidian">{{ Auth::user()->wishlists()->count() }}</p>
+                    <div class="border border-sage-200/90 p-4 space-y-1 bg-white rounded-sm shadow-2xs">
+                        <span class="text-[10px] uppercase font-mono text-stone-500 font-medium">Wishlist</span>
+                        <p class="text-xl font-mono font-bold text-botanic">{{ Auth::user()->wishlists()->count() }}</p>
                     </div>
                 </div>
 
                 <!-- Account Information Summary -->
-                <div class="border border-bone p-6 space-y-4 bg-paper">
-                    <div class="flex items-center justify-between border-b border-bone pb-3">
-                        <h2 class="text-xs uppercase tracking-widest font-medium text-obsidian">Ringkasan Profil</h2>
-                        <a href="{{ route('profile.edit') }}" class="link-underlined text-xs">Ubah Profil</a>
+                <div class="border border-sage-200/90 p-6 space-y-4 bg-white/95 rounded-sm shadow-2xs">
+                    <div class="flex items-center justify-between border-b border-sage-100 pb-3">
+                        <h2 class="text-xs uppercase tracking-widest font-semibold text-obsidian flex items-center gap-1.5">
+                            <span class="w-1.5 h-1.5 rounded-full bg-botanic"></span>
+                            <span>Ringkasan Profil</span>
+                        </h2>
+                        <a href="{{ route('profile.edit') }}" class="text-xs uppercase tracking-wider text-botanic hover:text-bloom underline font-semibold transition-colors">Ubah Profil</a>
                     </div>
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
                         <div>
-                            <span class="text-neutral-400 block text-[11px]">Nama Lengkap</span>
-                            <span class="text-obsidian">{{ Auth::user()->name }}</span>
+                            <span class="text-stone-400 block text-[11px]">Nama Lengkap</span>
+                            <span class="text-obsidian font-medium">{{ Auth::user()->name }}</span>
                         </div>
                         <div>
-                            <span class="text-neutral-400 block text-[11px]">Email</span>
-                            <span class="text-obsidian">{{ Auth::user()->email }}</span>
+                            <span class="text-stone-400 block text-[11px]">Email</span>
+                            <span class="text-obsidian font-medium">{{ Auth::user()->email }}</span>
                         </div>
                         <div>
-                            <span class="text-neutral-400 block text-[11px]">Nomor Telepon / WhatsApp</span>
-                            <span class="text-obsidian">{{ Auth::user()->phone ?? 'Belum diisi' }}</span>
+                            <span class="text-stone-400 block text-[11px]">Nomor Telepon / WhatsApp</span>
+                            <span class="text-obsidian font-medium">{{ Auth::user()->phone ?? 'Belum diisi' }}</span>
                         </div>
                         <div>
-                            <span class="text-neutral-400 block text-[11px]">Status Akun</span>
-                            <span class="text-emerald-700 font-medium">Aktif</span>
+                            <span class="text-stone-400 block text-[11px]">Status Akun</span>
+                            <span class="text-botanic font-semibold flex items-center gap-1">
+                                <span class="w-1.5 h-1.5 rounded-full bg-botanic"></span>
+                                <span>Aktif Terverifikasi</span>
+                            </span>
                         </div>
                     </div>
                 </div>
 
                 <!-- Default Address Snapshot -->
-                <div class="border border-bone p-6 space-y-4 bg-paper">
-                    <div class="flex items-center justify-between border-b border-bone pb-3">
-                        <h2 class="text-xs uppercase tracking-widest font-medium text-obsidian">Alamat Pengiriman Utama</h2>
-                        <a href="{{ url('/akun/alamat') }}" class="link-underlined text-xs">Kelola Alamat</a>
+                <div class="border border-sage-200/90 p-6 space-y-4 bg-white/95 rounded-sm shadow-2xs">
+                    <div class="flex items-center justify-between border-b border-sage-100 pb-3">
+                        <h2 class="text-xs uppercase tracking-widest font-semibold text-obsidian flex items-center gap-1.5">
+                            <span class="w-1.5 h-1.5 rounded-full bg-bloom"></span>
+                            <span>Alamat Pengiriman Utama</span>
+                        </h2>
+                        <a href="{{ url('/akun/alamat') }}" class="text-xs uppercase tracking-wider text-botanic hover:text-bloom underline font-semibold transition-colors">Kelola Alamat</a>
                     </div>
                     @php
                         $defaultAddress = Auth::user()->defaultAddress ?? Auth::user()->addresses()->first();
