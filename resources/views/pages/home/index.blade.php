@@ -179,10 +179,10 @@
                     <!-- Slide Content -->
                     <div class="relative z-10 max-w-7xl mx-auto px-6 sm:px-12 w-full flex flex-col justify-center text-white py-12">
                         <div class="max-w-3xl space-y-4">
-                            <!-- Category Tag Pill (Hijau Sage & Soft Pink) -->
+                            <!-- Category Tag Pill -->
                             <div>
-                                <span class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-botanic/85 backdrop-blur-md text-blush-100 text-xs font-mono tracking-widest uppercase border border-blush-300/40">
-                                    <span class="w-2 h-2 rounded-full bg-bloom animate-pulse"></span>
+                                <span class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-stone-900/60 backdrop-blur-md text-stone-200 text-[11px] font-sans uppercase tracking-[0.2em] font-medium border border-white/20">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-bloom"></span>
                                     {{ $slide['tag'] }}
                                 </span>
                             </div>
@@ -193,15 +193,15 @@
                             </h1>
 
                             <!-- Subtitle -->
-                            <p class="text-sm sm:text-base text-stone-100 max-w-2xl font-normal leading-relaxed drop-shadow-sm">
+                            <p class="text-sm sm:text-base text-stone-100 max-w-2xl font-normal leading-relaxed drop-shadow-xs">
                                 {{ $slide['subtitle'] }}
                             </p>
 
-                            <!-- CTAs & Badge (Hijau & Pink) -->
+                            <!-- CTAs & Badge -->
                             <div class="pt-4 flex flex-wrap items-center gap-4">
                                 <a 
                                     href="{{ url($slide['link_url']) }}" 
-                                    class="px-8 py-3.5 bg-bloom hover:bg-blush-700 text-white text-xs uppercase tracking-widest font-semibold transition-all rounded-xs shadow-lg inline-flex items-center gap-2 group"
+                                    class="px-8 py-3.5 bg-bloom hover:bg-blush-700 text-white text-xs uppercase tracking-widest font-semibold transition-all rounded-xs shadow-md inline-flex items-center gap-2 group"
                                 >
                                     <span>{{ $slide['cta_text'] }}</span>
                                     <span class="group-hover:translate-x-1 transition-transform">&rarr;</span>
@@ -214,7 +214,7 @@
                                     Semua Koleksi
                                 </a>
 
-                                <span class="hidden sm:inline-flex items-center text-xs font-mono tracking-wider text-blush-100 uppercase px-3.5 py-1.5 bg-black/40 rounded-full backdrop-blur-xs border border-white/15">
+                                <span class="hidden sm:inline-flex items-center text-[11px] font-medium tracking-[0.16em] text-stone-200 uppercase px-3.5 py-1.5 bg-black/40 rounded-full backdrop-blur-xs border border-white/15">
                                     {{ $slide['badge'] }}
                                 </span>
                             </div>
@@ -319,22 +319,22 @@
         </div>
     </section>
 
-    <!-- 3. SPOTLIGHT HERO PRODUCT: KEISHA VERSA (HIJAU BOTANIC & PINK BLOOM) -->
+    <!-- 3. SPOTLIGHT HERO PRODUCT: KEISHA VERSA -->
     <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
-        <div class="bg-gradient-to-br from-sage-50/90 via-white to-blush-50/80 border border-sage-200/90 rounded-2xl overflow-hidden shadow-xs p-6 sm:p-10 lg:p-12">
+        <div class="bg-white border border-stone-200/90 rounded-2xl overflow-hidden shadow-xs p-6 sm:p-10 lg:p-12">
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
                 <!-- Left: Lookbook Rack Image -->
                 <div class="lg:col-span-6">
-                    <div class="relative rounded-xl overflow-hidden border border-sage-200 shadow-md group">
+                    <div class="relative rounded-xl overflow-hidden border border-stone-200 shadow-sm group">
                         <img 
                             src="{{ asset('images/home/keisha-rack.jpg') }}" 
                             alt="Keisha Versa Voal Rack Collection" 
                             class="w-full h-[360px] sm:h-[440px] object-cover group-hover:scale-105 transition-transform duration-700" 
                         />
-                        <div class="absolute inset-0 bg-gradient-to-t from-stone-950/70 via-transparent to-transparent"></div>
+                        <div class="absolute inset-0 bg-gradient-to-t from-stone-950/75 via-transparent to-transparent"></div>
                         <div class="absolute bottom-5 left-5 right-5 text-white">
-                            <span class="inline-block px-3 py-1 rounded-full bg-botanic text-blush-100 font-mono text-[10px] uppercase tracking-widest font-semibold mb-2 border border-blush-300/40">
-                                15 PILIHAN WARNA EXCLUSIVE
+                            <span class="inline-block px-3 py-1 rounded-full bg-stone-900/80 backdrop-blur-xs text-stone-200 text-[10px] uppercase tracking-[0.18em] font-medium mb-2 border border-white/20">
+                                15 Pilihan Warna Eksklusif
                             </span>
                             <h3 class="text-lg font-serif uppercase tracking-wider">Scarf Rack Atelier 2026</h3>
                             <p class="text-xs text-stone-200 mt-0.5">Draping rapi dan tekstur voal ultrafine yang sejuk bersahaja.</p>
@@ -345,8 +345,8 @@
                 <!-- Right: Product Narrative & Purchase Details -->
                 <div class="lg:col-span-6 space-y-6">
                     <div>
-                        <span class="text-xs uppercase font-mono tracking-widest text-bloom font-bold block mb-1">
-                            BLOOMING SIGNATURE ESSENTIAL
+                        <span class="text-[11px] uppercase tracking-[0.2em] text-bloom font-semibold block mb-1.5">
+                            Koleksi Signature Essential
                         </span>
                         <h2 class="text-2xl sm:text-3xl font-serif uppercase tracking-wider text-stone-900 leading-snug">
                             Keisha Versa Voal Scarf
@@ -356,31 +356,31 @@
                         </p>
                     </div>
 
-                    <!-- Modesty & Fabric Features Grid -->
+                    <!-- Modesty & Fabric Features Atelier Grid -->
                     <div class="grid grid-cols-2 gap-3 pt-2 text-left">
-                        <div class="p-3 bg-white border border-sage-200/80 rounded-lg shadow-2xs">
-                            <span class="text-[10px] font-mono uppercase tracking-wider text-botanic font-bold block">100% Ultrafine Voal</span>
-                            <span class="text-xs text-stone-700 font-medium">Serat bernapas, sejuk di cuaca panas</span>
+                        <div class="p-3.5 bg-stone-50 border border-stone-200/80 rounded-lg">
+                            <span class="text-[11px] uppercase tracking-wider text-stone-900 font-semibold block">100% Ultrafine Voal</span>
+                            <span class="text-xs text-stone-600 mt-0.5 block leading-normal">Serat bernapas, sejuk di cuaca panas</span>
                         </div>
-                        <div class="p-3 bg-white border border-sage-200/80 rounded-lg shadow-2xs">
-                            <span class="text-[10px] font-mono uppercase tracking-wider text-botanic font-bold block">Laser Cut Precision</span>
-                            <span class="text-xs text-stone-700 font-medium">Tepi rapi tanpa benang bertiras</span>
+                        <div class="p-3.5 bg-stone-50 border border-stone-200/80 rounded-lg">
+                            <span class="text-[11px] uppercase tracking-wider text-stone-900 font-semibold block">Laser Cut Precision</span>
+                            <span class="text-xs text-stone-600 mt-0.5 block leading-normal">Tepi rapi tanpa benang bertiras</span>
                         </div>
-                        <div class="p-3 bg-white border border-sage-200/80 rounded-lg shadow-2xs">
-                            <span class="text-[10px] font-mono uppercase tracking-wider text-botanic font-bold block">Tegak Sempurna</span>
-                            <span class="text-xs text-stone-700 font-medium">Mudah dibentuk & anti geser seharian</span>
+                        <div class="p-3.5 bg-stone-50 border border-stone-200/80 rounded-lg">
+                            <span class="text-[11px] uppercase tracking-wider text-stone-900 font-semibold block">Tegak Sempurna</span>
+                            <span class="text-xs text-stone-600 mt-0.5 block leading-normal">Mudah dibentuk & anti geser seharian</span>
                         </div>
-                        <div class="p-3 bg-white border border-sage-200/80 rounded-lg shadow-2xs">
-                            <span class="text-[10px] font-mono uppercase tracking-wider text-botanic font-bold block">Coverage Modest</span>
-                            <span class="text-xs text-stone-700 font-medium">Lebih panjang menutup dada</span>
+                        <div class="p-3.5 bg-stone-50 border border-stone-200/80 rounded-lg">
+                            <span class="text-[11px] uppercase tracking-wider text-stone-900 font-semibold block">Coverage Modest</span>
+                            <span class="text-xs text-stone-600 mt-0.5 block leading-normal">Lebih panjang menutup dada</span>
                         </div>
                     </div>
 
                     <!-- Color Swatches Preview Bar -->
-                    <div class="space-y-2 pt-2">
+                    <div class="space-y-2 pt-1">
                         <div class="flex items-center justify-between text-xs">
-                            <span class="font-medium text-stone-700">Pilihan Warna Terfavorit:</span>
-                            <span class="text-[11px] font-mono text-botanic font-semibold">15 Warna Lengkap</span>
+                            <span class="font-medium text-stone-700">Pilihan Warna Favorit:</span>
+                            <span class="text-[11px] uppercase tracking-wider text-botanic font-semibold">15 Warna Lengkap</span>
                         </div>
                         <div class="flex items-center space-x-2">
                             <span class="w-6 h-6 rounded-full border-2 border-white shadow-xs" style="background-color: #B87383;" title="726 Dusty Rose"></span>
@@ -389,20 +389,20 @@
                             <span class="w-6 h-6 rounded-full border-2 border-white shadow-xs" style="background-color: #D6B598;" title="901 Warm Nude"></span>
                             <span class="w-6 h-6 rounded-full border-2 border-white shadow-xs" style="background-color: #1D2A44;" title="516 Deep Navy"></span>
                             <span class="w-6 h-6 rounded-full border-2 border-white shadow-xs" style="background-color: #8A6B56;" title="312 Mocca Warm"></span>
-                            <span class="text-xs font-mono text-stone-500 pl-1">+9 lainnya</span>
+                            <span class="text-xs text-stone-500 pl-1 font-medium">+9 lainnya</span>
                         </div>
                     </div>
 
-                    <!-- Price & CTA Button (Hijau Botanic & Pink Bloom) -->
-                    <div class="pt-4 border-t border-sage-200 flex flex-wrap items-center justify-between gap-4">
+                    <!-- Price & CTA Button -->
+                    <div class="pt-4 border-t border-stone-200 flex flex-wrap items-center justify-between gap-4">
                         <div>
-                            <span class="text-[10px] font-mono uppercase tracking-wider text-stone-400 block">Harga Spesial</span>
-                            <span class="text-xl font-mono font-bold text-botanic">Rp 89.000</span>
+                            <span class="text-[10px] uppercase tracking-widest text-stone-400 block">Harga Spesial</span>
+                            <span class="text-2xl font-serif font-bold text-stone-900">Rp 89.000</span>
                         </div>
                         <div class="flex items-center gap-3">
                             <a 
                                 href="{{ url('/koleksi/hijab-segi-empat') }}" 
-                                class="px-7 py-3 bg-botanic hover:bg-sage-700 text-white text-xs uppercase tracking-widest font-semibold transition-colors rounded-xs shadow-sm inline-flex items-center gap-2"
+                                class="px-8 py-3.5 bg-botanic hover:bg-stone-800 text-white text-xs uppercase tracking-widest font-semibold transition-colors rounded-xs shadow-xs inline-flex items-center gap-2"
                             >
                                 <span>Beli Sekarang</span>
                                 <span>&rarr;</span>
@@ -414,11 +414,11 @@
         </div>
     </section>
 
-    <!-- 4. DESIGNED FOR EVERYDAY MODESTY (HIJAU BOTANIC & PINK BLOOM) -->
+    <!-- 4. DESIGNED FOR EVERYDAY MODESTY -->
     <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
         <div class="text-center max-w-2xl mx-auto mb-10 space-y-2">
-            <span class="text-[10px] uppercase font-mono tracking-widest text-bloom font-bold block">
-                FILOSOFI KESEHARIAN MUSLIMAH
+            <span class="text-[11px] uppercase tracking-[0.2em] text-bloom font-semibold block">
+                Filosofi Keseharian Muslimah
             </span>
             <h2 class="text-2xl sm:text-3xl font-serif uppercase tracking-wider text-stone-900">
                 DESIGNED FOR EVERYDAY MODESTY
@@ -430,7 +430,7 @@
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
             <!-- Card 1: Comfort & Breathability -->
-            <div class="group relative rounded-xl overflow-hidden border border-sage-200 shadow-sm aspect-[16/10] bg-stone-900">
+            <div class="group relative rounded-xl overflow-hidden border border-stone-200 shadow-sm aspect-[16/10] bg-stone-900">
                 <img 
                     src="{{ asset('images/home/modesty-group.jpg') }}" 
                     alt="Comfort & Breathability Collection" 
@@ -438,8 +438,8 @@
                 />
                 <div class="absolute inset-0 bg-gradient-to-t from-stone-950/85 via-stone-950/40 to-transparent"></div>
                 <div class="absolute bottom-6 left-6 right-6 text-white space-y-2">
-                    <span class="text-[10px] font-mono uppercase tracking-widest text-blush-200 font-semibold block">
-                        PRIORITAS KENYAMANAN 01
+                    <span class="text-[11px] uppercase tracking-[0.2em] text-blush-200 font-medium block">
+                        Kesejukan & Sirkulasi Alami
                     </span>
                     <h3 class="text-xl font-serif uppercase tracking-wider">Comfort & Breathability</h3>
                     <p class="text-xs text-stone-200 line-clamp-2 max-w-md">
@@ -455,7 +455,7 @@
             </div>
 
             <!-- Card 2: Coverage & Syar'i Silhouette -->
-            <div class="group relative rounded-xl overflow-hidden border border-sage-200 shadow-sm aspect-[16/10] bg-stone-900">
+            <div class="group relative rounded-xl overflow-hidden border border-stone-200 shadow-sm aspect-[16/10] bg-stone-900">
                 <img 
                     src="{{ asset('images/home/hero-editorial.jpg') }}" 
                     alt="Coverage & Syar'i Silhouette Collection" 
@@ -463,8 +463,8 @@
                 />
                 <div class="absolute inset-0 bg-gradient-to-t from-stone-950/85 via-stone-950/40 to-transparent"></div>
                 <div class="absolute bottom-6 left-6 right-6 text-white space-y-2">
-                    <span class="text-[10px] font-mono uppercase tracking-widest text-sage-200 font-semibold block">
-                        ESTETIKA KESANTUNAN 02
+                    <span class="text-[11px] uppercase tracking-[0.2em] text-sage-200 font-medium block">
+                        Siluet Anggun & Syar'i
                     </span>
                     <h3 class="text-xl font-serif uppercase tracking-wider">Coverage & Syar'i Silhouette</h3>
                     <p class="text-xs text-stone-200 line-clamp-2 max-w-md">
@@ -481,7 +481,7 @@
         </div>
     </section>
 
-    <!-- 5. FIND YOUR SHADE (HIJAU BOTANIC & PINK BLOOM PALETTE) -->
+    <!-- 5. FIND YOUR SHADE -->
     <section 
         x-data="{
             activeShade: { name: 'Dusty Rose', code: '726', hex: '#B87383', note: 'Anggun & Manis Bersahaja' },
@@ -500,11 +500,11 @@
         }"
         class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12"
     >
-        <div class="bg-gradient-to-r from-sage-50/70 via-white to-blush-50/60 border border-sage-200/90 rounded-2xl p-6 sm:p-10 shadow-xs">
-            <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-6 pb-6 border-b border-sage-200">
+        <div class="bg-white border border-stone-200/90 rounded-2xl p-6 sm:p-10 shadow-xs">
+            <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-6 pb-6 border-b border-stone-200/80">
                 <div>
-                    <span class="text-[10px] uppercase font-mono tracking-widest text-botanic font-bold block mb-1">
-                        COLOR PALETTE 2026
+                    <span class="text-[11px] uppercase tracking-[0.2em] text-botanic font-semibold block mb-1">
+                        Palet Warna 2026
                     </span>
                     <h2 class="text-xl sm:text-2xl font-serif uppercase tracking-wider text-stone-900">
                         FIND YOUR SHADE
@@ -515,11 +515,11 @@
                 </div>
 
                 <!-- Active Selected Badge -->
-                <div class="flex items-center gap-3 bg-white px-4 py-2.5 rounded-xl border border-sage-200 shadow-2xs self-start md:self-auto">
+                <div class="flex items-center gap-3 bg-stone-50 px-4 py-2.5 rounded-xl border border-stone-200/80 self-start md:self-auto">
                     <span class="w-7 h-7 rounded-full border border-stone-300 shadow-xs transition-colors" :style="'background-color: ' + activeShade.hex"></span>
                     <div>
                         <span class="text-xs font-semibold text-stone-900 block" x-text="activeShade.name + ' (' + activeShade.code + ')'">Dusty Rose (726)</span>
-                        <span class="text-[10px] text-stone-500 font-mono block" x-text="activeShade.note">Anggun & Manis Bersahaja</span>
+                        <span class="text-[11px] text-stone-500 font-sans block" x-text="activeShade.note">Anggun & Manis Bersahaja</span>
                     </div>
                 </div>
             </div>
@@ -540,7 +540,7 @@
                             >
                                 <svg x-show="activeShade.code === shade.code" class="w-4 h-4 text-white drop-shadow-xs" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
                             </span>
-                            <span class="text-[10px] font-mono text-stone-600 truncate max-w-[65px]" x-text="shade.code"></span>
+                            <span class="text-[10px] text-stone-600 font-medium truncate max-w-[65px]" x-text="shade.code"></span>
                         </button>
                     </template>
                 </div>
@@ -548,7 +548,7 @@
                 <div class="text-center pt-6">
                     <a 
                         :href="'{{ url('/koleksi') }}?cari=' + encodeURIComponent(activeShade.name)" 
-                        class="inline-flex items-center gap-2 px-6 py-2.5 bg-botanic hover:bg-sage-700 text-white text-xs uppercase tracking-widest font-semibold transition-colors rounded-xs shadow-sm"
+                        class="inline-flex items-center gap-2 px-6 py-2.5 bg-botanic hover:bg-stone-800 text-white text-xs uppercase tracking-widest font-semibold transition-colors rounded-xs shadow-xs"
                     >
                         <span>Cari Koleksi Warna Ini</span>
                         <span>&rarr;</span>
@@ -558,12 +558,12 @@
         </div>
     </section>
 
-    <!-- 6. CURATED BEST SELLERS CATALOG GRID (HIJAU BOTANIC & PINK BLOOM) -->
+    <!-- 6. CURATED BEST SELLERS CATALOG GRID -->
     <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
         <div class="flex items-center justify-between mb-8 pb-3 border-b border-stone-200">
             <div>
-                <span class="text-[10px] uppercase font-mono tracking-widest text-bloom font-bold block mb-0.5">
-                    PALING BANYAK DIPILIH
+                <span class="text-[11px] uppercase tracking-[0.2em] text-bloom font-semibold block mb-0.5">
+                    Paling Banyak Dipilih
                 </span>
                 <h2 class="text-xl sm:text-2xl font-serif uppercase tracking-wider text-stone-900">
                     Koleksi Terlaris
@@ -577,7 +577,7 @@
 
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
             @forelse($featuredProducts as $product)
-                <div class="group flex flex-col justify-between border border-sage-200 bg-white p-4 hover:border-botanic hover:shadow-md transition-all rounded-lg">
+                <div class="group flex flex-col justify-between border border-stone-200 bg-white p-4 hover:border-botanic hover:shadow-md transition-all rounded-lg">
                     <!-- Photo Frame -->
                     <div class="aspect-[3/4] bg-stone-50 relative overflow-hidden flex items-center justify-center border border-stone-100 rounded-md">
                         @php
@@ -592,7 +592,7 @@
                         />
 
                         @if($product->sold_count > 0)
-                            <span class="absolute top-3 left-3 bg-bloom text-white px-2.5 py-0.5 text-[9px] font-mono uppercase tracking-wider rounded-full shadow-xs">
+                            <span class="absolute top-3 left-3 bg-stone-900/80 backdrop-blur-xs text-white px-2.5 py-0.5 text-[9px] uppercase tracking-wider rounded-full shadow-2xs font-medium">
                                 {{ $product->sold_count }} Terjual
                             </span>
                         @endif
@@ -600,13 +600,13 @@
 
                     <!-- Caption & Details -->
                     <div class="mt-4 space-y-2">
-                        <span class="text-[10px] uppercase tracking-wider font-mono text-stone-400 block">{{ $product->category->name ?? 'Hijab' }}</span>
+                        <span class="text-[10px] uppercase tracking-[0.15em] font-medium text-stone-400 block">{{ $product->category->name ?? 'Hijab' }}</span>
                         <div class="flex items-center justify-between text-xs">
                             <h3 class="font-semibold text-stone-900 uppercase tracking-wide group-hover:text-bloom transition-colors">
                                 <a href="{{ url('/produk/' . $product->slug) }}">{{ $product->name }}</a>
                             </h3>
                             @if($firstVariant = $product->variants->first())
-                                <span class="font-mono text-xs font-bold text-botanic">Rp {{ number_format($firstVariant->price, 0, ',', '.') }}</span>
+                                <span class="text-xs font-bold text-stone-900">Rp {{ number_format($firstVariant->price, 0, ',', '.') }}</span>
                             @endif
                         </div>
                         <p class="text-[11px] text-stone-500 line-clamp-1 leading-relaxed">{{ $product->short_description }}</p>
@@ -619,7 +619,7 @@
                                 @endif
                             @endforeach
                             @if($product->variants->count() > 5)
-                                <span class="text-[10px] text-stone-400 pl-1 font-mono">+{{ $product->variants->count() - 5 }}</span>
+                                <span class="text-[10px] text-stone-400 pl-1 font-medium">+{{ $product->variants->count() - 5 }}</span>
                             @endif
                         </div>
 
@@ -628,7 +628,7 @@
                                 <span>Detail Produk</span>
                                 <span>&rarr;</span>
                             </a>
-                            <span class="text-[10px] text-stone-500 font-mono">100% Original</span>
+                            <span class="text-[10px] text-stone-400 font-medium">100% Original</span>
                         </div>
                     </div>
                 </div>
@@ -640,13 +640,13 @@
         </div>
     </section>
 
-    <!-- 7. 4-PILLAR TRUST & VALUE PROPOSITIONS (HIJAU BOTANIC & PINK BLOOM) -->
-    <section class="border-y border-sage-200 bg-stone-50/80 py-12">
+    <!-- 7. 4-PILLAR VALUE PROPOSITIONS -->
+    <section class="border-y border-stone-200/80 bg-white py-12">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                 <!-- 1. All-Channel Shopping -->
-                <div class="flex items-start gap-4 p-4 bg-white border border-sage-200 rounded-lg shadow-2xs">
-                    <div class="w-10 h-10 rounded-full bg-sage-100 text-botanic flex items-center justify-center flex-shrink-0">
+                <div class="flex items-start gap-4 p-4 bg-stone-50/70 border border-stone-200/70 rounded-lg">
+                    <div class="w-10 h-10 rounded-full bg-stone-200/60 text-stone-700 flex items-center justify-center flex-shrink-0">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
                     </div>
                     <div>
@@ -656,8 +656,8 @@
                 </div>
 
                 <!-- 2. Loyalty Point Reward -->
-                <div class="flex items-start gap-4 p-4 bg-white border border-blush-200 rounded-lg shadow-2xs">
-                    <div class="w-10 h-10 rounded-full bg-blush-100 text-bloom flex items-center justify-center flex-shrink-0">
+                <div class="flex items-start gap-4 p-4 bg-stone-50/70 border border-stone-200/70 rounded-lg">
+                    <div class="w-10 h-10 rounded-full bg-stone-200/60 text-stone-700 flex items-center justify-center flex-shrink-0">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
                     </div>
                     <div>
@@ -667,8 +667,8 @@
                 </div>
 
                 <!-- 3. Voucher & Promo -->
-                <div class="flex items-start gap-4 p-4 bg-white border border-sage-200 rounded-lg shadow-2xs">
-                    <div class="w-10 h-10 rounded-full bg-sage-100 text-botanic flex items-center justify-center flex-shrink-0">
+                <div class="flex items-start gap-4 p-4 bg-stone-50/70 border border-stone-200/70 rounded-lg">
+                    <div class="w-10 h-10 rounded-full bg-stone-200/60 text-stone-700 flex items-center justify-center flex-shrink-0">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 5v2m0 4v2m0 4v2M5 5a2 2 0 00-2 2v3a2 2 0 110 4v3a2 2 0 002 2h14a2 2 0 002-2v-3a2 2 0 110-4V7a2 2 0 00-2-2H5z"/></svg>
                     </div>
                     <div>
@@ -678,8 +678,8 @@
                 </div>
 
                 <!-- 4. Garansi Retur 7 Hari -->
-                <div class="flex items-start gap-4 p-4 bg-white border border-blush-200 rounded-lg shadow-2xs">
-                    <div class="w-10 h-10 rounded-full bg-blush-100 text-bloom flex items-center justify-center flex-shrink-0">
+                <div class="flex items-start gap-4 p-4 bg-stone-50/70 border border-stone-200/70 rounded-lg">
+                    <div class="w-10 h-10 rounded-full bg-stone-200/60 text-stone-700 flex items-center justify-center flex-shrink-0">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
                     </div>
                     <div>
@@ -691,11 +691,11 @@
         </div>
     </section>
 
-    <!-- 8. TESTIMONIALS / SUARA PELANGGAN (HIJAU BOTANIC & PINK BLOOM) -->
+    <!-- 8. TESTIMONIALS / SUARA PELANGGAN -->
     <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div class="text-center max-w-2xl mx-auto mb-12 space-y-2">
-            <span class="text-[10px] uppercase font-mono tracking-widest text-botanic font-bold block">
-                SUARA SAHABAT BLOOMINGKEMBANG
+            <span class="text-[11px] uppercase tracking-[0.2em] text-botanic font-semibold block">
+                Suara Sahabat BloomingKembang
             </span>
             <h2 class="text-2xl sm:text-3xl font-serif uppercase tracking-wider text-stone-900">
                 Dipercaya oleh Muslimah Indonesia
@@ -707,7 +707,7 @@
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
             <!-- Review 1 -->
-            <div class="p-6 border border-sage-200 bg-white rounded-lg shadow-2xs space-y-4 flex flex-col justify-between">
+            <div class="p-6 border border-stone-200/80 bg-white rounded-lg shadow-2xs space-y-4 flex flex-col justify-between">
                 <div class="space-y-3">
                     <div class="flex items-center space-x-1 text-amber-500">
                         @for($i = 0; $i < 5; $i++)
@@ -720,13 +720,13 @@
                 </div>
                 <div class="pt-4 border-t border-stone-100 space-y-0.5">
                     <span class="text-xs font-semibold text-stone-900 block">Annisa Rahmawati</span>
-                    <span class="text-[11px] text-stone-500 font-mono block">Bandung &bull; Pembeli Terverifikasi</span>
+                    <span class="text-[11px] text-stone-500 font-sans block">Bandung &bull; Pembeli Terverifikasi</span>
                     <span class="text-[10px] text-botanic font-medium block mt-1">Koleksi: Voal Ultrafine Signature - Soft Sage</span>
                 </div>
             </div>
 
             <!-- Review 2 -->
-            <div class="p-6 border border-blush-200 bg-white rounded-lg shadow-2xs space-y-4 flex flex-col justify-between">
+            <div class="p-6 border border-stone-200/80 bg-white rounded-lg shadow-2xs space-y-4 flex flex-col justify-between">
                 <div class="space-y-3">
                     <div class="flex items-center space-x-1 text-amber-500">
                         @for($i = 0; $i < 5; $i++)
@@ -739,13 +739,13 @@
                 </div>
                 <div class="pt-4 border-t border-stone-100 space-y-0.5">
                     <span class="text-xs font-semibold text-stone-900 block">Dian Savitri</span>
-                    <span class="text-[11px] text-stone-500 font-mono block">Jakarta Selatan &bull; Pembeli Terverifikasi</span>
+                    <span class="text-[11px] text-stone-500 font-sans block">Jakarta Selatan &bull; Pembeli Terverifikasi</span>
                     <span class="text-[10px] text-bloom font-medium block mt-1">Koleksi: Pashmina Silk Premium - Rose Mauve</span>
                 </div>
             </div>
 
             <!-- Review 3 -->
-            <div class="p-6 border border-sage-200 bg-white rounded-lg shadow-2xs space-y-4 flex flex-col justify-between">
+            <div class="p-6 border border-stone-200/80 bg-white rounded-lg shadow-2xs space-y-4 flex flex-col justify-between">
                 <div class="space-y-3">
                     <div class="flex items-center space-x-1 text-amber-500">
                         @for($i = 0; $i < 5; $i++)
@@ -758,17 +758,17 @@
                 </div>
                 <div class="pt-4 border-t border-stone-100 space-y-0.5">
                     <span class="text-xs font-semibold text-stone-900 block">Fatimah Azzahra</span>
-                    <span class="text-[11px] text-stone-500 font-mono block">Surabaya &bull; Pembeli Terverifikasi</span>
+                    <span class="text-[11px] text-stone-500 font-sans block">Surabaya &bull; Pembeli Terverifikasi</span>
                     <span class="text-[10px] text-botanic font-medium block mt-1">Koleksi: Bergo Khimar Daily - Mocca Haze</span>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- 9. NEWSLETTER & WELCOME VOUCHER (DISKON 10%) -->
-    <section class="border-t border-sage-200 bg-gradient-to-r from-sage-50 via-white to-blush-50 py-16">
+    <!-- 9. NEWSLETTER & WELCOME VOUCHER -->
+    <section class="border-t border-stone-200/80 bg-stone-100/60 py-16">
         <div class="max-w-4xl mx-auto px-4 text-center space-y-6" x-data="{ email: '', submitted: false }">
-            <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white border border-sage-200 text-botanic text-[10px] uppercase font-mono tracking-widest font-semibold shadow-2xs">
+            <span class="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-white border border-stone-200/90 text-botanic text-[10px] uppercase tracking-[0.18em] font-medium shadow-2xs">
                 <span class="w-1.5 h-1.5 rounded-full bg-bloom"></span>
                 Warta & Penawaran Eksklusif
             </span>
@@ -791,11 +791,11 @@
                             x-model="email" 
                             placeholder="Ketik alamat email Anda..." 
                             required 
-                            class="flex-1 text-xs border border-sage-300 bg-white px-4 py-3 focus:border-botanic focus:ring-0 placeholder-stone-400 rounded-xs shadow-2xs"
+                            class="flex-1 text-xs border border-stone-300 bg-white px-4 py-3 focus:border-botanic focus:ring-0 placeholder-stone-400 rounded-xs shadow-2xs"
                         />
                         <button 
                             type="submit" 
-                            class="px-6 py-3 bg-botanic hover:bg-sage-700 text-white text-xs uppercase tracking-widest font-semibold transition-colors shadow-xs rounded-xs cursor-pointer whitespace-nowrap"
+                            class="px-6 py-3 bg-botanic hover:bg-stone-800 text-white text-xs uppercase tracking-widest font-semibold transition-colors shadow-xs rounded-xs cursor-pointer whitespace-nowrap"
                         >
                             Berlangganan
                         </button>
@@ -803,13 +803,13 @@
                 </template>
 
                 <template x-if="submitted">
-                    <div class="p-4 bg-white border border-sage-300 text-stone-800 rounded-xs text-xs font-medium space-y-1 shadow-xs">
+                    <div class="p-4 bg-white border border-stone-300 text-stone-800 rounded-xs text-xs font-medium space-y-1 shadow-xs">
                         <p class="text-sm font-semibold text-botanic">✓ Terima kasih telah bergabung!</p>
                         <p class="text-stone-600 text-[11px]">Kupon sambutan 10% Anda: <strong class="font-mono text-stone-900 uppercase">RAMADHAN20</strong>. Gunakan saat melakukan checkout pesanan pertama Anda.</p>
                     </div>
                 </template>
 
-                <span class="text-[10px] text-stone-400 mt-2 block font-mono">
+                <span class="text-[11px] text-stone-400 mt-2 block">
                     Kami menghargai privasi Anda. Bebas berhenti berlangganan kapan saja.
                 </span>
             </div>

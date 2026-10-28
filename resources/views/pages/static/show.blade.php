@@ -1,6 +1,6 @@
 <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
     <!-- Breadcrumb -->
-    <nav class="text-[10px] tracking-widest uppercase font-mono text-neutral-400 mb-4 flex items-center space-x-2">
+    <nav class="text-[11px] tracking-wider uppercase text-neutral-400 mb-4 flex items-center space-x-2">
         <a href="{{ url('/') }}" class="hover:text-obsidian">Beranda</a>
         <span>/</span>
         <span class="text-obsidian">{{ $page->title }}</span>
@@ -8,11 +8,11 @@
 
     <!-- Header -->
     <div class="border-b border-bone pb-8 mb-10 space-y-2">
-        <span class="text-[11px] uppercase font-mono tracking-widest text-neutral-400 block">Informasi & Kebijakan</span>
-        <h1 class="text-2xl sm:text-4xl font-normal uppercase tracking-wider text-obsidian">
+        <span class="text-[11px] uppercase tracking-[0.2em] text-neutral-400 font-medium block">Informasi & Kebijakan</span>
+        <h1 class="text-2xl sm:text-4xl font-serif font-normal uppercase tracking-wider text-obsidian">
             {{ $page->title }}
         </h1>
-        <p class="text-xs font-mono text-neutral-400">
+        <p class="text-xs text-neutral-500">
             Terakhir diperbarui: {{ $page->updated_at->translatedFormat('d F Y') }}
         </p>
     </div>

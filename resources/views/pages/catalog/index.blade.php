@@ -243,8 +243,8 @@
 
                                 @if(!$hasStock)
                                     <div class="absolute inset-0 bg-paper/85 flex items-center justify-center">
-                                        <span class="text-[11px] uppercase tracking-widest text-neutral-500 font-mono border border-neutral-300 px-3 py-1 bg-white">
-                                             Stok Habis
+                                        <span class="text-[11px] uppercase tracking-[0.16em] text-neutral-500 font-medium border border-neutral-300 px-3 py-1 bg-white">
+                                            Stok Habis
                                         </span>
                                     </div>
                                 @elseif($product->is_featured)

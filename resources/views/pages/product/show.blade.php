@@ -110,10 +110,10 @@
         <!-- Kolom Informasi & Pemilihan Varian -->
         <div class="lg:col-span-5 space-y-8 bg-white/90 backdrop-blur-xs p-6 sm:p-8 border border-sage-200/80 rounded-sm shadow-2xs">
             <div>
-                <span class="text-[10px] uppercase tracking-widest text-neutral-400 font-mono block">
+                <span class="text-[11px] uppercase tracking-[0.18em] text-stone-400 font-medium block">
                     {{ $product->category->name ?? 'Koleksi' }}
                 </span>
-                <h1 class="text-2xl sm:text-3xl font-normal text-obsidian tracking-tight mt-1">
+                <h1 class="text-2xl sm:text-3xl font-serif font-normal text-obsidian tracking-wide mt-1">
                     {{ $product->name }}
                 </h1>
 
@@ -509,7 +509,7 @@
                             />
                         </div>
                         <div class="mt-3 space-y-1">
-                            <span class="text-[10px] uppercase tracking-wider font-mono text-stone-400 block">{{ $rel->category->name ?? 'Hijab' }}</span>
+                            <span class="text-[10px] uppercase tracking-[0.14em] font-medium text-stone-400 block">{{ $rel->category->name ?? 'Hijab' }}</span>
                             <div class="flex items-center justify-between text-xs">
                                 <span class="font-normal text-obsidian group-hover:text-bloom transition-colors truncate">{{ $rel->name }}</span>
                                 <span class="font-mono font-medium text-botanic whitespace-nowrap pl-2">{{ $relMin ? 'Rp ' . number_format($relMin, 0, ',', '.') : '-' }}</span>
