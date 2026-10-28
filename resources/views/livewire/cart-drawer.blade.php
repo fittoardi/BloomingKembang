@@ -62,13 +62,13 @@
                             $product = $variant?->product;
                             $thumb = $product?->getFirstMediaUrl('images', 'thumb');
                         @endphp
-                        <div class="flex gap-4 pb-6 border-b border-bone items-start">
+                        <div class="flex gap-4 pb-6 border-b border-sage-100 items-start">
                             <!-- Thumbnail / Mockup -->
-                            <div class="w-20 h-24 bg-bone border border-bone flex-shrink-0 relative overflow-hidden flex items-center justify-center">
+                            <div class="w-20 h-24 bg-sage-50/60 border border-sage-200/80 flex-shrink-0 relative overflow-hidden flex items-center justify-center rounded-xs">
                                 @if($thumb)
                                     <img src="{{ $thumb }}" alt="{{ $product->name }}" class="w-full h-full object-cover" />
                                 @else
-                                    <span class="text-[9px] uppercase font-mono text-neutral-400 text-center px-1">
+                                    <span class="text-[9px] uppercase font-mono text-stone-400 text-center px-1">
                                         {{ $product->category->name ?? 'Hijab' }}
                                     </span>
                                 @endif
@@ -78,21 +78,21 @@
                             <div class="flex-1 flex flex-col justify-between min-h-[96px]">
                                 <div class="space-y-1">
                                     <div class="flex items-start justify-between gap-2">
-                                        <h3 class="text-xs font-normal text-obsidian line-clamp-1">
+                                        <h3 class="text-xs font-medium text-stone-900 line-clamp-1">
                                             {{ $product->name ?? 'Produk' }}
                                         </h3>
                                         <button 
                                             type="button" 
                                             wire:click="removeItem({{ $item->id }})" 
-                                            class="text-neutral-400 hover:text-red-600 transition-colors text-[11px]"
+                                            class="text-stone-400 hover:text-bloom transition-colors text-[13px] leading-none"
                                             title="Hapus"
                                         >
                                             &times;
                                         </button>
                                     </div>
-                                    <div class="flex items-center space-x-2 text-[11px] text-neutral-500 font-mono">
+                                    <div class="flex items-center space-x-2 text-[11px] text-stone-500 font-mono">
                                         @if($variant?->color_hex)
-                                            <span class="w-2.5 h-2.5 inline-block border border-neutral-300" style="background-color: {{ $variant->color_hex }};"></span>
+                                            <span class="w-2.5 h-2.5 inline-block border border-sage-300 rounded-full" style="background-color: {{ $variant->color_hex }};"></span>
                                         @endif
                                         <span>{{ $variant?->color }}</span>
                                         @if($variant?->size)
@@ -103,26 +103,26 @@
 
                                 <div class="flex items-center justify-between pt-2">
                                     <!-- Quantity Selector -->
-                                    <div class="flex items-center border border-bone text-xs">
+                                    <div class="flex items-center border border-sage-200 rounded-xs text-xs">
                                         <button 
                                             type="button" 
                                             wire:click="updateQuantity({{ $item->id }}, {{ $item->quantity - 1 }})"
-                                            class="px-2.5 py-0.5 text-neutral-500 hover:text-obsidian"
+                                            class="px-2.5 py-0.5 text-stone-500 hover:text-botanic transition-colors font-mono"
                                         >
                                             -
                                         </button>
-                                        <span class="px-3 py-0.5 font-mono text-[11px]">{{ $item->quantity }}</span>
+                                        <span class="px-3 py-0.5 font-mono text-[11px] text-stone-800 font-semibold">{{ $item->quantity }}</span>
                                         <button 
                                             type="button" 
                                             wire:click="updateQuantity({{ $item->id }}, {{ $item->quantity + 1 }})"
-                                            class="px-2.5 py-0.5 text-neutral-500 hover:text-obsidian"
+                                            class="px-2.5 py-0.5 text-stone-500 hover:text-botanic transition-colors font-mono"
                                         >
                                             +
                                         </button>
                                     </div>
 
                                     <!-- Price -->
-                                    <span class="font-mono text-xs font-medium text-obsidian">
+                                    <span class="font-mono text-xs font-bold text-botanic">
                                         Rp {{ number_format(($variant?->price ?? 0) * $item->quantity, 0, ',', '.') }}
                                     </span>
                                 </div>
@@ -130,17 +130,17 @@
                         </div>
                     @empty
                         <div class="py-16 text-center space-y-4">
-                            <span class="text-xs uppercase tracking-widest text-neutral-400 font-mono block">
+                            <span class="text-xs uppercase tracking-widest text-stone-400 font-mono block">
                                 Keranjang Kosong
                             </span>
-                            <p class="text-xs text-neutral-500 max-w-xs mx-auto">
+                            <p class="text-xs text-stone-500 max-w-xs mx-auto">
                                 Anda belum menambahkan produk kerudung atau aksesoris pilihan ke dalam keranjang.
                             </p>
                             <div class="pt-2">
                                 <a 
                                     href="{{ url('/koleksi') }}" 
                                     @click="open = false; $wire.close()"
-                                    class="link-underlined text-xs uppercase tracking-wider"
+                                    class="text-botanic hover:text-bloom underline text-xs uppercase tracking-wider font-semibold transition-colors"
                                 >
                                     Jelajahi Koleksi
                                 </a>
@@ -153,21 +153,21 @@
                 @if($items->isNotEmpty())
                     <div class="p-6 border-t border-sage-100 bg-gradient-to-b from-white/90 to-sage-50/40 space-y-4">
                         <div class="space-y-1 text-xs">
-                            <div class="flex justify-between items-center text-neutral-500">
+                            <div class="flex justify-between items-center text-stone-500">
                                 <span>Estimasi Total Berat:</span>
                                 <span class="font-mono">{{ number_format($totalWeight, 0, ',', '.') }} gram</span>
                             </div>
-                            <div class="flex justify-between items-center text-obsidian pt-1">
+                            <div class="flex justify-between items-center text-stone-900 pt-1">
                                 <span class="uppercase tracking-wider font-medium text-xs">Subtotal:</span>
-                                <span class="font-mono text-base font-medium">Rp {{ number_format($subtotal, 0, ',', '.') }}</span>
+                                <span class="font-mono text-base font-bold text-botanic">Rp {{ number_format($subtotal, 0, ',', '.') }}</span>
                             </div>
-                            <p class="text-[10px] text-neutral-400">Ongkos kirim dihitung saat checkout.</p>
+                            <p class="text-[10px] text-stone-400">Ongkos kirim dihitung saat checkout.</p>
                         </div>
 
                         <div class="space-y-2 pt-2">
                             <a 
                                 href="{{ url('/checkout') }}" 
-                                class="w-full block py-3.5 bg-botanic text-paper text-center text-xs uppercase tracking-widest font-medium hover:bg-sage-700 transition-colors rounded-sm shadow-sm"
+                                class="w-full block py-3.5 bg-botanic text-white text-center text-xs uppercase tracking-widest font-semibold hover:bg-sage-700 transition-colors rounded-xs shadow-xs"
                             >
                                 Lanjut ke Pembayaran &rarr;
                             </a>

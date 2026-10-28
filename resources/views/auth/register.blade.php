@@ -47,11 +47,11 @@
         </div>
 
         <div class="flex items-center justify-between mt-6">
-            <a class="underline text-xs text-neutral-600 hover:text-obsidian" href="{{ route('login') }}">
+            <a class="underline text-xs text-stone-600 hover:text-bloom transition-colors" href="{{ route('login') }}">
                 Sudah punya akun? Masuk
             </a>
 
-            <x-primary-button class="ms-4 bg-obsidian text-paper hover:bg-neutral-800 uppercase tracking-widest text-xs">
+            <x-primary-button class="ms-4 bg-botanic text-white hover:bg-sage-700 uppercase tracking-widest text-xs font-semibold rounded-xs shadow-xs transition-colors">
                 Daftar Akun
             </x-primary-button>
         </div>

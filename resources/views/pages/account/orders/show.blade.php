@@ -144,19 +144,20 @@
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
         <!-- Items & Details -->
         <div class="lg:col-span-2 space-y-6">
-            <div class="border border-bone bg-paper p-6 space-y-4">
-                <h3 class="text-xs uppercase tracking-[0.2em] font-medium text-obsidian pb-2 border-b border-bone">
+            <div class="border border-sage-200/90 bg-white/95 rounded-lg shadow-2xs p-6 space-y-4">
+                <h3 class="text-xs uppercase tracking-[0.2em] font-semibold text-botanic pb-2 border-b border-sage-200/80 flex items-center">
+                    <span class="inline-block w-1.5 h-1.5 rounded-full bg-bloom mr-2"></span>
                     Barang yang Dipesan
                 </h3>
 
-                <div class="divide-y divide-bone">
+                <div class="divide-y divide-sage-100">
                     @foreach($order->items as $item)
                         <div class="py-3 flex items-center justify-between text-xs">
                             <div class="space-y-1">
-                                <span class="font-medium text-obsidian block">{{ $item->product_name }}</span>
-                                <span class="font-mono text-[11px] text-neutral-500">{{ $item->variant_label }} &bull; {{ $item->quantity }} pcs &times; Rp {{ number_format($item->price, 0, ',', '.') }}</span>
+                                <span class="font-medium text-stone-900 block">{{ $item->product_name }}</span>
+                                <span class="font-mono text-[11px] text-stone-500">{{ $item->variant_label }} &bull; {{ $item->quantity }} pcs &times; Rp {{ number_format($item->price, 0, ',', '.') }}</span>
                             </div>
-                            <span class="font-mono font-semibold text-obsidian">
+                            <span class="font-mono font-semibold text-botanic">
                                 Rp {{ number_format($item->subtotal, 0, ',', '.') }}
                             </span>
                         </div>
@@ -166,18 +167,19 @@
 
             <!-- Riwayat Aktivitas Status -->
             @if($order->statusHistories->isNotEmpty())
-                <div class="border border-bone bg-paper p-6 space-y-4">
-                    <h3 class="text-xs uppercase tracking-[0.2em] font-medium text-obsidian pb-2 border-b border-bone">
+                <div class="border border-sage-200/90 bg-white/95 rounded-lg shadow-2xs p-6 space-y-4">
+                    <h3 class="text-xs uppercase tracking-[0.2em] font-semibold text-botanic pb-2 border-b border-sage-200/80 flex items-center">
+                        <span class="inline-block w-1.5 h-1.5 rounded-full bg-botanic mr-2"></span>
                         Catatan Log Pesanan
                     </h3>
 
                     <div class="space-y-3">
                         @foreach($order->statusHistories as $history)
-                            <div class="flex items-start justify-between text-xs text-neutral-600 border-b border-bone/60 pb-2">
+                            <div class="flex items-start justify-between text-xs text-stone-600 border-b border-sage-100 pb-2">
                                 <div>
-                                    <span class="font-medium text-obsidian">{{ $history->note ?? $history->to_status }}</span>
+                                    <span class="font-medium text-stone-900">{{ $history->note ?? $history->to_status }}</span>
                                 </div>
-                                <span class="font-mono text-[10px] text-neutral-400 whitespace-nowrap ml-4">
+                                <span class="font-mono text-[10px] text-stone-400 whitespace-nowrap ml-4">
                                     {{ \Carbon\Carbon::parse($history->created_at)->format('d M H:i') }}
                                 </span>
                             </div>
@@ -190,43 +192,45 @@
         <!-- Summary & Address Column -->
         <div class="space-y-6">
             <!-- Cost Calculation -->
-            <div class="border border-bone bg-paper p-6 space-y-3 text-xs">
-                <h3 class="text-xs uppercase tracking-[0.2em] font-medium text-obsidian pb-2 border-b border-bone">
+            <div class="border border-sage-200/90 bg-white/95 rounded-lg shadow-2xs p-6 space-y-3 text-xs">
+                <h3 class="text-xs uppercase tracking-[0.2em] font-semibold text-botanic pb-2 border-b border-sage-200/80 flex items-center">
+                    <span class="inline-block w-1.5 h-1.5 rounded-full bg-bloom mr-2"></span>
                     Rincian Pembayaran
                 </h3>
 
-                <div class="flex justify-between text-neutral-600">
+                <div class="flex justify-between text-stone-600">
                     <span>Subtotal Produk:</span>
                     <span class="font-mono">Rp {{ number_format($order->subtotal, 0, ',', '.') }}</span>
                 </div>
 
                 @if($order->discount_total > 0)
-                    <div class="flex justify-between text-emerald-700 font-medium">
+                    <div class="flex justify-between text-bloom font-medium">
                         <span>Diskon ({{ $order->voucher_code }}):</span>
                         <span class="font-mono">- Rp {{ number_format($order->discount_total, 0, ',', '.') }}</span>
                     </div>
                 @endif
 
-                <div class="flex justify-between text-neutral-600">
+                <div class="flex justify-between text-stone-600">
                     <span>Ongkir ({{ $order->courier }} {{ $order->courier_service }}):</span>
                     <span class="font-mono">Rp {{ number_format($order->shipping_cost, 0, ',', '.') }}</span>
                 </div>
 
-                <div class="pt-3 border-t border-bone flex justify-between items-baseline font-semibold text-obsidian">
+                <div class="pt-3 border-t border-sage-200/80 flex justify-between items-baseline font-semibold text-stone-900">
                     <span class="uppercase tracking-wider">Total:</span>
-                    <span class="font-mono text-base font-bold">Rp {{ number_format($order->grand_total, 0, ',', '.') }}</span>
+                    <span class="font-mono text-base font-bold text-botanic">Rp {{ number_format($order->grand_total, 0, ',', '.') }}</span>
                 </div>
             </div>
 
             <!-- Shipping Address -->
-            <div class="border border-bone bg-paper p-6 space-y-2 text-xs">
-                <h3 class="text-xs uppercase tracking-[0.2em] font-medium text-obsidian pb-2 border-b border-bone">
+            <div class="border border-sage-200/90 bg-white/95 rounded-lg shadow-2xs p-6 space-y-2 text-xs">
+                <h3 class="text-xs uppercase tracking-[0.2em] font-semibold text-botanic pb-2 border-b border-sage-200/80 flex items-center">
+                    <span class="inline-block w-1.5 h-1.5 rounded-full bg-botanic mr-2"></span>
                     Alamat Pengiriman
                 </h3>
 
-                <p class="font-medium text-obsidian">{{ $order->shipping_address['recipient_name'] ?? $order->customer_name }}</p>
-                <p class="font-mono text-[11px] text-neutral-500">{{ $order->shipping_address['phone'] ?? $order->customer_phone }}</p>
-                <p class="text-neutral-600 text-[11px] leading-relaxed">
+                <p class="font-medium text-stone-900">{{ $order->shipping_address['recipient_name'] ?? $order->customer_name }}</p>
+                <p class="font-mono text-[11px] text-stone-500">{{ $order->shipping_address['phone'] ?? $order->customer_phone }}</p>
+                <p class="text-stone-600 text-[11px] leading-relaxed">
                     {{ $order->shipping_address['detail'] ?? '' }}<br>
                     {{ $order->shipping_address['district'] ?? '' }}{{ !empty($order->shipping_address['district']) ? ', ' : '' }}{{ $order->shipping_address['city'] ?? '' }}<br>
                     {{ $order->shipping_address['province'] ?? '' }} {{ $order->shipping_address['postal_code'] ?? '' }}

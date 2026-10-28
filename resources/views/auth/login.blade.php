@@ -27,19 +27,19 @@
         <!-- Remember Me -->
         <div class="block mt-4">
             <label for="remember_me" class="inline-flex items-center">
-                <input id="remember_me" type="checkbox" class="rounded border-gray-300 text-obsidian shadow-sm focus:ring-neutral-500" name="remember">
-                <span class="ms-2 text-xs text-neutral-600">Ingat saya</span>
+                <input id="remember_me" type="checkbox" class="rounded border-sage-300 text-botanic shadow-2xs focus:ring-botanic" name="remember">
+                <span class="ms-2 text-xs text-stone-600">Ingat saya</span>
             </label>
         </div>
 
         <div class="flex items-center justify-between mt-6">
             @if (Route::has('password.request'))
-                <a class="underline text-xs text-neutral-600 hover:text-obsidian" href="{{ route('password.request') }}">
+                <a class="underline text-xs text-stone-600 hover:text-bloom transition-colors" href="{{ route('password.request') }}">
                     Lupa kata sandi?
                 </a>
             @endif
 
-            <x-primary-button class="ms-3 bg-obsidian text-paper hover:bg-neutral-800 uppercase tracking-widest text-xs">
+            <x-primary-button class="ms-3 bg-botanic text-white hover:bg-sage-700 uppercase tracking-widest text-xs font-semibold rounded-xs shadow-xs transition-colors">
                 Masuk
             </x-primary-button>
         </div>
