@@ -81,12 +81,13 @@
             ->get();
     @endphp
 
-    <!-- 1. HERO CAROUSEL: 100% WIDTH, 600PX HEIGHT, HIJAU & PINK (AUTO 2S, NO SIDE BUTTONS) -->
+    <!-- 1. HERO CAROUSEL: 100% WIDTH, 600PX HEIGHT, HIJAU & PINK (ACCESSIBLE 5S AUTOPLAY & CONTROLS) -->
     <section 
         x-data="{
             current: 0,
             total: {{ count($slides) }},
-            intervalMs: 2000,
+            intervalMs: 5000,
+            isPlaying: true,
             timer: null,
             touchStartX: 0,
             touchEndX: 0,
@@ -95,6 +96,7 @@
             },
             startAutoplay() {
                 this.clearTimer();
+                if (!this.isPlaying) return;
                 this.timer = setInterval(() => {
                     this.next();
                 }, this.intervalMs);
@@ -105,6 +107,14 @@
                     this.timer = null;
                 }
             },
+            togglePlay() {
+                this.isPlaying = !this.isPlaying;
+                if (this.isPlaying) {
+                    this.startAutoplay();
+                } else {
+                    this.clearTimer();
+                }
+            },
             next() {
                 this.current = (this.current + 1) % this.total;
             },
@@ -113,7 +123,7 @@
             },
             goTo(index) {
                 this.current = index;
-                this.startAutoplay();
+                if (this.isPlaying) this.startAutoplay();
             },
             handleTouchStart(e) {
                 this.touchStartX = e.changedTouches[0].screenX;
@@ -122,20 +132,23 @@
                 this.touchEndX = e.changedTouches[0].screenX;
                 if (this.touchStartX - this.touchEndX > 45) {
                     this.next();
-                    this.startAutoplay();
+                    if (this.isPlaying) this.startAutoplay();
                 } else if (this.touchEndX - this.touchStartX > 45) {
                     this.prev();
-                    this.startAutoplay();
+                    if (this.isPlaying) this.startAutoplay();
                 }
             }
         }"
         @mouseenter="clearTimer()"
-        @mouseleave="startAutoplay()"
-        @keydown.arrow-right.window="next(); startAutoplay()"
-        @keydown.arrow-left.window="prev(); startAutoplay()"
+        @mouseleave="if(isPlaying) startAutoplay()"
+        @focusin="clearTimer()"
+        @focusout="if(isPlaying) startAutoplay()"
+        @keydown.arrow-right="next(); if(isPlaying) startAutoplay()"
+        @keydown.arrow-left="prev(); if(isPlaying) startAutoplay()"
         @touchstart="handleTouchStart($event)"
         @touchend="handleTouchEnd($event)"
-        class="w-full h-[600px] relative overflow-hidden bg-stone-900 select-none"
+        tabindex="0"
+        class="w-full h-[600px] relative overflow-hidden bg-stone-900 select-none focus:outline-none"
         aria-roledescription="carousel"
         aria-label="Koleksi Unggulan BloomingKembang"
     >
@@ -211,8 +224,25 @@
             @endforeach
         </div>
 
-        <!-- Bottom Pill Controls: Dots & Slide Counter -->
-        <div class="absolute bottom-6 left-1/2 -translate-x-1/2 flex items-center gap-4 px-5 py-2.5 rounded-full bg-stone-950/70 backdrop-blur-md text-white border border-white/20 text-xs z-20 shadow-xl">
+        <!-- Bottom Pill Controls: Dots, Play/Pause & Slide Counter -->
+        <div class="absolute bottom-6 left-1/2 -translate-x-1/2 flex items-center gap-3 sm:gap-4 px-4 sm:px-5 py-2.5 rounded-full bg-stone-950/70 backdrop-blur-md text-white border border-white/20 text-xs z-20 shadow-xl">
+            <!-- Play/Pause Toggle Button for WCAG 2.2.2 Compliance -->
+            <button 
+                type="button" 
+                @click="togglePlay()" 
+                class="text-white/80 hover:text-white p-1 focus:outline-none cursor-pointer"
+                :aria-label="isPlaying ? 'Jeda putaran slide otomatis' : 'Lanjutkan putaran slide otomatis'"
+            >
+                <svg x-show="isPlaying" class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
+                    <path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z"/>
+                </svg>
+                <svg x-show="!isPlaying" x-cloak class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
+                    <path d="M8 5v14l11-7z"/>
+                </svg>
+            </button>
+
+            <div class="w-px h-3.5 bg-white/25"></div>
+
             <!-- Indicator Dots (Active in Pink Bloom) -->
             <div class="flex items-center gap-2">
                 @foreach ($slides as $index => $slide)

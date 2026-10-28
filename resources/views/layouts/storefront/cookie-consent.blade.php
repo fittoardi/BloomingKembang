@@ -5,10 +5,12 @@
         accept() {
             localStorage.setItem('blooming_consent', 'granted');
             this.showConsent = false;
+            window.dispatchEvent(new CustomEvent('cookie-consent-closed'));
         },
         decline() {
             localStorage.setItem('blooming_consent', 'denied');
             this.showConsent = false;
+            window.dispatchEvent(new CustomEvent('cookie-consent-closed'));
         }
     }"
     x-show="showConsent"

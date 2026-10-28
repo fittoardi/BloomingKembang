@@ -403,7 +403,7 @@
                             <button 
                                 type="submit" 
                                 wire:loading.attr="disabled"
-                                class="w-full btn-primary text-xs py-2.5 flex items-center justify-center space-x-2"
+                                class="w-full py-3 px-4 bg-obsidian text-paper hover:bg-neutral-800 text-xs uppercase tracking-widest font-medium transition-colors flex items-center justify-center space-x-2 disabled:opacity-50 cursor-pointer shadow-sm rounded-xs"
                             >
                                 <span wire:loading.remove>Kirim Ulasan</span>
                                 <span wire:loading class="flex items-center space-x-1.5">
@@ -425,7 +425,7 @@
                     <div class="p-4 border border-bone bg-white text-xs text-neutral-500 space-y-3 rounded-sm">
                         <p class="font-medium text-obsidian">Punya Akun BloomingKembang?</p>
                         <p class="leading-relaxed">Silakan masuk ke akun Anda untuk menuliskan ulasan pesanan yang telah Anda beli.</p>
-                        <a href="{{ route('login') }}" class="inline-block btn-secondary text-xs px-4 py-2 text-center w-full">
+                        <a href="{{ route('login') }}" class="inline-block py-2.5 px-4 border border-obsidian text-obsidian hover:bg-obsidian hover:text-paper text-xs uppercase tracking-widest font-medium transition-colors text-center w-full rounded-xs">
                             Masuk Sekarang
                         </a>
                     </div>
@@ -496,15 +496,24 @@
                 @foreach($relatedProducts as $rel)
                     @php
                         $relMin = $rel->variants->min('price');
+                        $relImg = $rel->getFirstMediaUrl('images', 'preview') 
+                            ?: ($rel->getFirstMediaUrl('images') ?: asset('images/product-placeholder.jpg'));
                     @endphp
-                    <a href="{{ url('/produk/' . $rel->slug) }}" class="group block border border-transparent hover:border-bone p-3 bg-white transition-colors">
-                        <div class="aspect-[3/4] bg-bone border border-bone flex flex-col items-center justify-center p-6 text-center space-y-2">
-                            <span class="text-[10px] uppercase tracking-widest text-neutral-400 font-mono">{{ $rel->category->name ?? 'Hijab' }}</span>
-                            <span class="text-xs font-medium text-obsidian">{{ $rel->name }}</span>
+                    <a href="{{ url('/produk/' . $rel->slug) }}" class="group block border border-sage-200/70 hover:border-bloom p-3 bg-white/90 transition-all rounded-xs shadow-2xs hover:shadow-md">
+                        <div class="aspect-[3/4] bg-stone-50 border border-stone-100 relative overflow-hidden rounded-xs">
+                            <img 
+                                src="{{ $relImg }}" 
+                                alt="{{ $rel->name }}" 
+                                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
+                                loading="lazy"
+                            />
                         </div>
-                        <div class="mt-3 flex items-center justify-between text-xs">
-                            <span class="text-obsidian">{{ $rel->name }}</span>
-                            <span class="font-mono">{{ $relMin ? 'Rp ' . number_format($relMin, 0, ',', '.') : '-' }}</span>
+                        <div class="mt-3 space-y-1">
+                            <span class="text-[10px] uppercase tracking-wider font-mono text-stone-400 block">{{ $rel->category->name ?? 'Hijab' }}</span>
+                            <div class="flex items-center justify-between text-xs">
+                                <span class="font-normal text-obsidian group-hover:text-bloom transition-colors truncate">{{ $rel->name }}</span>
+                                <span class="font-mono font-medium text-botanic whitespace-nowrap pl-2">{{ $relMin ? 'Rp ' . number_format($relMin, 0, ',', '.') : '-' }}</span>
+                            </div>
                         </div>
                     </a>
                 @endforeach

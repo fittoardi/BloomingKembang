@@ -1,4 +1,4 @@
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-16">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-16" x-data="{ mobileFilterOpen: false }">
     <!-- Header Koleksi -->
     <div class="mb-10 pb-6 border-b border-bone">
         <nav class="text-[11px] uppercase tracking-wider text-neutral-400 mb-3 flex items-center space-x-2">
@@ -34,9 +34,39 @@
         </div>
     </div>
 
+    <!-- Mobile Filter & Sort Toggle Bar -->
+    <div class="lg:hidden mb-6 flex items-center justify-between gap-3 p-3.5 bg-white/90 border border-sage-200/90 rounded-sm shadow-2xs">
+        <button 
+            type="button" 
+            @click="mobileFilterOpen = !mobileFilterOpen"
+            class="flex items-center gap-2 text-xs uppercase tracking-widest font-semibold text-stone-800 hover:text-bloom cursor-pointer"
+            :aria-expanded="mobileFilterOpen.toString()"
+        >
+            <svg class="w-4 h-4 text-botanic" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
+            </svg>
+            <span x-text="mobileFilterOpen ? 'Tutup Filter' : 'Buka Filter & Urutkan'">Filter & Urutkan</span>
+            @php
+                $activeFilterCount = ($search ? 1 : 0) + ($color ? 1 : 0) + ($material ? 1 : 0) + ($availability ? 1 : 0) + ($minPrice || $maxPrice ? 1 : 0) + ($sortBy !== 'newest' ? 1 : 0);
+            @endphp
+            @if($activeFilterCount > 0)
+                <span class="w-5 h-5 rounded-full bg-bloom text-white text-[10px] font-mono font-bold flex items-center justify-center">
+                    {{ $activeFilterCount }}
+                </span>
+            @endif
+        </button>
+
+        <span class="text-[11px] font-mono text-stone-500">
+            {{ $products->total() }} Produk
+        </span>
+    </div>
+
     <div class="grid grid-cols-1 lg:grid-cols-4 gap-8 sm:gap-12 items-start">
-        <!-- Sidebar Filter -->
-        <aside class="lg:col-span-1 space-y-8 bg-white/85 backdrop-blur-xs p-6 border border-sage-200/80 rounded-sm shadow-2xs">
+        <!-- Sidebar Filter (Always open on desktop lg:block, collapsible toggle on mobile) -->
+        <aside 
+            :class="mobileFilterOpen ? 'block' : 'hidden lg:block'"
+            class="lg:col-span-1 space-y-8 bg-white/85 backdrop-blur-xs p-6 border border-sage-200/80 rounded-sm shadow-2xs transition-all"
+        >
             <div class="flex items-center justify-between pb-3 border-b border-sage-100">
                 <h2 class="text-xs uppercase tracking-widest font-semibold text-obsidian">Filter Koleksi</h2>
                 @if($search || $color || $material || $availability || $minPrice || $maxPrice || $sortBy !== 'newest')
@@ -193,8 +223,8 @@
                     @foreach($products as $product)
                         @php
                             $firstVariant = $product->variants->first();
-                            $minPrice = $product->variants->min('price');
-                            $maxPrice = $product->variants->max('price');
+                            $prodMinPrice = $product->variants->min('price');
+                            $prodMaxPrice = $product->variants->max('price');
                             $hasStock = $product->variants->contains(fn($v) => ($v->stock - $v->reserved) > 0);
                         @endphp
                         <article class="group flex flex-col justify-between border border-sage-200/60 hover:border-bloom transition-all p-3.5 bg-white/90 backdrop-blur-xs rounded-sm shadow-2xs hover:shadow-md">
@@ -233,10 +263,10 @@
                                         {{ $product->name }}
                                     </a>
                                     <span class="text-xs font-mono font-medium text-obsidian whitespace-nowrap">
-                                        @if($minPrice && $maxPrice && $minPrice !== $maxPrice)
-                                            Rp {{ number_format($minPrice, 0, ',', '.') }} - {{ number_format($maxPrice, 0, ',', '.') }}
-                                        @elseif($minPrice)
-                                            Rp {{ number_format($minPrice, 0, ',', '.') }}
+                                        @if($prodMinPrice && $prodMaxPrice && $prodMinPrice !== $prodMaxPrice)
+                                            Rp {{ number_format($prodMinPrice, 0, ',', '.') }} - {{ number_format($prodMaxPrice, 0, ',', '.') }}
+                                        @elseif($prodMinPrice)
+                                            Rp {{ number_format($prodMinPrice, 0, ',', '.') }}
                                         @else
                                             -
                                         @endif

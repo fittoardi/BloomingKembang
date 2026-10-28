@@ -283,9 +283,18 @@
                     <div class="pt-4">
                         <button 
                             type="submit" 
-                            class="w-full py-4 bg-botanic text-paper text-xs uppercase tracking-widest font-medium hover:bg-sage-700 transition-colors shadow-sm text-center rounded-xs"
+                            wire:loading.attr="disabled"
+                            wire:target="placeOrder"
+                            class="w-full py-4 bg-botanic text-paper text-xs uppercase tracking-widest font-medium hover:bg-sage-700 transition-colors shadow-sm text-center rounded-xs disabled:opacity-60 cursor-pointer flex items-center justify-center space-x-2"
                         >
-                            Buat Pesanan & Bayar &rarr;
+                            <span wire:loading.remove wire:target="placeOrder">Buat Pesanan & Bayar &rarr;</span>
+                            <span wire:loading wire:target="placeOrder" class="inline-flex items-center space-x-2">
+                                <svg class="animate-spin -ml-1 mr-2 h-4 w-4 text-white" fill="none" viewBox="0 0 24 24">
+                                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"></path>
+                                </svg>
+                                <span>Memproses Pesanan Anda...</span>
+                            </span>
                         </button>
                         <p class="text-[10px] text-neutral-400 text-center mt-3 leading-relaxed">
                             Dengan mengklik tombol di atas, Anda menyetujui syarat & ketentuan pemesanan di BloomingKembang.
