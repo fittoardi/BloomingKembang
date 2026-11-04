@@ -1,2 +1,0 @@
-@include('pages.account.dashboard')
-

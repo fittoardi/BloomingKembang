@@ -1,1 +1,0 @@
-@include('pages.product.show')
