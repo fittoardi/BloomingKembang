@@ -4,6 +4,13 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>@yield('title') — BloomingKembang</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="{{ asset('favicon.svg') }}?v=3">
+    <link rel="icon" type="image/png" sizes="64x64" href="{{ asset('favicon.png') }}?v=3">
+    <link rel="shortcut icon" href="{{ asset('favicon.ico') }}?v=3">
+
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=inter:400,500,600&display=swap" rel="stylesheet" />
     @vite(['resources/css/app.css', 'resources/js/app.js'])
@@ -41,6 +48,9 @@
             </p>
 
             <div class="flex flex-col sm:flex-row items-center justify-center gap-3">
+                @hasSection('extra-action')
+                    @yield('extra-action')
+                @endif
                 <a href="{{ url('/') }}" class="w-full sm:w-auto inline-flex items-center justify-center px-6 py-2.5 rounded-xs bg-botanic text-white text-xs font-medium tracking-widest uppercase hover:bg-sage-700 transition-colors shadow-2xs">
                     Kembali ke Beranda
                 </a>
@@ -53,7 +63,7 @@
 
     <!-- Mini Footer -->
     <footer class="py-6 border-t border-stone-200/60 text-center text-xs text-stone-500">
-        <p>&copy; {{ date('Y') }} BloomingKembang. Keanggunan Muslimah yang Bersahaja.</p>
+        <p>&copy; {{ date('Y') }} Blooming<span class="text-bloom italic">Kembang</span>. Keanggunan Muslimah yang Bersahaja.</p>
     </footer>
 </body>
 </html>
