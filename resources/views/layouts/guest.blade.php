@@ -21,13 +21,8 @@
     </head>
     <body class="font-sans text-obsidian bg-[#faf9f7] antialiased min-h-screen flex flex-col justify-center items-center py-8 px-4 selection:bg-blush-200 selection:text-blush-900">
         <div class="mb-6 text-center">
-            <a href="/" class="group inline-flex flex-col items-center gap-2">
-                <x-application-logo class="w-14 h-14 group-hover:rotate-6 transition-transform duration-300 shadow-xs rounded-full" />
-                <span class="inline-flex items-center gap-1 text-lg uppercase tracking-[0.18em]">
-                    <span class="font-serif tracking-normal text-obsidian font-bold">Blooming</span>
-                    <span class="font-serif italic font-normal text-bloom tracking-normal">Kembang</span>
-                    <span class="w-1.5 h-1.5 rounded-full bg-botanic inline-block ml-0.5"></span>
-                </span>
+            <a href="/" class="group inline-flex items-center justify-center focus:outline-none" aria-label="Beranda BloomingKembang">
+                <x-application-logo class="h-12 sm:h-14 w-auto group-hover:scale-105 transition-transform duration-300" />
             </a>
         </div>
 

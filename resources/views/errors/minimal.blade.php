@@ -12,10 +12,8 @@
     <!-- Mini Header -->
     <header class="py-6 border-b border-stone-200/80 bg-white/80 backdrop-blur-md sticky top-0 z-10">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 flex items-center justify-between">
-            <a href="{{ url('/') }}" class="group flex items-center gap-1.5 text-lg uppercase tracking-[0.18em]">
-                <span class="font-serif font-bold text-stone-900 group-hover:text-botanic transition-colors">Blooming</span>
-                <span class="font-serif italic font-normal text-bloom">Kembang</span>
-                <span class="w-1.5 h-1.5 rounded-full bg-botanic inline-block ml-0.5"></span>
+            <a href="{{ url('/') }}" class="group flex items-center focus:outline-none" aria-label="Beranda BloomingKembang">
+                <img src="{{ asset('images/logo.png') }}" alt="{{ config('app.name', 'BloomingKembang') }}" class="h-8 sm:h-9 w-auto object-contain transition-transform duration-300 group-hover:scale-105" />
             </a>
             <a href="{{ route('catalog.index') }}" class="text-xs tracking-wider uppercase font-medium text-stone-600 hover:text-botanic transition-colors">
                 Koleksi Hijab &rarr;

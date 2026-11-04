@@ -2,10 +2,9 @@
 <footer class="border-t border-sage-200/80 bg-gradient-to-b from-transparent via-sage-50/40 to-blush-50/30 mt-24 py-16 text-xs text-stone-800">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-4 gap-12">
         <div class="space-y-3">
-            <h4 class="text-xs tracking-widest uppercase font-semibold text-stone-900 flex items-center gap-1.5">
-                <span class="w-1.5 h-1.5 rounded-full bg-botanic"></span>
-                <span>Blooming<span class="text-bloom italic">Kembang</span></span>
-            </h4>
+            <a href="{{ url('/') }}" class="inline-block focus:outline-none" aria-label="Beranda BloomingKembang">
+                <img src="{{ asset('images/logo.png') }}" alt="{{ config('app.name', 'BloomingKembang') }}" class="h-8 w-auto object-contain" />
+            </a>
             <p class="text-stone-600 leading-relaxed text-xs">
                 Koleksi hijab bernapas lembut dan berkarakter elegan untuk muslimah bersahaja. Ditenun dari serat pilihan dengan ketelitian butik.
             </p>

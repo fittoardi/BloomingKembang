@@ -24,7 +24,10 @@ class AdminPanelProvider extends PanelProvider
             ->default()
             ->id('admin')
             ->path('admin')
-            ->brandName('BloomingKembang Admin')
+            ->brandName('BloomingKembang')
+            ->brandLogo(asset('images/logo.png'))
+            ->darkModeBrandLogo(asset('images/logo-white.png'))
+            ->brandLogoHeight('2.25rem')
             ->favicon(asset('favicon.svg'))
             ->colors([
                 'primary' => [
