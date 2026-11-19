@@ -142,8 +142,31 @@
         aria-roledescription="carousel"
         aria-label="Koleksi Unggulan BloomingKembang"
     >
+        <!-- Background Video (Woman Posing in Hijab for E-Commerce) -->
+        <div class="absolute inset-0 w-full h-[600px] overflow-hidden z-0 pointer-events-none select-none">
+            @if(file_exists(public_path('videos/hero-background.mp4')))
+                <video 
+                    autoplay 
+                    loop 
+                    muted 
+                    playsinline 
+                    preload="auto"
+                    class="w-full h-[600px] object-cover object-center scale-[1.02]"
+                    poster="{{ asset('images/home/hero-portrait.jpg') }}"
+                >
+                    <source src="{{ asset('videos/hero-background.mp4') }}" type="video/mp4">
+                </video>
+            @else
+                <div class="w-full h-[600px] bg-gradient-to-br from-stone-900 via-stone-850 to-sage-950"></div>
+            @endif
+
+            <!-- Atmospheric Gradient Overlays for Contrast & Text Readability -->
+            <div class="absolute inset-0 bg-gradient-to-r from-stone-950/92 via-stone-950/60 to-stone-950/25 sm:from-stone-950/92 sm:via-stone-950/50 sm:to-transparent pointer-events-none"></div>
+            <div class="absolute inset-0 bg-gradient-to-t from-stone-950/80 via-transparent to-stone-950/40 pointer-events-none"></div>
+        </div>
+
         <!-- Slide Track Stack (600px Height) -->
-        <div class="relative w-full h-[600px]">
+        <div class="relative w-full h-[600px] z-10">
             @foreach ($slides as $index => $slide)
                 <div 
                     x-show="current === {{ $index }}"
@@ -156,21 +179,6 @@
                     x-transition:leave-end="opacity-0"
                     class="absolute inset-0 w-full h-[600px] flex items-center"
                 >
-                    <!-- Background Photo (600px Height, Object Cover) -->
-                    @if(file_exists(public_path($slide['image'])))
-                        <img 
-                            src="{{ asset($slide['image']) }}" 
-                            alt="{{ $slide['title'] }}" 
-                            class="w-full h-[600px] object-cover object-center absolute inset-0"
-                            loading="{{ $index === 0 ? 'eager' : 'lazy' }}"
-                        />
-                    @else
-                        <div class="w-full h-[600px] absolute inset-0 bg-gradient-to-br from-stone-900 via-stone-850 to-sage-950"></div>
-                    @endif
-
-                    <!-- Atmospheric Gradient Overlay for Contrast -->
-                    <div class="absolute inset-0 bg-gradient-to-r from-stone-950/92 via-stone-950/60 to-stone-950/25 sm:from-stone-950/95 sm:via-stone-950/55 sm:to-transparent pointer-events-none"></div>
-
                     <!-- Slide Content -->
                     <div class="relative z-10 w-full px-6 sm:px-12 lg:px-16 xl:px-20 flex flex-col justify-center text-white py-12">
                         <div class="max-w-3xl space-y-4">
@@ -196,7 +204,7 @@
                             <div class="pt-4 flex flex-wrap items-center gap-4">
                                 <a 
                                     href="{{ url($slide['link_url']) }}" 
-                                    class="px-8 py-3.5 bg-bloom hover:bg-blush-700 text-white text-xs uppercase tracking-widest font-semibold transition-all rounded-xs shadow-md inline-flex items-center gap-2 group"
+                                    class="px-8 py-3.5 bg-bloom hover:bg-blush-700 active-press text-white text-xs uppercase tracking-widest font-semibold transition-all rounded-xs shadow-md inline-flex items-center gap-2 group"
                                 >
                                     <span>{{ $slide['cta_text'] }}</span>
                                     <span class="group-hover:translate-x-1 transition-transform">&rarr;</span>
@@ -204,7 +212,7 @@
 
                                 <a 
                                     href="{{ url('/koleksi') }}" 
-                                    class="px-7 py-3.5 bg-botanic/90 hover:bg-botanic text-white border border-white/20 text-xs uppercase tracking-widest font-semibold transition-all rounded-xs backdrop-blur-xs"
+                                    class="px-7 py-3.5 bg-botanic/90 hover:bg-botanic active-press text-white border border-white/20 text-xs uppercase tracking-widest font-semibold transition-all rounded-xs backdrop-blur-xs"
                                 >
                                     Semua Koleksi
                                 </a>
@@ -217,6 +225,12 @@
                     </div>
                 </div>
             @endforeach
+        </div>
+
+        <!-- Atelier Motion Video Badge -->
+        <div class="hidden sm:inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-stone-950/60 backdrop-blur-md border border-white/15 text-stone-300 text-[10px] uppercase tracking-widest font-mono z-20 absolute bottom-6 right-6">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+            <span>Atelier Motion</span>
         </div>
 
         <!-- Bottom Pill Controls: Dots & Slide Counter -->
