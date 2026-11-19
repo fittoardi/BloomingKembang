@@ -147,6 +147,7 @@
             @foreach ($slides as $index => $slide)
                 <div 
                     x-show="current === {{ $index }}"
+                    {{ $index > 0 ? 'x-cloak' : '' }}
                     x-transition:enter="transition-opacity ease-out duration-700"
                     x-transition:enter-start="opacity-0"
                     x-transition:enter-end="opacity-100"
@@ -156,12 +157,16 @@
                     class="absolute inset-0 w-full h-[600px] flex items-center"
                 >
                     <!-- Background Photo (600px Height, Object Cover) -->
-                    <img 
-                        src="{{ asset($slide['image']) }}" 
-                        alt="{{ $slide['title'] }}" 
-                        class="w-full h-[600px] object-cover object-center absolute inset-0"
-                        loading="{{ $index === 0 ? 'eager' : 'lazy' }}"
-                    />
+                    @if(file_exists(public_path($slide['image'])))
+                        <img 
+                            src="{{ asset($slide['image']) }}" 
+                            alt="{{ $slide['title'] }}" 
+                            class="w-full h-[600px] object-cover object-center absolute inset-0"
+                            loading="{{ $index === 0 ? 'eager' : 'lazy' }}"
+                        />
+                    @else
+                        <div class="w-full h-[600px] absolute inset-0 bg-gradient-to-br from-stone-900 via-stone-850 to-sage-950"></div>
+                    @endif
 
                     <!-- Atmospheric Gradient Overlay for Contrast -->
                     <div class="absolute inset-0 bg-gradient-to-r from-stone-950/92 via-stone-950/60 to-stone-950/25 sm:from-stone-950/95 sm:via-stone-950/55 sm:to-transparent pointer-events-none"></div>
@@ -241,54 +246,31 @@
 
     <!-- 2. CIRCULAR CATEGORY SHORTCUTS (HIJAU BOTANIC & PINK BLOOM) -->
     <section class="w-full px-4 sm:px-8 lg:px-12 xl:px-16 py-8 sm:py-10 border-b border-stone-200/80">
+        @php
+            $catShortcuts = [
+                ['url' => '/koleksi/hijab-segi-empat', 'title' => 'Segi Empat', 'img' => 'images/home/cat-segi-empat.jpg', 'icon' => 'M4 4h16v16H4z', 'bg' => 'bg-sage-100 text-botanic'],
+                ['url' => '/koleksi/pashmina', 'title' => 'Pashmina', 'img' => 'images/home/cat-pashmina.jpg', 'icon' => 'M7 4h10v16H7z', 'bg' => 'bg-blush-100 text-bloom'],
+                ['url' => '/koleksi/bergo-daily', 'title' => 'Bergo Daily', 'img' => 'images/products/bergo-daily.jpg', 'icon' => 'M12 2a5 5 0 00-5 5v3H6a2 2 0 00-2 2v6a2 2 0 002 2h12a2 2 0 002-2v-6a2 2 0 00-2-2h-1V7a5 5 0 00-5-5z', 'bg' => 'bg-sage-100 text-botanic'],
+                ['url' => '/koleksi', 'title' => 'Khimar Syar\'i', 'img' => 'images/products/khimar-syari.jpg', 'icon' => 'M12 3L2 12h3v8h14v-8h3L12 3z', 'bg' => 'bg-blush-100 text-bloom'],
+                ['url' => '/koleksi/inner-dan-aksesoris', 'title' => 'Inner & Klip', 'img' => 'images/home/cat-inner-aksesoris.jpg', 'icon' => 'M12 4v16m8-8H4', 'bg' => 'bg-sage-100 text-botanic'],
+                ['url' => '/koleksi', 'title' => 'Koleksi Pilihan', 'img' => 'images/home/elzatta-hero-loyalty.jpg', 'icon' => 'M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z', 'bg' => 'bg-blush-100 text-bloom'],
+            ];
+        @endphp
         <div class="grid grid-cols-3 sm:grid-cols-6 gap-4 sm:gap-6 lg:gap-8 xl:gap-12 text-center">
-            <!-- 1. Segi Empat -->
-            <a href="{{ url('/koleksi/hijab-segi-empat') }}" class="group flex flex-col items-center space-y-2">
-                <div class="w-20 h-20 sm:w-24 sm:h-24 rounded-full overflow-hidden border-2 border-stone-200 group-hover:border-bloom shadow-xs group-hover:shadow-md transition-all duration-300 p-0.5 bg-white">
-                    <img src="{{ asset('images/home/cat-segi-empat.jpg') }}" alt="Hijab Segi Empat" class="w-full h-full object-cover rounded-full group-hover:scale-110 transition-transform duration-500" />
-                </div>
-                <span class="text-xs font-semibold text-stone-800 uppercase tracking-wider group-hover:text-botanic transition-colors">Segi Empat</span>
-            </a>
-
-            <!-- 2. Pashmina -->
-            <a href="{{ url('/koleksi/pashmina') }}" class="group flex flex-col items-center space-y-2">
-                <div class="w-20 h-20 sm:w-24 sm:h-24 rounded-full overflow-hidden border-2 border-stone-200 group-hover:border-bloom shadow-xs group-hover:shadow-md transition-all duration-300 p-0.5 bg-white">
-                    <img src="{{ asset('images/home/cat-pashmina.jpg') }}" alt="Pashmina Flowy" class="w-full h-full object-cover rounded-full group-hover:scale-110 transition-transform duration-500" />
-                </div>
-                <span class="text-xs font-semibold text-stone-800 uppercase tracking-wider group-hover:text-botanic transition-colors">Pashmina</span>
-            </a>
-
-            <!-- 3. Bergo Daily -->
-            <a href="{{ url('/koleksi/bergo-daily') }}" class="group flex flex-col items-center space-y-2">
-                <div class="w-20 h-20 sm:w-24 sm:h-24 rounded-full overflow-hidden border-2 border-stone-200 group-hover:border-bloom shadow-xs group-hover:shadow-md transition-all duration-300 p-0.5 bg-white">
-                    <img src="{{ asset('images/products/bergo-daily.jpg') }}" alt="Bergo Daily" class="w-full h-full object-cover rounded-full group-hover:scale-110 transition-transform duration-500" />
-                </div>
-                <span class="text-xs font-semibold text-stone-800 uppercase tracking-wider group-hover:text-botanic transition-colors">Bergo Daily</span>
-            </a>
-
-            <!-- 4. Khimar Syar'i -->
-            <a href="{{ url('/koleksi') }}" class="group flex flex-col items-center space-y-2">
-                <div class="w-20 h-20 sm:w-24 sm:h-24 rounded-full overflow-hidden border-2 border-stone-200 group-hover:border-bloom shadow-xs group-hover:shadow-md transition-all duration-300 p-0.5 bg-white">
-                    <img src="{{ asset('images/products/khimar-syari.jpg') }}" alt="Khimar Syar'i" class="w-full h-full object-cover rounded-full group-hover:scale-110 transition-transform duration-500" />
-                </div>
-                <span class="text-xs font-semibold text-stone-800 uppercase tracking-wider group-hover:text-botanic transition-colors">Khimar Syar'i</span>
-            </a>
-
-            <!-- 5. Inner & Aksesoris -->
-            <a href="{{ url('/koleksi/inner-dan-aksesoris') }}" class="group flex flex-col items-center space-y-2">
-                <div class="w-20 h-20 sm:w-24 sm:h-24 rounded-full overflow-hidden border-2 border-stone-200 group-hover:border-bloom shadow-xs group-hover:shadow-md transition-all duration-300 p-0.5 bg-white">
-                    <img src="{{ asset('images/home/cat-inner-aksesoris.jpg') }}" alt="Inner & Aksesoris" class="w-full h-full object-cover rounded-full group-hover:scale-110 transition-transform duration-500" />
-                </div>
-                <span class="text-xs font-semibold text-stone-800 uppercase tracking-wider group-hover:text-botanic transition-colors">Inner & Klip</span>
-            </a>
-
-            <!-- 6. Koleksi Pilihan -->
-            <a href="{{ url('/koleksi') }}" class="group flex flex-col items-center space-y-2">
-                <div class="w-20 h-20 sm:w-24 sm:h-24 rounded-full overflow-hidden border-2 border-stone-200 group-hover:border-bloom shadow-xs group-hover:shadow-md transition-all duration-300 p-0.5 bg-white">
-                    <img src="{{ asset('images/home/elzatta-hero-loyalty.jpg') }}" alt="Koleksi Pilihan" class="w-full h-full object-cover rounded-full group-hover:scale-110 transition-transform duration-500" />
-                </div>
-                <span class="text-xs font-semibold text-stone-800 uppercase tracking-wider group-hover:text-botanic transition-colors">Koleksi Pilihan</span>
-            </a>
+            @foreach($catShortcuts as $cat)
+                <a href="{{ url($cat['url']) }}" class="group flex flex-col items-center space-y-2">
+                    <div class="w-20 h-20 sm:w-24 sm:h-24 rounded-full overflow-hidden border-2 border-stone-200 group-hover:border-bloom shadow-xs group-hover:shadow-md transition-all duration-300 p-0.5 bg-white flex items-center justify-center">
+                        @if(file_exists(public_path($cat['img'])))
+                            <img src="{{ asset($cat['img']) }}" alt="{{ $cat['title'] }}" class="w-full h-full object-cover rounded-full group-hover:scale-110 transition-transform duration-500" loading="lazy" />
+                        @else
+                            <div class="w-full h-full rounded-full flex items-center justify-center {{ $cat['bg'] }} transition-transform duration-300 group-hover:scale-110">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="{{ $cat['icon'] }}" /></svg>
+                            </div>
+                        @endif
+                    </div>
+                    <span class="text-xs font-semibold text-stone-800 uppercase tracking-wider group-hover:text-botanic transition-colors">{{ $cat['title'] }}</span>
+                </a>
+            @endforeach
         </div>
     </section>
 
@@ -300,7 +282,7 @@
                 <div class="lg:col-span-6">
                     <div class="relative rounded-xl overflow-hidden border border-sage-200 shadow-sm group">
                         <img 
-                            src="{{ asset('images/home/keisha-rack.jpg') }}" 
+                            src="{{ file_exists(public_path('images/home/keisha-rack.jpg')) ? asset('images/home/keisha-rack.jpg') : asset('images/product-placeholder.jpg') }}" 
                             alt="Keisha Versa Voal Rack Collection" 
                             class="w-full h-[360px] sm:h-[440px] object-cover group-hover:scale-105 transition-transform duration-700" 
                         />
@@ -414,7 +396,7 @@
             <!-- Card 1: Comfort & Breathability (Aksen Bloom Pink) -->
             <div class="group relative rounded-xl overflow-hidden border-2 border-blush-200/90 hover:border-bloom/70 shadow-sm aspect-[16/10] bg-stone-900 transition-all duration-300">
                 <img 
-                    src="{{ asset('images/home/modesty-group.jpg') }}" 
+                    src="{{ file_exists(public_path('images/home/modesty-group.jpg')) ? asset('images/home/modesty-group.jpg') : asset('images/product-placeholder.jpg') }}" 
                     alt="Comfort & Breathability Collection" 
                     class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 opacity-80" 
                 />
@@ -439,7 +421,7 @@
             <!-- Card 2: Coverage & Syar'i Silhouette (Aksen Botanic Green) -->
             <div class="group relative rounded-xl overflow-hidden border-2 border-sage-200/90 hover:border-botanic/70 shadow-sm aspect-[16/10] bg-stone-900 transition-all duration-300">
                 <img 
-                    src="{{ asset('images/home/hero-editorial.jpg') }}" 
+                    src="{{ file_exists(public_path('images/home/hero-editorial.jpg')) ? asset('images/home/hero-editorial.jpg') : asset('images/product-placeholder.jpg') }}" 
                     alt="Coverage & Syar'i Silhouette Collection" 
                     class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 opacity-80" 
                 />

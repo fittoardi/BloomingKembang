@@ -84,6 +84,7 @@
 <link href="https://fonts.bunny.net/css?family=inter:400,500|jetbrains-mono:400" rel="stylesheet" />
 
 <!-- Scripts & Styles -->
+<style>[x-cloak] { display: none !important; }</style>
 @vite(['resources/css/app.css', 'resources/js/app.js'])
 @livewireStyles
 
