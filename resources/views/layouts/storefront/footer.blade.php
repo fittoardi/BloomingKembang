@@ -3,7 +3,7 @@
     <div class="w-full px-4 sm:px-8 lg:px-12 xl:px-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-16">
         <div class="space-y-4">
             <a href="{{ url('/') }}" class="inline-block focus:outline-none" aria-label="Beranda BloomingKembang">
-                <img src="{{ asset('images/logo.png') }}" alt="{{ config('app.name', 'BloomingKembang') }}" class="h-10 sm:h-12 w-auto object-contain transition-transform duration-300 hover:scale-105" />
+                <img src="{{ asset('images/logo.png') }}" alt="{{ config('app.name', 'BloomingKembang') }}" class="h-20 sm:h-22 w-auto object-contain transition-transform duration-300 hover:scale-105" />
             </a>
             <p class="text-stone-600 leading-relaxed text-xs sm:text-[13px] max-w-sm">
                 Koleksi hijab bernapas lembut dan berkarakter elegan untuk muslimah bersahaja. Ditenun dari serat pilihan dengan ketelitian butik standar premium.
