@@ -86,7 +86,7 @@
         x-data="{
             current: 0,
             total: {{ count($slides) }},
-            intervalMs: 5000,
+            intervalMs: 2000,
             timer: null,
             touchStartX: 0,
             touchEndX: 0,
