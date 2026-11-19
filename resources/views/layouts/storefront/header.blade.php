@@ -4,13 +4,12 @@
         <!-- Left: Mobile Menu Toggle & Desktop Nav -->
         <div class="flex items-center space-x-3">
             <!-- Mobile Hamburger Button (Tampil hanya pada tampilan mobile < md) -->
-            <button 
-                type="button" 
-                @click="mobileMenuOpen = !mobileMenuOpen" 
+            <button
+                type="button"
+                @click="mobileMenuOpen = !mobileMenuOpen"
                 class="inline-flex md:hidden p-2 -ml-2 text-stone-700 hover:text-bloom focus:outline-none cursor-pointer"
                 aria-label="Buka Menu Navigasi"
-                :aria-expanded="mobileMenuOpen.toString()"
-            >
+                :aria-expanded="mobileMenuOpen.toString()">
                 <svg x-show="!mobileMenuOpen" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
                 </svg>
@@ -30,7 +29,7 @@
         <!-- Center Brand Colophon -->
         <div class="text-center">
             <a href="{{ url('/') }}" class="group inline-flex items-center justify-center focus:outline-none" aria-label="Beranda BloomingKembang">
-                <img src="{{ asset('images/logo.png') }}" alt="{{ config('app.name', 'BloomingKembang') }}" class="h-9 sm:h-11 w-auto object-contain transition-transform duration-300 group-hover:scale-105" />
+                <img src="{{ asset('images/logo.png') }}" alt="{{ config('app.name', 'BloomingKembang') }}" class="h-14 sm:h-20 w-auto object-contain transition-transform duration-300 group-hover:scale-105" />
             </a>
         </div>
 
@@ -38,45 +37,43 @@
         <div class="flex items-center space-x-3 sm:space-x-5 text-xs uppercase tracking-widest">
             <!-- Quick Search Bar (Desktop) -->
             <form action="{{ url('/koleksi') }}" method="GET" class="hidden md:flex items-center relative">
-                <input 
-                    type="text" 
-                    name="cari" 
-                    value="{{ request('cari') }}" 
-                    placeholder="Cari koleksi..." 
+                <input
+                    type="text"
+                    name="cari"
+                    value="{{ request('cari') }}"
+                    placeholder="Cari koleksi..."
                     class="text-[11px] font-sans border border-sage-200/90 rounded-full pl-7 pr-3 py-1 bg-white/80 focus:bg-white focus:border-botanic focus:ring-0 placeholder-stone-400 w-28 focus:w-44 transition-all duration-300"
-                    aria-label="Cari koleksi produk"
-                />
+                    aria-label="Cari koleksi produk" />
                 <svg class="w-3.5 h-3.5 text-stone-400 absolute left-2.5 top-2 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                 </svg>
             </form>
 
             @auth
-                @if(auth()->user()->hasAnyRole(['super_admin', 'admin', 'warehouse_staff']))
-                    <a href="{{ url('/admin') }}" class="hidden md:inline-block link-underlined text-botanic font-medium">Panel Admin</a>
-                @endif
-                <a href="{{ route('account.dashboard') }}" class="hidden md:inline-block hover:text-bloom transition-colors text-stone-700">Akun Saya</a>
-                <form method="POST" action="{{ route('logout') }}" class="hidden md:inline">
-                    @csrf
-                    <button type="submit" class="hover:text-bloom uppercase tracking-widest transition-colors text-stone-500 cursor-pointer">Keluar</button>
-                </form>
+            @if(auth()->user()->hasAnyRole(['super_admin', 'admin', 'warehouse_staff']))
+            <a href="{{ url('/admin') }}" class="hidden md:inline-block link-underlined text-botanic font-medium">Panel Admin</a>
+            @endif
+            <a href="{{ route('account.dashboard') }}" class="hidden md:inline-block hover:text-bloom transition-colors text-stone-700">Akun Saya</a>
+            <form method="POST" action="{{ route('logout') }}" class="hidden md:inline">
+                @csrf
+                <button type="submit" class="hover:text-bloom uppercase tracking-widest transition-colors text-stone-500 cursor-pointer">Keluar</button>
+            </form>
             @else
-                <a href="{{ route('login') }}" class="hidden md:inline-block hover:text-bloom transition-colors text-stone-700">Masuk</a>
-                <a href="{{ route('register') }}" class="hidden md:inline-block px-3 py-1 rounded-full border border-blush-300 text-bloom hover:bg-blush-50 transition-colors font-medium">Daftar</a>
+            <a href="{{ route('login') }}" class="hidden md:inline-block hover:text-bloom transition-colors text-stone-700">Masuk</a>
+            <a href="{{ route('register') }}" class="hidden md:inline-block px-3 py-1 rounded-full border border-blush-300 text-bloom hover:bg-blush-50 transition-colors font-medium">Daftar</a>
             @endauth
 
             <!-- Cart Trigger Button (Accessible for both Guest and Authenticated users) -->
-            <button 
-                type="button" 
-                @click="$dispatch('open-cart')" 
+            <button
+                type="button"
+                @click="$dispatch('open-cart')"
                 onclick="window.dispatchEvent(new CustomEvent('open-cart'))"
                 class="hover:text-bloom transition-colors uppercase tracking-widest flex items-center space-x-1.5 cursor-pointer text-stone-800"
-                aria-label="Buka Keranjang Belanja"
-            >
+                aria-label="Buka Keranjang Belanja">
                 <span class="hidden md:inline">Keranjang</span>
                 <!-- Cart icon on mobile -->
                 <svg class="w-5 h-5 md:hidden text-stone-800 hover:text-bloom transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
                 </svg>
                 <span class="font-mono text-[10px] font-semibold px-1.5 sm:px-2 py-0.5 rounded-full bg-blush-100 text-blush-800 border border-blush-200">
                     {{ app(\App\Services\CartService::class)->getCount() }}
@@ -86,9 +83,9 @@
     </div>
 
     <!-- Mobile Navigation Drawer / Dropdown -->
-    <div 
-        x-show="mobileMenuOpen" 
-        x-cloak 
+    <div
+        x-show="mobileMenuOpen"
+        x-cloak
         x-transition:enter="transition ease-out duration-200"
         x-transition:enter-start="opacity-0 -translate-y-2"
         x-transition:enter-end="opacity-100 translate-y-0"
@@ -97,17 +94,15 @@
         x-transition:leave-end="opacity-0 -translate-y-2"
         @click.away="mobileMenuOpen = false"
         @keydown.escape.window="mobileMenuOpen = false"
-        class="md:hidden border-t border-sage-200/80 bg-white/95 backdrop-blur-md px-4 pt-4 pb-6 space-y-4 shadow-xl"
-    >
+        class="md:hidden border-t border-sage-200/80 bg-white/95 backdrop-blur-md px-4 pt-4 pb-6 space-y-4 shadow-xl">
         <!-- Mobile Search Form -->
         <form action="{{ url('/koleksi') }}" method="GET" class="relative">
-            <input 
-                type="text" 
-                name="cari" 
-                value="{{ request('cari') }}" 
-                placeholder="Cari voal, silk, pashmina..." 
-                class="w-full text-xs font-sans border border-sage-200 rounded-full pl-9 pr-4 py-2 bg-stone-50/80 focus:bg-white focus:border-botanic focus:ring-0 placeholder-stone-400"
-            />
+            <input
+                type="text"
+                name="cari"
+                value="{{ request('cari') }}"
+                placeholder="Cari voal, silk, pashmina..."
+                class="w-full text-xs font-sans border border-sage-200 rounded-full pl-9 pr-4 py-2 bg-stone-50/80 focus:bg-white focus:border-botanic focus:ring-0 placeholder-stone-400" />
             <svg class="w-4 h-4 text-stone-400 absolute left-3 top-2.5 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
             </svg>
@@ -139,26 +134,25 @@
         <!-- Auth / Account Section in Mobile Menu -->
         <div class="pt-3 border-t border-sage-200/80">
             @auth
-                <div class="flex items-center justify-between py-2 text-xs">
-                    <div>
-                        <span class="text-stone-500 text-[11px] block">Masuk sebagai:</span>
-                        <span class="font-semibold text-obsidian">{{ auth()->user()->name }}</span>
-                    </div>
-                    <div class="flex items-center space-x-3">
-                        <a href="{{ route('account.dashboard') }}" class="px-3 py-1.5 bg-botanic text-white rounded-xs text-[11px] uppercase tracking-wider font-semibold">Akun Saya</a>
-                        <form method="POST" action="{{ route('logout') }}" class="inline">
-                            @csrf
-                            <button type="submit" class="text-stone-500 hover:text-bloom text-[11px] uppercase tracking-wider underline cursor-pointer">Keluar</button>
-                        </form>
-                    </div>
+            <div class="flex items-center justify-between py-2 text-xs">
+                <div>
+                    <span class="text-stone-500 text-[11px] block">Masuk sebagai:</span>
+                    <span class="font-semibold text-obsidian">{{ auth()->user()->name }}</span>
                 </div>
+                <div class="flex items-center space-x-3">
+                    <a href="{{ route('account.dashboard') }}" class="px-3 py-1.5 bg-botanic text-white rounded-xs text-[11px] uppercase tracking-wider font-semibold">Akun Saya</a>
+                    <form method="POST" action="{{ route('logout') }}" class="inline">
+                        @csrf
+                        <button type="submit" class="text-stone-500 hover:text-bloom text-[11px] uppercase tracking-wider underline cursor-pointer">Keluar</button>
+                    </form>
+                </div>
+            </div>
             @else
-                <div class="grid grid-cols-2 gap-3 text-center text-xs uppercase tracking-wider">
-                    <a href="{{ route('login') }}" class="py-2.5 border border-stone-300 text-stone-800 rounded-xs hover:border-botanic font-semibold">Masuk</a>
-                    <a href="{{ route('register') }}" class="py-2.5 bg-bloom text-white rounded-xs hover:bg-blush-700 font-semibold shadow-xs">Daftar Akun</a>
-                </div>
+            <div class="grid grid-cols-2 gap-3 text-center text-xs uppercase tracking-wider">
+                <a href="{{ route('login') }}" class="py-2.5 border border-stone-300 text-stone-800 rounded-xs hover:border-botanic font-semibold">Masuk</a>
+                <a href="{{ route('register') }}" class="py-2.5 bg-bloom text-white rounded-xs hover:bg-blush-700 font-semibold shadow-xs">Daftar Akun</a>
+            </div>
             @endauth
         </div>
     </div>
 </header>
-

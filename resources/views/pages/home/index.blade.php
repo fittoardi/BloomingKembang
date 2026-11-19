@@ -607,7 +607,7 @@
     </section>
 
     <!-- 7. 4-PILLAR VALUE PROPOSITIONS (HARMONISASI ALTERNASI BOTANIC & BLOOM) -->
-    <section class="border-y border-sage-200/80 bg-white py-12">
+    <section class="border-y border-sage-200/80 bg-white/70 backdrop-blur-xs py-12">
         <div class="w-full px-4 sm:px-8 lg:px-12 xl:px-16">
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                 <!-- 1. All-Channel Shopping (Botanic Green Card) -->

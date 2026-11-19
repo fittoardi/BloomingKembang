@@ -14,6 +14,15 @@
         --color-eucalyptus-mist: #a9aea9;
         --color-sage: #4e674e;
         --color-blush: #b8546b;
+
+        /* Framer Motion signature cubic-bezier easings */
+        --ease-framer: cubic-bezier(0.16, 1, 0.3, 1);
+        --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+        --ease-soft: cubic-bezier(0.25, 0.1, 0.25, 1);
+    }
+
+    html {
+        scroll-behavior: smooth;
     }
 
     ::selection {
@@ -75,5 +84,104 @@
 
     .bg-blush-glow {
         background: radial-gradient(circle at 50% 50%, rgba(244, 220, 222, 0.35) 0%, rgba(255, 255, 255, 0) 70%);
+    }
+
+    /* Delicate Botanical Hijab Motif Pattern (Botanic Green & Bloom Pink) */
+    .bg-kembang-motif {
+        background-image: url('/images/patterns/kembang-motif.svg');
+        background-repeat: repeat;
+        background-size: 130px 130px;
+    }
+
+    /* ========================================================
+       Framer Motion Reveal & Interaction Engine
+       Hardware accelerated, GPU composited with will-change
+       ======================================================== */
+
+    .motion-fade-up {
+        opacity: 0;
+        transform: translateY(24px);
+        transition: opacity 0.75s var(--ease-framer), transform 0.75s var(--ease-framer);
+        will-change: opacity, transform;
+    }
+
+    .motion-fade-in {
+        opacity: 0;
+        transition: opacity 0.75s var(--ease-framer);
+        will-change: opacity;
+    }
+
+    .motion-scale-up {
+        opacity: 0;
+        transform: scale(0.95);
+        transition: opacity 0.7s var(--ease-framer), transform 0.7s var(--ease-framer);
+        will-change: opacity, transform;
+    }
+
+    .motion-slide-left {
+        opacity: 0;
+        transform: translateX(28px);
+        transition: opacity 0.75s var(--ease-framer), transform 0.75s var(--ease-framer);
+        will-change: opacity, transform;
+    }
+
+    .motion-slide-right {
+        opacity: 0;
+        transform: translateX(-28px);
+        transition: opacity 0.75s var(--ease-framer), transform 0.75s var(--ease-framer);
+        will-change: opacity, transform;
+    }
+
+    /* Activated state when element enters viewport */
+    .motion-visible {
+        opacity: 1 !important;
+        transform: translate3d(0, 0, 0) scale(1) !important;
+        will-change: auto !important;
+    }
+
+    /* Tactile Micro-Interactions */
+    .hover-lift {
+        transition: transform 0.35s var(--ease-framer), box-shadow 0.35s var(--ease-framer), border-color 0.25s ease;
+    }
+
+    .hover-lift:hover {
+        transform: translateY(-4px);
+    }
+
+    .hover-scale {
+        transition: transform 0.35s var(--ease-framer);
+    }
+
+    .hover-scale:hover {
+        transform: scale(1.05);
+    }
+
+    .active-press {
+        transition: transform 0.12s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .active-press:active {
+        transform: scale(0.97);
+    }
+
+    /* Accessibility: Honor reduced motion preferences */
+    @media (prefers-reduced-motion: reduce) {
+        *, ::before, ::after {
+            animation-duration: 0.01ms !important;
+            animation-iteration-count: 1 !important;
+            transition-duration: 0.01ms !important;
+            scroll-behavior: auto !important;
+        }
+
+        .motion-fade-up,
+        .motion-fade-in,
+        .motion-scale-up,
+        .motion-slide-left,
+        .motion-slide-right,
+        .hover-lift {
+            opacity: 1 !important;
+            transform: none !important;
+            transition: none !important;
+        }
     }
 }

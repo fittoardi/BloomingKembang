@@ -1,0 +1,100 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100">
+  <defs>
+    <!-- Soft Ambient Filter for Hand-Block Textile Look -->
+    <linearGradient id="petal-bloom" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#df9caa" stop-opacity="0.35" />
+      <stop offset="100%" stop-color="#b8546b" stop-opacity="0.22" />
+    </linearGradient>
+    <linearGradient id="petal-sage" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#aabda9" stop-opacity="0.35" />
+      <stop offset="100%" stop-color="#4e674e" stop-opacity="0.22" />
+    </linearGradient>
+  </defs>
+
+  <!-- 1. BLOOM PINK FLOWER ROSETTE (Center at 25, 25) -->
+  <g transform="translate(25, 25)">
+    <!-- 4 Rounded Petals -->
+    <ellipse cx="0" cy="-7" rx="3.5" ry="5.5" fill="url(#petal-bloom)" />
+    <ellipse cx="0" cy="7" rx="3.5" ry="5.5" fill="url(#petal-bloom)" />
+    <ellipse cx="-7" cy="0" rx="5.5" ry="3.5" fill="url(#petal-bloom)" />
+    <ellipse cx="7" cy="0" rx="5.5" ry="3.5" fill="url(#petal-bloom)" />
+    <!-- Diagonal Subtle Petal Whispers -->
+    <circle cx="-4" cy="-4" r="2.2" fill="#ecc0c5" fill-opacity="0.3" />
+    <circle cx="4" cy="-4" r="2.2" fill="#ecc0c5" fill-opacity="0.3" />
+    <circle cx="-4" cy="4" r="2.2" fill="#ecc0c5" fill-opacity="0.3" />
+    <circle cx="4" cy="4" r="2.2" fill="#ecc0c5" fill-opacity="0.3" />
+    <!-- Rosette Core -->
+    <circle cx="0" cy="0" r="2.2" fill="#9b4255" fill-opacity="0.4" />
+    <circle cx="0" cy="0" r="0.9" fill="#ffffff" fill-opacity="0.85" />
+  </g>
+
+  <!-- 2. BOTANIC SAGE FLOWER ROSETTE (Center at 75, 75) -->
+  <g transform="translate(75, 75)">
+    <!-- 4 Rounded Petals -->
+    <ellipse cx="0" cy="-7" rx="3.5" ry="5.5" fill="url(#petal-sage)" />
+    <ellipse cx="0" cy="7" rx="3.5" ry="5.5" fill="url(#petal-sage)" />
+    <ellipse cx="-7" cy="0" rx="5.5" ry="3.5" fill="url(#petal-sage)" />
+    <ellipse cx="7" cy="0" rx="5.5" ry="3.5" fill="url(#petal-sage)" />
+    <!-- Diagonal Subtle Petal Whispers -->
+    <circle cx="-4" cy="-4" r="2.2" fill="#cdd7cd" fill-opacity="0.3" />
+    <circle cx="4" cy="-4" r="2.2" fill="#cdd7cd" fill-opacity="0.3" />
+    <circle cx="-4" cy="4" r="2.2" fill="#cdd7cd" fill-opacity="0.3" />
+    <circle cx="4" cy="4" r="2.2" fill="#cdd7cd" fill-opacity="0.3" />
+    <!-- Rosette Core -->
+    <circle cx="0" cy="0" r="2.2" fill="#3e523e" fill-opacity="0.4" />
+    <circle cx="0" cy="0" r="0.9" fill="#ffffff" fill-opacity="0.85" />
+  </g>
+
+  <!-- 3. SAGE STAR MOTIF (Center at 75, 25) -->
+  <g transform="translate(75, 25)">
+    <path d="M0 -8 Q3 -3 8 0 Q3 3 0 8 Q-3 3 -8 0 Q-3 -3 0 -8 Z" fill="#849d84" fill-opacity="0.18" stroke="#4e674e" stroke-opacity="0.25" stroke-width="0.6" />
+    <circle cx="0" cy="0" r="1.8" fill="#b8546b" fill-opacity="0.35" />
+  </g>
+
+  <!-- 4. BLOOM STAR MOTIF (Center at 25, 75) -->
+  <g transform="translate(25, 75)">
+    <path d="M0 -8 Q3 -3 8 0 Q3 3 0 8 Q-3 3 -8 0 Q-3 -3 0 -8 Z" fill="#df9caa" fill-opacity="0.18" stroke="#b8546b" stroke-opacity="0.25" stroke-width="0.6" />
+    <circle cx="0" cy="0" r="1.8" fill="#4e674e" fill-opacity="0.35" />
+  </g>
+
+  <!-- 5. TILE SEAM CORNERS (0, 0), (100, 0), (0, 100), (100, 100) -->
+  <!-- Top-Left (0, 0) -->
+  <g transform="translate(0, 0)">
+    <circle cx="0" cy="0" r="2.2" fill="#648064" fill-opacity="0.25" />
+    <circle cx="5" cy="0" r="1.4" fill="#ecc0c5" fill-opacity="0.2" />
+    <circle cx="0" cy="5" r="1.4" fill="#cdd7cd" fill-opacity="0.2" />
+  </g>
+  <!-- Top-Right (100, 0) -->
+  <g transform="translate(100, 0)">
+    <circle cx="0" cy="0" r="2.2" fill="#648064" fill-opacity="0.25" />
+    <circle cx="-5" cy="0" r="1.4" fill="#ecc0c5" fill-opacity="0.2" />
+    <circle cx="0" cy="5" r="1.4" fill="#cdd7cd" fill-opacity="0.2" />
+  </g>
+  <!-- Bottom-Left (0, 100) -->
+  <g transform="translate(0, 100)">
+    <circle cx="0" cy="0" r="2.2" fill="#648064" fill-opacity="0.25" />
+    <circle cx="5" cy="0" r="1.4" fill="#ecc0c5" fill-opacity="0.2" />
+    <circle cx="0" cy="-5" r="1.4" fill="#cdd7cd" fill-opacity="0.2" />
+  </g>
+  <!-- Bottom-Right (100, 100) -->
+  <g transform="translate(100, 100)">
+    <circle cx="0" cy="0" r="2.2" fill="#648064" fill-opacity="0.25" />
+    <circle cx="-5" cy="0" r="1.4" fill="#ecc0c5" fill-opacity="0.2" />
+    <circle cx="0" cy="-5" r="1.4" fill="#cdd7cd" fill-opacity="0.2" />
+  </g>
+
+  <!-- 6. GRID CONNECTOR MICRO ACCENTS (Center at 50, 50 and edges) -->
+  <g transform="translate(50, 50)">
+    <circle cx="0" cy="0" r="1.4" fill="#4e674e" fill-opacity="0.2" />
+    <circle cx="-3" cy="0" r="0.8" fill="#b8546b" fill-opacity="0.2" />
+    <circle cx="3" cy="0" r="0.8" fill="#b8546b" fill-opacity="0.2" />
+    <circle cx="0" cy="-3" r="0.8" fill="#4e674e" fill-opacity="0.2" />
+    <circle cx="0" cy="3" r="0.8" fill="#4e674e" fill-opacity="0.2" />
+  </g>
+
+  <!-- Edge midpoint connectors -->
+  <circle cx="50" cy="0" r="1" fill="#df9caa" fill-opacity="0.22" />
+  <circle cx="50" cy="100" r="1" fill="#df9caa" fill-opacity="0.22" />
+  <circle cx="0" cy="50" r="1" fill="#849d84" fill-opacity="0.22" />
+  <circle cx="100" cy="50" r="1" fill="#849d84" fill-opacity="0.22" />
+</svg>
