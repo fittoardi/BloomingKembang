@@ -167,7 +167,7 @@
                     <div class="absolute inset-0 bg-gradient-to-r from-stone-950/92 via-stone-950/60 to-stone-950/25 sm:from-stone-950/95 sm:via-stone-950/55 sm:to-transparent pointer-events-none"></div>
 
                     <!-- Slide Content -->
-                    <div class="relative z-10 max-w-7xl mx-auto px-6 sm:px-12 w-full flex flex-col justify-center text-white py-12">
+                    <div class="relative z-10 w-full px-6 sm:px-12 lg:px-16 xl:px-20 flex flex-col justify-center text-white py-12">
                         <div class="max-w-3xl space-y-4">
                             <!-- Category Tag Pill -->
                             <div>
@@ -240,8 +240,8 @@
     </section>
 
     <!-- 2. CIRCULAR CATEGORY SHORTCUTS (HIJAU BOTANIC & PINK BLOOM) -->
-    <section class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10 border-b border-stone-200/80">
-        <div class="grid grid-cols-3 sm:grid-cols-6 gap-4 sm:gap-6 text-center">
+    <section class="w-full px-4 sm:px-8 lg:px-12 xl:px-16 py-8 sm:py-10 border-b border-stone-200/80">
+        <div class="grid grid-cols-3 sm:grid-cols-6 gap-4 sm:gap-6 lg:gap-8 xl:gap-12 text-center">
             <!-- 1. Segi Empat -->
             <a href="{{ url('/koleksi/hijab-segi-empat') }}" class="group flex flex-col items-center space-y-2">
                 <div class="w-20 h-20 sm:w-24 sm:h-24 rounded-full overflow-hidden border-2 border-stone-200 group-hover:border-bloom shadow-xs group-hover:shadow-md transition-all duration-300 p-0.5 bg-white">
@@ -293,7 +293,7 @@
     </section>
 
     <!-- 3. SPOTLIGHT HERO PRODUCT: KEISHA VERSA (KOMBINASI BOTANIC & BLOOM) -->
-    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
+    <section class="w-full px-4 sm:px-8 lg:px-12 xl:px-16 py-12 sm:py-16">
         <div class="bg-gradient-to-br from-sage-50/60 via-white to-blush-50/50 border border-sage-200/90 rounded-2xl overflow-hidden shadow-xs p-6 sm:p-10 lg:p-12">
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
                 <!-- Left: Lookbook Rack Image -->
@@ -395,7 +395,7 @@
     </section>
 
     <!-- 4. DESIGNED FOR EVERYDAY MODESTY (DUAL-TONE ACCENT CARDS) -->
-    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+    <section class="w-full px-4 sm:px-8 lg:px-12 xl:px-16 py-8 sm:py-12">
         <div class="text-center max-w-2xl mx-auto mb-10 space-y-2">
             <span class="text-[11px] uppercase tracking-[0.2em] text-bloom font-semibold block flex items-center justify-center gap-1.5">
                 <span class="w-1.5 h-1.5 rounded-full bg-botanic"></span>
@@ -480,7 +480,7 @@
                 { name: 'Baby Lilac', code: '224', hex: '#9F8AA4', note: 'Lembut, Feminin & Syahdu' }
             ]
         }"
-        class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12"
+        class="w-full px-4 sm:px-8 lg:px-12 xl:px-16 py-12"
     >
         <div class="bg-gradient-to-r from-sage-50/40 via-white to-blush-50/40 border border-sage-200/90 rounded-2xl p-6 sm:p-10 shadow-xs">
             <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-6 pb-6 border-b border-sage-200/80">
@@ -542,7 +542,7 @@
     </section>
 
     <!-- 6. CURATED BEST SELLERS CATALOG GRID (KOMBINASI BOTANIC & BLOOM) -->
-    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
+    <section class="w-full px-4 sm:px-8 lg:px-12 xl:px-16 py-14">
         <div class="flex items-center justify-between mb-8 pb-3 border-b border-sage-200/80">
             <div>
                 <span class="text-[11px] uppercase tracking-[0.2em] text-bloom font-semibold block mb-0.5 flex items-center gap-1.5">
@@ -559,7 +559,7 @@
             </a>
         </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 sm:gap-8">
             @forelse($featuredProducts as $product)
                 <div class="group flex flex-col justify-between border border-sage-200/80 bg-white p-4 hover:border-botanic hover:shadow-md transition-all rounded-lg">
                     <!-- Photo Frame -->
@@ -626,7 +626,7 @@
 
     <!-- 7. 4-PILLAR VALUE PROPOSITIONS (HARMONISASI ALTERNASI BOTANIC & BLOOM) -->
     <section class="border-y border-sage-200/80 bg-white py-12">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="w-full px-4 sm:px-8 lg:px-12 xl:px-16">
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                 <!-- 1. All-Channel Shopping (Botanic Green Card) -->
                 <div class="flex items-start gap-4 p-4 bg-sage-50/80 border border-sage-200/90 rounded-lg hover:border-botanic transition-colors shadow-2xs">
@@ -676,7 +676,7 @@
     </section>
 
     <!-- 8. TESTIMONIALS / SUARA PELANGGAN (KOMBINASI BOTANIC & BLOOM) -->
-    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+    <section class="w-full px-4 sm:px-8 lg:px-12 xl:px-16 py-16">
         <div class="text-center max-w-2xl mx-auto mb-12 space-y-2">
             <span class="text-[11px] uppercase tracking-[0.2em] text-botanic font-semibold block flex items-center justify-center gap-1.5">
                 <span class="w-1.5 h-1.5 rounded-full bg-bloom"></span>

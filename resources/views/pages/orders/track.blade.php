@@ -1,4 +1,4 @@
-<div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+<div class="max-w-6xl mx-auto px-4 sm:px-8 lg:px-12 py-12">
     <!-- Header -->
     <div class="text-center space-y-2 pb-8 border-b border-sage-200/80">
         <span class="text-xs uppercase font-mono tracking-widest text-botanic font-semibold flex items-center justify-center gap-1.5">

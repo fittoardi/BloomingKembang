@@ -1,4 +1,4 @@
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+<div class="w-full px-4 sm:px-8 lg:px-12 xl:px-16 py-12">
     <!-- Breadcrumb / Header -->
     <div class="border-b border-bone pb-6 mb-8 flex flex-col sm:flex-row sm:items-baseline justify-between gap-4">
         <div>
@@ -68,7 +68,7 @@
                     </div>
                 </div>
             @else
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                     @foreach($wishlists as $item)
                         @php
                             $prod = $item->product;

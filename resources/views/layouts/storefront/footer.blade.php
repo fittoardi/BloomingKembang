@@ -1,6 +1,6 @@
 <!-- Refined Atelier Colophon Footer (Kombinasi Hijau Botanic & Pink Bloom) -->
 <footer class="border-t border-sage-200/80 bg-gradient-to-b from-transparent via-sage-50/40 to-blush-50/30 mt-24 py-16 text-xs text-stone-800">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-4 gap-12">
+    <div class="w-full px-4 sm:px-8 lg:px-12 xl:px-16 grid grid-cols-1 md:grid-cols-4 gap-12">
         <div class="space-y-3">
             <a href="{{ url('/') }}" class="inline-block focus:outline-none" aria-label="Beranda BloomingKembang">
                 <img src="{{ asset('images/logo.png') }}" alt="{{ config('app.name', 'BloomingKembang') }}" class="h-8 w-auto object-contain" />
@@ -50,7 +50,7 @@
         </div>
     </div>
 
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-12 pt-8 border-t border-sage-200/60 flex flex-col sm:flex-row items-center justify-between text-[11px] text-stone-500">
+    <div class="w-full px-4 sm:px-8 lg:px-12 xl:px-16 mt-12 pt-8 border-t border-sage-200/60 flex flex-col sm:flex-row items-center justify-between text-[11px] text-stone-500">
         <p>&copy; {{ date('Y') }} Blooming<span class="text-bloom italic">Kembang</span>. Hak cipta dilindungi.</p>
         <p class="mt-2 sm:mt-0 tracking-wider text-botanic font-medium">Keanggunan Muslimah yang Bersahaja</p>
     </div>

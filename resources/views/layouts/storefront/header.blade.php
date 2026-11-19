@@ -1,6 +1,6 @@
 <!-- Minimal Header Navigation -->
 <header x-data="{ mobileMenuOpen: false }" class="border-b border-blush-200/60 bg-white/85 backdrop-blur-md sticky top-0 z-40 transition-colors shadow-[0_2px_12px_rgba(78,103,78,0.03)]">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+    <div class="w-full px-4 sm:px-8 lg:px-12 xl:px-16 h-16 flex items-center justify-between">
         <!-- Left: Mobile Menu Toggle & Desktop Nav -->
         <div class="flex items-center space-x-3">
             <!-- Mobile Hamburger Button (Tampil hanya pada tampilan mobile < md) -->

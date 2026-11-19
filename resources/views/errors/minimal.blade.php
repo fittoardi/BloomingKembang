@@ -18,7 +18,7 @@
 <body class="bg-[#faf9f7] text-stone-800 font-sans antialiased selection:bg-blush-200 selection:text-blush-900 min-h-screen flex flex-col justify-between">
     <!-- Mini Header -->
     <header class="py-6 border-b border-stone-200/80 bg-white/80 backdrop-blur-md sticky top-0 z-10">
-        <div class="max-w-6xl mx-auto px-4 sm:px-6 flex items-center justify-between">
+        <div class="w-full px-4 sm:px-8 lg:px-12 xl:px-16 flex items-center justify-between">
             <a href="{{ url('/') }}" class="group flex items-center focus:outline-none" aria-label="Beranda BloomingKembang">
                 <img src="{{ asset('images/logo.png') }}" alt="{{ config('app.name', 'BloomingKembang') }}" class="h-8 sm:h-9 w-auto object-contain transition-transform duration-300 group-hover:scale-105" />
             </a>

@@ -86,4 +86,3 @@ test('503 maintenance error page renders custom branded template', function () {
     $response->assertSee('Kode 503', false);
     $response->assertSee('Sistem Sedang Diperbarui', false);
 });
-

@@ -1,6 +1,6 @@
 <!-- Botanical Green & Blossom Pink Gradient Top Announcement Bar -->
 <div class="bg-gradient-to-r from-sage-900 via-botanic to-bloom text-white text-xs tracking-wider border-b border-white/15 select-none shadow-xs">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2 flex flex-col sm:flex-row items-center justify-between gap-1.5 sm:gap-4 text-[11px] font-sans">
+    <div class="w-full px-4 sm:px-8 lg:px-12 xl:px-16 py-2 flex flex-col sm:flex-row items-center justify-between gap-1.5 sm:gap-4 text-[11px] font-sans">
         <!-- Pengiriman Info -->
         <div class="inline-flex items-center gap-1.5 text-white/95 text-center sm:text-left">
             <svg class="w-3.5 h-3.5 text-blush-200 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">

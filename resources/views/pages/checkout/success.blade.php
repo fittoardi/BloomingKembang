@@ -1,4 +1,4 @@
-<div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
+<div class="max-w-5xl mx-auto px-4 sm:px-8 lg:px-12 py-12 sm:py-16">
     <div class="border border-sage-200/90 bg-white/95 backdrop-blur-xs rounded-lg shadow-sm p-8 sm:p-12 space-y-8">
         <!-- Top Banner -->
         <div class="text-center space-y-3 pb-8 border-b border-sage-100">

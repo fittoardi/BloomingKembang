@@ -1,4 +1,4 @@
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-16" x-data="{ mobileFilterOpen: false }">
+<div class="w-full px-4 sm:px-8 lg:px-12 xl:px-16 py-10 sm:py-16" x-data="{ mobileFilterOpen: false }">
     <!-- Header Koleksi -->
     <div class="mb-10 pb-6 border-b border-bone">
         <nav class="text-[11px] uppercase tracking-wider text-neutral-400 mb-3 flex items-center space-x-2">
@@ -222,7 +222,7 @@
                     </div>
                 </div>
             @else
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 sm:gap-8">
                     @foreach($products as $product)
                         @php
                             $firstVariant = $product->variants->first();

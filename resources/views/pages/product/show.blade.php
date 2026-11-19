@@ -1,4 +1,4 @@
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-16">
+<div class="w-full px-4 sm:px-8 lg:px-12 xl:px-16 py-10 sm:py-16">
     <!-- Breadcrumb Nav -->
     <nav class="text-[11px] uppercase tracking-wider text-neutral-400 mb-8 flex items-center space-x-2">
         <a href="{{ url('/') }}" class="hover:text-obsidian transition-colors">Beranda</a>

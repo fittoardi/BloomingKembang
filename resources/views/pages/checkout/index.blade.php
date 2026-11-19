@@ -1,4 +1,4 @@
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-16">
+<div class="w-full px-4 sm:px-8 lg:px-12 xl:px-16 py-10 sm:py-16">
     <!-- Header Checkout -->
     <div class="border-b border-bone pb-6 mb-10">
         <nav class="text-[10px] tracking-widest uppercase font-mono text-neutral-400 mb-2 flex items-center space-x-2">

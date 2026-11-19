@@ -1,5 +1,5 @@
 <x-storefront-layout title="Pengaturan Profil — BloomingKembang">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="w-full px-4 sm:px-8 lg:px-12 xl:px-16 py-12">
         <!-- Breadcrumb / Heading -->
         <div class="border-b border-sage-200/80 pb-6 mb-8 flex flex-col sm:flex-row sm:items-baseline justify-between gap-4">
             <div>
