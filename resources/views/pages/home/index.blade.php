@@ -760,10 +760,10 @@
 
             <div class="space-y-2">
                 <h3 class="text-xl sm:text-3xl font-serif font-normal uppercase tracking-wider text-stone-900">
-                    Daftar Warta & Peluncuran Koleksi Baru
+                    Dapatkan Voucher Sambutan Diskon 10%
                 </h3>
                 <p class="text-xs sm:text-sm text-stone-600 max-w-lg mx-auto leading-relaxed">
-                    Daftarkan alamat email Anda untuk menerima kabar peluncuran warna baru, restock produk unggulan, dan inspirasi modest terkini.
+                    Daftarkan alamat email Anda untuk menerima kabar peluncuran warna baru, restock produk unggulan, dan kupon potongan belanja pertama.
                 </p>
             </div>
 
@@ -790,7 +790,7 @@
                 <template x-if="submitted">
                     <div class="p-4 bg-white border border-sage-300 text-stone-800 rounded-xs text-xs font-medium space-y-1 shadow-xs">
                         <p class="text-sm font-semibold text-botanic">✓ Terima kasih telah bergabung!</p>
-                        <p class="text-stone-600 text-[11px]">Anda akan menerima kabar pertama saat koleksi dan warna favorit kami resmi dirilis.</p>
+                        <p class="text-stone-600 text-[11px]">Kupon sambutan 10% Anda: <strong class="font-mono text-stone-900 uppercase">RAMADHAN20</strong>. Gunakan saat melakukan checkout pesanan pertama Anda.</p>
                     </div>
                 </template>
 
