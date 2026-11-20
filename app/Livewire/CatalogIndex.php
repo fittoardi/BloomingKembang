@@ -2,7 +2,6 @@
 
 namespace App\Livewire;
 
-use App\Enums\ProductStatus;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\ProductVariant;
@@ -77,7 +76,7 @@ class CatalogIndex extends Component
             ->distinct()
             ->get();
 
-        $availableMaterials = Product::where('status', ProductStatus::Active)
+        $availableMaterials = Product::active()
             ->whereNotNull('material')
             ->pluck('material')
             ->unique()
@@ -88,7 +87,7 @@ class CatalogIndex extends Component
             ->with(['category', 'variants' => function ($q) {
                 $q->where('is_active', true)->orderBy('position');
             }])
-            ->where('status', ProductStatus::Active);
+            ->active();
 
         // Filter search term
         if (! empty(trim($this->search))) {

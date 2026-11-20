@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SitemapController;
 use App\Livewire\Account\AddressBook;
@@ -14,9 +15,7 @@ use App\Livewire\StaticPage;
 use App\Livewire\TrackOrder;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('pages.home.index');
-});
+Route::get('/', HomeController::class)->name('home');
 
 // Katalog & Produk Storefront
 Route::get('/koleksi', CatalogIndex::class)->name('catalog.index');

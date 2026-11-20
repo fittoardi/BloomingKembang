@@ -38,7 +38,7 @@ class ProductShow extends Component
             $q->where('is_active', true)->orderBy('position');
         }])
             ->where('slug', $slug)
-            ->where('status', ProductStatus::Active)
+            ->active()
             ->firstOrFail();
 
         // Pilih varian pertama yang ada stoknya, atau fallback ke varian pertama

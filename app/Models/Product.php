@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Enums\ProductStatus;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -68,6 +69,16 @@ class Product extends Model implements HasMedia
     public function approvedReviews(): HasMany
     {
         return $this->hasMany(Review::class)->where('is_approved', true)->latest();
+    }
+
+    public function scopeActive(Builder $query): Builder
+    {
+        return $query->where('status', ProductStatus::Active);
+    }
+
+    public function scopeFeatured(Builder $query): Builder
+    {
+        return $query->where('is_featured', true);
     }
 
     public function registerMediaCollections(): void
