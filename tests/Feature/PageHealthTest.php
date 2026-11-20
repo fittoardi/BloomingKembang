@@ -104,12 +104,13 @@ test('guest is redirected to login when accessing admin panel', function () {
     $response->assertRedirect('/login');
 });
 
-test('home page renders storefront sections successfully', function () {
+test('home page renders hero carousel with auto slide and indicators', function () {
     $response = $this->get('/');
     $response->assertOk();
-    $response->assertSee('Segi Empat', false);
-    $response->assertSee('Pashmina', false);
-    $response->assertSee('Bergo Daily', false);
-    $response->assertSee('DESIGNED FOR EVERYDAY MODESTY', false);
-    $response->assertSee('Koleksi Terlaris', false);
+    $response->assertSee('aria-roledescription="carousel"', false);
+    $response->assertSee('intervalMs: 2000', false);
+    $response->assertSee('Pashmina Silk Shimmer &amp; Ceruty Flowy', false);
+    $response->assertSee('Voal Miracle &amp; Segi Empat Laser Cut', false);
+    $response->assertDontSee('aria-label="Slide sebelumnya"', false);
+    $response->assertDontSee('aria-label="Slide selanjutnya"', false);
 });

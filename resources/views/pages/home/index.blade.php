@@ -1,5 +1,79 @@
 <x-storefront-layout title="BloomingKembang — Koleksi Hijab Elegan & Bersahaja">
     @php
+        $heroBanners = \App\Models\Banner::where('is_active', true)
+            ->where('position', 'hero')
+            ->where(fn($q) => $q->whereNull('starts_at')->orWhere('starts_at', '<=', now()))
+            ->where(fn($q) => $q->whereNull('ends_at')->orWhere('ends_at', '>=', now()))
+            ->orderBy('sort_order')
+            ->get();
+
+        $defaultSlides = [
+            [
+                'title' => 'Sentuhan Lembut & Elegan Hijab Pilihan',
+                'subtitle' => 'Ditenun dari serat voal ultrafine dan ceruty babydoll pilihan. Lembut bersahaja, tegak di dahi, dan anggun dalam setiap momen.',
+                'image' => 'images/home/hero-portrait.jpg',
+                'link_url' => '/koleksi',
+                'tag' => 'Koleksi Signature',
+                'badge' => 'Voal Ultrafine Turkish',
+                'cta_text' => 'Jelajahi Koleksi',
+            ],
+            [
+                'title' => 'Pashmina Silk Shimmer & Ceruty Flowy',
+                'subtitle' => 'Kilau lembut mewah yang memikat dengan drape kain jatuh sempurna. Sangat anggun untuk resepsi dan momen istimewa.',
+                'image' => 'images/products/pashmina-silk.jpg',
+                'link_url' => '/koleksi/pashmina',
+                'tag' => 'Shimmer & Glow',
+                'badge' => 'Silk Shimmer',
+                'cta_text' => 'Lihat Pashmina',
+            ],
+            [
+                'title' => 'Voal Miracle & Segi Empat Laser Cut',
+                'subtitle' => 'Potongan laser cut presisi dengan tekstur kain anti kusut. Pilihan tepat untuk kenyamanan seharian penuh percaya diri.',
+                'image' => 'images/products/voal-signature.jpg',
+                'link_url' => '/koleksi/hijab-segi-empat',
+                'tag' => 'Best Seller Voal',
+                'badge' => 'Laser Cut Edge',
+                'cta_text' => 'Beli Voal Miracle',
+            ],
+            [
+                'title' => 'Bergo Daily & Khimar Soft Pet Series',
+                'subtitle' => 'Praktis, langsung pakai, dan sejuk di cuaca tropis. Jahit butik tepi halus dengan ketahanan bahan tinggi.',
+                'image' => 'images/products/bergo-daily.jpg',
+                'link_url' => '/koleksi/bergo-daily',
+                'tag' => 'Daily Practical Wear',
+                'badge' => 'Instant Bergo',
+                'cta_text' => 'Lihat Bergo Daily',
+            ],
+            [
+                'title' => 'Koleksi Syar\'i & Elegan 2026',
+                'subtitle' => 'Ditenun dari serat voal ultrafine dan ceruty babydoll pilihan. Sempurna menemani ibadah dan aktivitas harian Anda.',
+                'image' => 'images/home/hero-editorial.jpg',
+                'link_url' => '/koleksi',
+                'tag' => 'Editorial Syar\'i',
+                'badge' => 'Coverage & Comfort',
+                'cta_text' => 'Temukan Koleksi',
+            ],
+        ];
+
+        $slides = [];
+        if ($heroBanners->isNotEmpty()) {
+            foreach ($heroBanners as $idx => $banner) {
+                $preset = $defaultSlides[$idx % count($defaultSlides)];
+                $slides[] = [
+                    'id' => $banner->id,
+                    'title' => $banner->title,
+                    'subtitle' => $banner->subtitle ?? $preset['subtitle'],
+                    'image' => $banner->image ?: $preset['image'],
+                    'link_url' => $banner->link_url ?: $preset['link_url'],
+                    'tag' => $preset['tag'],
+                    'badge' => $preset['badge'],
+                    'cta_text' => $preset['cta_text'],
+                ];
+            }
+        } else {
+            $slides = $defaultSlides;
+        }
+
         $featuredProducts = \App\Models\Product::with(['category', 'variants'])
             ->where('status', \App\Enums\ProductStatus::Active)
             ->orderBy('sold_count', 'desc')
@@ -7,7 +81,155 @@
             ->get();
     @endphp
 
-    <!-- 1. CIRCULAR CATEGORY SHORTCUTS (HIJAU BOTANIC & PINK BLOOM) -->
+    <!-- 1. HERO CAROUSEL: FULL WIDTH, NATIVE 16:9 VIDEO RATIO (AUTOPLAY OTOMATIS) -->
+    <section 
+        x-data="{
+            current: 0,
+            total: {{ count($slides) }},
+            intervalMs: 2000,
+            timer: null,
+            touchStartX: 0,
+            touchEndX: 0,
+            init() {
+                this.startAutoplay();
+            },
+            startAutoplay() {
+                this.clearTimer();
+                this.timer = setInterval(() => {
+                    this.next();
+                }, this.intervalMs);
+            },
+            clearTimer() {
+                if (this.timer) {
+                    clearInterval(this.timer);
+                    this.timer = null;
+                }
+            },
+            next() {
+                this.current = (this.current + 1) % this.total;
+            },
+            prev() {
+                this.current = (this.current - 1 + this.total) % this.total;
+            },
+            goTo(index) {
+                this.current = index;
+                this.startAutoplay();
+            },
+            handleTouchStart(e) {
+                this.touchStartX = e.changedTouches[0].screenX;
+            },
+            handleTouchEnd(e) {
+                this.touchEndX = e.changedTouches[0].screenX;
+                if (this.touchStartX - this.touchEndX > 45) {
+                    this.next();
+                    this.startAutoplay();
+                } else if (this.touchEndX - this.touchStartX > 45) {
+                    this.prev();
+                    this.startAutoplay();
+                }
+            }
+        }"
+        @mouseenter="clearTimer()"
+        @mouseleave="startAutoplay()"
+        @focusin="clearTimer()"
+        @focusout="startAutoplay()"
+        @keydown.arrow-right="next(); startAutoplay()"
+        @keydown.arrow-left="prev(); startAutoplay()"
+        @touchstart="handleTouchStart($event)"
+        @touchend="handleTouchEnd($event)"
+        tabindex="0"
+        class="w-full relative overflow-hidden bg-stone-900 select-none focus:outline-none aspect-video aspect-[16/9]"
+        style="aspect-ratio: 16 / 9;"
+        aria-roledescription="carousel"
+        aria-label="Koleksi Unggulan BloomingKembang"
+    >
+        <!-- Background Video (Woman Posing in Hijab for E-Commerce - 1920x1080 Native Aspect) -->
+        <div class="absolute inset-0 w-full h-full overflow-hidden z-0 pointer-events-none select-none">
+            @if(file_exists(public_path('videos/hero-background.mp4')))
+                <video 
+                    autoplay 
+                    loop 
+                    muted 
+                    playsinline 
+                    preload="auto"
+                    class="w-full h-full object-cover object-center"
+                    poster="{{ asset('images/home/hero-portrait.jpg') }}"
+                >
+                    <source src="{{ asset('videos/hero-background.mp4') }}" type="video/mp4">
+                </video>
+            @else
+                <div class="w-full h-full bg-gradient-to-br from-stone-900 via-stone-850 to-sage-950"></div>
+            @endif
+
+            <!-- Atmospheric Gradient Overlays for Contrast & Text Readability -->
+            <div class="absolute inset-0 bg-gradient-to-r from-stone-950/92 via-stone-950/60 to-stone-950/25 sm:from-stone-950/92 sm:via-stone-950/50 sm:to-transparent pointer-events-none"></div>
+            <div class="absolute inset-0 bg-gradient-to-t from-stone-950/80 via-transparent to-stone-950/40 pointer-events-none"></div>
+        </div>
+
+        <!-- Slide Track Stack (Matches Video Aspect Ratio 16:9) -->
+        <div class="relative w-full h-full z-10">
+            @foreach ($slides as $index => $slide)
+                <div 
+                    x-show="current === {{ $index }}"
+                    {{ $index > 0 ? 'x-cloak' : '' }}
+                    x-transition:enter="transition-opacity ease-out duration-700"
+                    x-transition:enter-start="opacity-0"
+                    x-transition:enter-end="opacity-100"
+                    x-transition:leave="transition-opacity ease-in duration-500"
+                    x-transition:leave-start="opacity-100"
+                    x-transition:leave-end="opacity-0"
+                    class="absolute inset-0 w-full h-full flex items-center"
+                >
+                    <!-- Slide Content -->
+                    <div class="relative z-10 w-full px-5 sm:px-10 lg:px-16 xl:px-20 flex flex-col justify-center text-white py-6 sm:py-10 lg:py-16">
+                        <div class="max-w-3xl space-y-2 sm:space-y-3.5 lg:space-y-4">
+                            <!-- Category Tag Pill -->
+                            <div>
+                                <span class="inline-flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-3.5 py-0.5 sm:py-1 rounded-full bg-stone-900/60 backdrop-blur-md text-stone-200 text-[10px] sm:text-[11px] font-sans uppercase tracking-[0.2em] font-medium border border-white/20">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-bloom"></span>
+                                    {{ $slide['tag'] }}
+                                </span>
+                            </div>
+
+                            <!-- Title (Responsive with 16:9 Frame) -->
+                            <h1 class="text-xl sm:text-3xl md:text-5xl lg:text-6xl font-serif font-normal uppercase tracking-wider text-white leading-tight drop-shadow-md">
+                                {{ $slide['title'] }}
+                            </h1>
+
+                            <!-- Subtitle -->
+                            <p class="text-xs sm:text-sm md:text-base text-stone-100 max-w-2xl font-normal leading-relaxed drop-shadow-xs line-clamp-2 sm:line-clamp-none">
+                                {{ $slide['subtitle'] }}
+                            </p>
+
+                            <!-- CTAs & Badge -->
+                            <div class="pt-2 sm:pt-4 flex flex-wrap items-center gap-2.5 sm:gap-4">
+                                <a 
+                                    href="{{ url($slide['link_url']) }}" 
+                                    class="px-5 sm:px-8 py-2.5 sm:py-3.5 bg-bloom hover:bg-blush-700 active-press text-white text-[11px] sm:text-xs uppercase tracking-widest font-semibold transition-all rounded-xs shadow-md inline-flex items-center gap-2 group"
+                                >
+                                    <span>{{ $slide['cta_text'] }}</span>
+                                    <span class="group-hover:translate-x-1 transition-transform">&rarr;</span>
+                                </a>
+
+                                <a 
+                                    href="{{ url('/koleksi') }}" 
+                                    class="px-4 sm:px-7 py-2.5 sm:py-3.5 bg-botanic/90 hover:bg-botanic active-press text-white border border-white/20 text-[11px] sm:text-xs uppercase tracking-widest font-semibold transition-all rounded-xs backdrop-blur-xs"
+                                >
+                                    Semua Koleksi
+                                </a>
+
+                                <span class="hidden sm:inline-flex items-center text-[11px] font-medium tracking-[0.16em] text-stone-200 uppercase px-3.5 py-1.5 bg-black/40 rounded-full backdrop-blur-xs border border-white/15">
+                                    {{ $slide['badge'] }}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            @endforeach
+        </div>
+    </section>
+
+    <!-- 2. CIRCULAR CATEGORY SHORTCUTS (HIJAU BOTANIC & PINK BLOOM) -->
     <section class="w-full px-4 sm:px-8 lg:px-12 xl:px-16 py-8 sm:py-10 border-b border-stone-200/80">
         @php
             $catShortcuts = [
@@ -37,7 +259,7 @@
         </div>
     </section>
 
-    <!-- 2. DESIGNED FOR EVERYDAY MODESTY (DUAL-TONE ACCENT CARDS) -->
+    <!-- 3. DESIGNED FOR EVERYDAY MODESTY (DUAL-TONE ACCENT CARDS) -->
     <section class="w-full px-4 sm:px-8 lg:px-12 xl:px-16 py-8 sm:py-12">
         <div class="text-center max-w-2xl mx-auto mb-10 space-y-2">
             <span class="text-[11px] uppercase tracking-[0.2em] text-bloom font-semibold block flex items-center justify-center gap-1.5">
@@ -106,7 +328,7 @@
         </div>
     </section>
 
-    <!-- 3. CURATED BEST SELLERS CATALOG GRID (KOMBINASI BOTANIC & BLOOM) -->
+    <!-- 4. CURATED BEST SELLERS CATALOG GRID (KOMBINASI BOTANIC & BLOOM) -->
     <section class="w-full px-4 sm:px-8 lg:px-12 xl:px-16 py-14">
         <div class="flex items-center justify-between mb-8 pb-3 border-b border-sage-200/80">
             <div>
@@ -189,7 +411,7 @@
         </div>
     </section>
 
-    <!-- 4. 4-PILLAR VALUE PROPOSITIONS (HARMONISASI ALTERNASI BOTANIC & BLOOM) -->
+    <!-- 5. 4-PILLAR VALUE PROPOSITIONS (HARMONISASI ALTERNASI BOTANIC & BLOOM) -->
     <section class="border-y border-sage-200/80 bg-white/70 backdrop-blur-xs py-12">
         <div class="w-full px-4 sm:px-8 lg:px-12 xl:px-16">
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -240,7 +462,7 @@
         </div>
     </section>
 
-    <!-- 5. TESTIMONIALS / SUARA PELANGGAN (KOMBINASI BOTANIC & BLOOM) -->
+    <!-- 6. TESTIMONIALS / SUARA PELANGGAN (KOMBINASI BOTANIC & BLOOM) -->
     <section class="w-full px-4 sm:px-8 lg:px-12 xl:px-16 py-16">
         <div class="text-center max-w-2xl mx-auto mb-12 space-y-2">
             <span class="text-[11px] uppercase tracking-[0.2em] text-botanic font-semibold block flex items-center justify-center gap-1.5">
@@ -315,7 +537,7 @@
         </div>
     </section>
 
-    <!-- 6. NEWSLETTER & ATELIER UPDATES (SOFT BOTANIC & BLOOM GRADIENT) -->
+    <!-- 7. NEWSLETTER & ATELIER UPDATES (SOFT BOTANIC & BLOOM GRADIENT) -->
     <section class="border-t border-sage-200/80 bg-gradient-to-r from-sage-50/70 via-white to-blush-50/70 py-16">
         <div class="max-w-4xl mx-auto px-4 text-center space-y-6" x-data="{ email: '', submitted: false }">
             <span class="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-white border border-sage-200 text-botanic text-[10px] uppercase tracking-[0.18em] font-medium shadow-2xs">
