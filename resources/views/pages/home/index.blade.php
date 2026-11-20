@@ -180,8 +180,8 @@
                     x-transition:leave-end="opacity-0"
                     class="absolute inset-0 w-full h-full flex items-center"
                 >
-                    <!-- Slide Content -->
-                    <div class="relative z-10 w-full px-5 sm:px-10 lg:px-16 xl:px-20 flex flex-col justify-center text-white py-6 sm:py-10 lg:py-16">
+                    <!-- Slide Content (Slightly shifted upward for balanced vertical symmetry) -->
+                    <div class="relative z-10 w-full px-5 sm:px-10 lg:px-16 xl:px-20 flex flex-col justify-center text-white py-4 sm:py-6 lg:py-8 -translate-y-6 sm:-translate-y-10 lg:-translate-y-16">
                         <div class="max-w-3xl space-y-2 sm:space-y-3.5 lg:space-y-4">
                             <!-- Category Tag Pill -->
                             <div>
