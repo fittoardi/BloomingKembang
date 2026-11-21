@@ -47,7 +47,7 @@
             </svg>
             <span x-text="mobileFilterOpen ? 'Tutup Filter' : 'Buka Filter & Urutkan'">Filter & Urutkan</span>
             @php
-                $activeFilterCount = ($search ? 1 : 0) + ($color ? 1 : 0) + ($material ? 1 : 0) + ($availability ? 1 : 0) + ($minPrice || $maxPrice ? 1 : 0) + ($sortBy !== 'newest' ? 1 : 0);
+                $activeFilterCount = ($search ? 1 : 0) + ($material ? 1 : 0) + ($availability ? 1 : 0) + ($minPrice || $maxPrice ? 1 : 0) + ($sortBy !== 'newest' ? 1 : 0);
             @endphp
             @if($activeFilterCount > 0)
                 <span class="w-5 h-5 rounded-full bg-bloom text-white text-[10px] font-mono font-bold flex items-center justify-center">
@@ -72,7 +72,7 @@
                     <span class="w-1.5 h-1.5 rounded-full bg-botanic"></span>
                     <span>Filter Koleksi</span>
                 </h2>
-                @if($search || $color || $material || $availability || $minPrice || $maxPrice || $sortBy !== 'newest')
+                @if($search || $material || $availability || $minPrice || $maxPrice || $sortBy !== 'newest')
                     <button wire:click="resetFilters" class="text-[11px] underline text-bloom hover:text-blush-800 cursor-pointer font-medium">
                         Reset Semua
                     </button>
@@ -141,32 +141,6 @@
                             <option value="{{ $mat }}">{{ $mat }}</option>
                         @endforeach
                     </select>
-                </div>
-            @endif
-
-            <!-- Filter Warna -->
-            @if($availableColors->isNotEmpty())
-                <div class="space-y-3 pt-2 border-t border-sage-100">
-                    <div class="flex items-center justify-between">
-                        <label class="text-[11px] uppercase tracking-wider text-neutral-500 font-medium block">Warna</label>
-                        @if($color)
-                            <button wire:click="$set('color', '')" class="text-[10px] underline text-bloom hover:text-blush-800">Clear</button>
-                        @endif
-                    </div>
-                    <div class="flex flex-wrap gap-2">
-                        @foreach($availableColors as $c)
-                            <button 
-                                wire:click="$set('color', '{{ $color === $c->color ? '' : $c->color }}')"
-                                title="{{ $c->color }}"
-                                class="flex items-center gap-1.5 px-2.5 py-1 text-xs border rounded-xs {{ $color === $c->color ? 'border-bloom bg-blush-50 text-bloom font-medium ring-1 ring-bloom' : 'border-sage-200/90 hover:border-bloom bg-white' }} transition-all"
-                            >
-                                @if($c->color_hex)
-                                    <span class="w-2.5 h-2.5 rounded-none border border-neutral-300 inline-block" style="background-color: {{ $c->color_hex }};"></span>
-                                @endif
-                                <span class="text-[11px]">{{ $c->color }}</span>
-                            </button>
-                        @endforeach
-                    </div>
                 </div>
             @endif
 
@@ -279,22 +253,6 @@
                                 <p class="text-[11px] text-neutral-500 line-clamp-1">
                                     {{ $product->short_description }}
                                 </p>
-
-                                <!-- Variant Swatches -->
-                                <div class="flex items-center space-x-1.5 pt-2">
-                                    @foreach($product->variants->take(5) as $v)
-                                        @if($v->color_hex)
-                                            <span 
-                                                class="w-3 h-3 border border-stone-300 rounded-full inline-block shadow-2xs" 
-                                                style="background-color: {{ $v->color_hex }};" 
-                                                title="{{ $v->color }}{{ $v->size ? ' (' . $v->size . ')' : '' }}"
-                                            ></span>
-                                        @endif
-                                    @endforeach
-                                    @if($product->variants->count() > 5)
-                                        <span class="text-[10px] text-neutral-400 font-mono">+{{ $product->variants->count() - 5 }}</span>
-                                    @endif
-                                </div>
                             </div>
                         </article>
                     @endforeach

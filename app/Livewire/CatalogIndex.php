@@ -4,7 +4,6 @@ namespace App\Livewire;
 
 use App\Models\Category;
 use App\Models\Product;
-use App\Models\ProductVariant;
 use Illuminate\Contracts\View\View;
 use Livewire\Attributes\Url;
 use Livewire\Component;
@@ -69,12 +68,6 @@ class CatalogIndex extends Component
         $categories = Category::where('is_active', true)
             ->orderBy('position')
             ->get(['id', 'name', 'slug', 'description']);
-
-        $availableColors = ProductVariant::where('is_active', true)
-            ->whereNotNull('color')
-            ->select('color', 'color_hex')
-            ->distinct()
-            ->get();
 
         $availableMaterials = Product::active()
             ->whereNotNull('material')
@@ -156,7 +149,6 @@ class CatalogIndex extends Component
         return view('pages.catalog.index', [
             'products' => $products,
             'categories' => $categories,
-            'availableColors' => $availableColors,
             'availableMaterials' => $availableMaterials,
             'currentCategory' => $currentCategory,
         ])->layout('layouts.storefront', [

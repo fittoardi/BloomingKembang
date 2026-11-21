@@ -6,9 +6,10 @@
     <title>@yield('title') — BloomingKembang</title>
 
     <!-- Favicon -->
-    <link rel="icon" type="image/svg+xml" href="{{ asset('favicon.svg') }}?v=3">
-    <link rel="icon" type="image/png" sizes="64x64" href="{{ asset('favicon.png') }}?v=3">
-    <link rel="shortcut icon" href="{{ asset('favicon.ico') }}?v=3">
+    <link rel="icon" type="image/svg+xml" href="{{ asset('favicon.svg') }}?v=4">
+    <link rel="icon" type="image/png" sizes="64x64" href="{{ asset('favicon.png') }}?v=4">
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('apple-touch-icon.png') }}?v=4">
+    <link rel="shortcut icon" href="{{ asset('favicon.ico') }}?v=4">
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">

@@ -202,37 +202,7 @@
         </div>
     </section>
 
-    <!-- 2. CIRCULAR CATEGORY SHORTCUTS (HIJAU BOTANIC & PINK BLOOM) -->
-    <section class="w-full px-4 sm:px-8 lg:px-12 xl:px-16 py-8 sm:py-10 border-b border-stone-200/80">
-        @php
-            $catShortcuts = [
-                ['url' => '/koleksi/hijab-segi-empat', 'title' => 'Segi Empat', 'img' => 'images/home/cat-segi-empat.jpg', 'icon' => 'M4 4h16v16H4z', 'bg' => 'bg-sage-100 text-botanic'],
-                ['url' => '/koleksi/pashmina', 'title' => 'Pashmina', 'img' => 'images/home/cat-pashmina.jpg', 'icon' => 'M7 4h10v16H7z', 'bg' => 'bg-blush-100 text-bloom'],
-                ['url' => '/koleksi/bergo-daily', 'title' => 'Bergo Daily', 'img' => 'images/products/bergo-daily.jpg', 'icon' => 'M12 2a5 5 0 00-5 5v3H6a2 2 0 00-2 2v6a2 2 0 002 2h12a2 2 0 002-2v-6a2 2 0 00-2-2h-1V7a5 5 0 00-5-5z', 'bg' => 'bg-sage-100 text-botanic'],
-                ['url' => '/koleksi', 'title' => 'Khimar Syar\'i', 'img' => 'images/products/khimar-syari.jpg', 'icon' => 'M12 3L2 12h3v8h14v-8h3L12 3z', 'bg' => 'bg-blush-100 text-bloom'],
-                ['url' => '/koleksi/inner-dan-aksesoris', 'title' => 'Inner & Klip', 'img' => 'images/home/cat-inner-aksesoris.jpg', 'icon' => 'M12 4v16m8-8H4', 'bg' => 'bg-sage-100 text-botanic'],
-                ['url' => '/koleksi', 'title' => 'Koleksi Pilihan', 'img' => 'images/home/elzatta-hero-loyalty.jpg', 'icon' => 'M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z', 'bg' => 'bg-blush-100 text-bloom'],
-            ];
-        @endphp
-        <div class="grid grid-cols-3 sm:grid-cols-6 gap-4 sm:gap-6 lg:gap-8 xl:gap-12 text-center">
-            @foreach($catShortcuts as $cat)
-                <a href="{{ url($cat['url']) }}" class="group flex flex-col items-center space-y-2">
-                    <div class="w-20 h-20 sm:w-24 sm:h-24 rounded-full overflow-hidden border-2 border-stone-200 group-hover:border-bloom shadow-xs group-hover:shadow-md transition-all duration-300 p-0.5 bg-white flex items-center justify-center">
-                        @if(file_exists(public_path($cat['img'])))
-                            <img src="{{ asset($cat['img']) }}" alt="{{ $cat['title'] }}" class="w-full h-full object-cover rounded-full group-hover:scale-110 transition-transform duration-500" loading="lazy" />
-                        @else
-                            <div class="w-full h-full rounded-full flex items-center justify-center {{ $cat['bg'] }} transition-transform duration-300 group-hover:scale-110">
-                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="{{ $cat['icon'] }}" /></svg>
-                            </div>
-                        @endif
-                    </div>
-                    <span class="text-xs font-semibold text-stone-800 uppercase tracking-wider group-hover:text-botanic transition-colors">{{ $cat['title'] }}</span>
-                </a>
-            @endforeach
-        </div>
-    </section>
-
-    <!-- 3. DESIGNED FOR EVERYDAY MODESTY (DUAL-TONE ACCENT CARDS) -->
+    <!-- 2. DESIGNED FOR EVERYDAY MODESTY (DUAL-TONE ACCENT CARDS) -->
     <section class="w-full px-4 sm:px-8 lg:px-12 xl:px-16 py-8 sm:py-12">
         <div class="text-center max-w-2xl mx-auto mb-10 space-y-2">
             <span class="text-[11px] uppercase tracking-[0.2em] text-bloom font-semibold block flex items-center justify-center gap-1.5">
@@ -301,7 +271,7 @@
         </div>
     </section>
 
-    <!-- 4. CURATED BEST SELLERS CATALOG GRID (KOMBINASI BOTANIC & BLOOM) -->
+    <!-- 3. CURATED BEST SELLERS CATALOG GRID (KOMBINASI BOTANIC & BLOOM) -->
     <section class="w-full px-4 sm:px-8 lg:px-12 xl:px-16 py-14">
         <div class="flex items-center justify-between mb-8 pb-3 border-b border-sage-200/80">
             <div>
@@ -384,7 +354,7 @@
         </div>
     </section>
 
-    <!-- 5. 4-PILLAR VALUE PROPOSITIONS (HARMONISASI ALTERNASI BOTANIC & BLOOM) -->
+    <!-- 4. 4-PILLAR VALUE PROPOSITIONS (HARMONISASI ALTERNASI BOTANIC & BLOOM) -->
     <section class="border-y border-sage-200/80 bg-white/70 backdrop-blur-xs py-12">
         <div class="w-full px-4 sm:px-8 lg:px-12 xl:px-16">
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -435,7 +405,7 @@
         </div>
     </section>
 
-    <!-- 6. TESTIMONIALS / SUARA PELANGGAN (KOMBINASI BOTANIC & BLOOM) -->
+    <!-- 5. TESTIMONIALS / SUARA PELANGGAN (KOMBINASI BOTANIC & BLOOM) -->
     <section class="w-full px-4 sm:px-8 lg:px-12 xl:px-16 py-16">
         <div class="text-center max-w-2xl mx-auto mb-12 space-y-2">
             <span class="text-[11px] uppercase tracking-[0.2em] text-botanic font-semibold block flex items-center justify-center gap-1.5">
@@ -510,7 +480,7 @@
         </div>
     </section>
 
-    <!-- 7. NEWSLETTER & ATELIER UPDATES (SOFT BOTANIC & BLOOM GRADIENT) -->
+    <!-- 6. NEWSLETTER & ATELIER UPDATES (SOFT BOTANIC & BLOOM GRADIENT) -->
     <section class="border-t border-sage-200/80 bg-gradient-to-r from-sage-50/70 via-white to-blush-50/70 py-16">
         <div class="max-w-4xl mx-auto px-4 text-center space-y-6" x-data="{ email: '', submitted: false }">
             <span class="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-white border border-sage-200 text-botanic text-[10px] uppercase tracking-[0.18em] font-medium shadow-2xs">

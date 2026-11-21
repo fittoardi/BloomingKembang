@@ -37,7 +37,7 @@ test('catalog can filter by color and availability using livewire', function () 
     Livewire::test(CatalogIndex::class)
         ->set('color', 'Dusty Rose')
         ->assertSet('color', 'Dusty Rose')
-        ->assertSee('Dusty Rose');
+        ->assertSee('CONTOH Voal Ultrafine Signature');
 });
 
 test('product detail page can be rendered with variants and json ld', function () {
